@@ -77,7 +77,7 @@ example : AdherentPt 1 (.Ioo 0 1) := by sorry
 
 example : ¬ AdherentPt 2 (.Ioo 0 1) := by sorry
 
-/-- Definition 9.1.10 (Closure). Here we identify this definition with the Mathilb version. -/
+/-- Definition 9.1.10 (Closure). Here we identify this definition with the Mathlib version. -/
 theorem closure_def (X:Set ℝ) : closure X = { x | AdherentPt x X } := by
   ext; simp [Real.mem_closure_iff, AdherentPt, Real.adherent']
   constructor <;> intro h ε hε

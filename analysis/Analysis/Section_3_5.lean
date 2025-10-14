@@ -258,7 +258,7 @@ into the field of higher order category theory, which we will not pursue here.
 -/
 
 /--
-  Here we set up some an analogue of Mathlib `Fin n` types within the Chapter 3 Set Theory,
+  Here we set up an analogue of Mathlib `Fin n` types within the Chapter 3 Set Theory,
   with rudimentary API.
 -/
 abbrev SetTheory.Set.Fin (n:ℕ) : Set := nat.specify (fun m ↦ (m:ℕ) < n)

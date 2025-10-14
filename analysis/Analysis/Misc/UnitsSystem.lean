@@ -295,7 +295,7 @@ theorem Scalar.toFormal_hMul {d₁ d₂:Dimensions} (q₁:Scalar d₁) (q₂:Sca
 not to do this, implementing an inversion relation instead. -/
 noncomputable def Scalar.pow {d:Dimensions} (q: Scalar d) (n:ℕ) : Scalar (n • d) := ⟨ q.val^n ⟩
 
-/-- One cannot use the Mathlib classes `Pow` or `HPow` here because the output type `Scalar (n • d)` depends on the input `n`. As the symbol `^` is reserved for such classes, we use the symbol `**` isntead.-/
+/-- One cannot use the Mathlib classes `Pow` or `HPow` here because the output type `Scalar (n • d)` depends on the input `n`. As the symbol `^` is reserved for such classes, we use the symbol `**` instead. -/
 infix:80 "**" => Scalar.pow
 
 @[simp]
