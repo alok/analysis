@@ -268,11 +268,11 @@ theorem Nat.lt_iff_succ_le (a b:Nat) : a < b ↔ a++ ≤ b := by
 theorem Nat.lt_iff_add_pos (a b:Nat) : a < b ↔ ∃ d:Nat, d.IsPos ∧ b = a + d := by
   sorry
 
-/-- If a < b then a ̸= b,-/
+/-- If a < b then a ̸= b. -/
 theorem Nat.ne_of_lt (a b:Nat) : a < b → a ≠ b := by
   intro h; exact h.2
 
-/-- if a > b then a ̸= b. -/
+/-- If a > b then a ̸= b. -/
 theorem Nat.ne_of_gt (a b:Nat) : a > b → a ≠ b := by
   intro h; exact h.2.symm
 
