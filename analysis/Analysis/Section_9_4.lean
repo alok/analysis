@@ -6,7 +6,7 @@ import Analysis.Section_9_3
 /-!
 # Analysis I, Section 9.4: Continuous functions
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
+I have attempted to make the translation as faithful a paraphrase as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
 translation, I have generally chosen the latter. In particular, there will be places where
 the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
@@ -43,7 +43,7 @@ example : Continuous (fun x:ℝ ↦ x) := by sorry
 /-- Example 9.4.4 --/
 example {x₀:ℝ} (h: x₀ ≠ 0) : ContinuousAt Real.sign x₀ := by sorry
 
-example  :¬ ContinuousAt Real.sign 0 := by sorry
+example : ¬ ContinuousAt Real.sign 0 := by sorry
 
 /-- Example 9.4.5 --/
 example (x₀:ℝ) : ¬ ContinuousAt f_9_3_21 x₀ := by sorry
