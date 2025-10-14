@@ -6,8 +6,8 @@ import Analysis.Section_6_4
 # Analysis I, Section 9.1: Subsets of the real line
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text.  When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter.  In particular, there will be places where
+text. When there is a choice between a more idiomatic Lean solution and a more faithful
+translation, I have generally chosen the latter. In particular, there will be places where
 the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
 doing so.
 
@@ -57,7 +57,7 @@ example {a b: EReal} (h: a ≥ b) : Set.Ioo a b = ∅ := by
 example {a b: EReal} (h: a = b) : Set.Icc a a = {a} := by
   sorry
 
-/-- Definition 9.1.5.  Note that a slightly different `Real.adherent` was defined in Chapter 6.4 -/
+/-- Definition 9.1.5. Note that a slightly different `Real.adherent` was defined in Chapter 6.4 -/
 abbrev Real.adherent' (ε:ℝ) (x:ℝ) (X: Set ℝ) := ∃ y ∈ X, |x - y| ≤ ε
 
 /-- Example 9.1.7 -/
@@ -77,7 +77,7 @@ example : AdherentPt 1 (.Ioo 0 1) := by sorry
 
 example : ¬ AdherentPt 2 (.Ioo 0 1) := by sorry
 
-/-- Definition 9.1.10 (Closure).  Here we identify this definition with the Mathilb version. -/
+/-- Definition 9.1.10 (Closure). Here we identify this definition with the Mathilb version. -/
 theorem closure_def (X:Set ℝ) : closure X = { x | AdherentPt x X } := by
   ext; simp [Real.mem_closure_iff, AdherentPt, Real.adherent']
   constructor <;> intro h ε hε
@@ -170,7 +170,7 @@ theorem limit_of_AdherentPt (X: Set ℝ) (x:ℝ) :
 theorem AdherentPt.of_mem {X: Set ℝ} {x: ℝ} (h: x ∈ X) : AdherentPt x X := by
   rw [limit_of_AdherentPt]; use fun _ ↦ x; simp [h]
 
-/-- Definition 9.1.15.  Here we use the Mathlib definition. -/
+/-- Definition 9.1.15. Here we use the Mathlib definition. -/
 theorem isClosed_def (X:Set ℝ): IsClosed X ↔ closure X = X :=
   closure_eq_iff_isClosed.symm
 
@@ -288,7 +288,7 @@ theorem mem_Iio_isLimit {a x:ℝ} (hx: x ∈ Set.Iio a) : LimitPt x (.Iio a) := 
 theorem mem_R_isLimit {x:ℝ} : LimitPt x (.univ) := by
   sorry
 
-/-- Definition 9.1.22.  We use here Mathlib's `Bornology.IsBounded`-/
+/-- Definition 9.1.22. We use here Mathlib's `Bornology.IsBounded`-/
 
 theorem isBounded_def (X: Set ℝ) : Bornology.IsBounded X ↔ ∃ M > 0, X ⊆ .Icc (-M) M := by
   simp [isBounded_iff_forall_norm_le]
@@ -363,7 +363,7 @@ example {X:Set ℝ} (hX: X ≠ ∅) : Bornology.IsBounded X ↔
 example {X:Set ℝ} (hX: Bornology.IsBounded X) : Bornology.IsBounded (closure X) := by
   sorry
 
-/-- Exercise 9.1.12.  As a followup: prove or disprove this exercise with `[Fintype I]` removed. -/
+/-- Exercise 9.1.12. As a followup: prove or disprove this exercise with `[Fintype I]` removed. -/
 example {I:Type} [Fintype I] (X: I → Set ℝ) (hX: ∀ i, Bornology.IsBounded (X i)) :
   Bornology.IsBounded (⋃ i, X i) := by
   sorry

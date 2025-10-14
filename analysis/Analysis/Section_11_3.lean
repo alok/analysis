@@ -78,7 +78,7 @@ lemma integral_bound_above {f:ℝ → ℝ} {I: BoundedInterval} (h: BddOn f I) :
     rw [bddAbove_def]; use (integral_bound_upper_nonempty h).some
     intro b hb; exact integral_bound_lower_le_upper (integral_bound_upper_nonempty h).some_mem hb
 
-/-- Lemma 11.3.3.  The proof has been reorganized somewhat from the textbook. -/
+/-- Lemma 11.3.3. The proof has been reorganized somewhat from the textbook. -/
 lemma le_lower_integral {f:ℝ → ℝ} {I: BoundedInterval} {M:ℝ} (h: ∀ x ∈ (I:Set ℝ), |f x| ≤ M) :
   -M * |I|ₗ ≤ lower_integral f I :=
   ConditionallyCompleteLattice.le_csSup _ _
@@ -144,7 +144,7 @@ theorem integ_on_subsingleton {f:ℝ → ℝ} {I: BoundedInterval} (hI: |I|ₗ =
   convert integ_of_piecewise_const hconst.piecewiseConstantOn
   simp [PiecewiseConstantOn.integ_const' hconst, hI]
 
-/-- Definition 11.3.9 (Riemann sums).  The restriction to positive length J is not needed thanks to various junk value conventions. -/
+/-- Definition 11.3.9 (Riemann sums). The restriction to positive length J is not needed thanks to various junk value conventions. -/
 noncomputable abbrev upper_riemann_sum (f:ℝ → ℝ) {I: BoundedInterval} (P: Partition I) : ℝ :=
   ∑ J ∈ P.intervals, (sSup (f '' (J:Set ℝ))) * |J|ₗ
 

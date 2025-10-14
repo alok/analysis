@@ -21,7 +21,7 @@ Main constructions and results of this section:
   and inverses.
 
 In the rest of the book we will deprecate the Chapter 3 version of a function, and work with the
-Mathlib notion of a function instead.  Even within this section, we will switch to the Mathlib
+Mathlib notion of a function instead. Even within this section, we will switch to the Mathlib
 formalism for some of the examples involving number systems such as `ℤ` or `ℝ` that have not been
 implemented in the Chapter 3 framework.
 
@@ -81,7 +81,7 @@ theorem Function.eval_of {X Y: Set} (f: X → Y) (x:X) : (Function.mk_fn f) x = 
   symm; rw [eval]
 
 
-/-- Example 3.3.3.   -/
+/-- Example 3.3.3.  -/
 abbrev P_3_3_3a : Nat → Nat → Prop := fun x y ↦ (y:ℕ) = (x:ℕ)+1
 
 theorem SetTheory.Set.P_3_3_3a_existsUnique (x: Nat) : ∃! y: Nat, P_3_3_3a x y := by
@@ -154,7 +154,7 @@ theorem SetTheory.Set.f_3_3_3c_eval''' (n:ℕ) :
 
 /--
   Example 3.3.4 is a little tricky to replicate with the current formalism as the real numbers
-  have not been constructed yet.  Instead, I offer some Mathlib counterparts, using the
+  have not been constructed yet. Instead, I offer some Mathlib counterparts, using the
   Mathlib API for `NNReal` and `ℝ`.
 -/
 example : ¬ ∃ f: ℝ → ℝ, ∀ x y, y = f x ↔ y^2 = x := by
@@ -198,7 +198,7 @@ theorem Function.eq_iff {X Y: Set} (f g: Function X Y) : f = g ↔ ∀ x: X, f x
   rwa [←Function.eval, h x, Function.eval]
 
 /--
-  Example 3.3.10 (simplified).  The second part of the example is tricky to replicate in this
+  Example 3.3.10 (simplified). The second part of the example is tricky to replicate in this
   formalism, so a Mathlib substitute is offered instead.
 -/
 abbrev SetTheory.Set.f_3_3_10a : Function Nat Nat := Function.mk_fn (fun x ↦ (x^2 + 2*x + 1:ℕ))
@@ -271,7 +271,7 @@ theorem Function.one_to_one_iff {X Y: Set} (f: Function X Y) :
   peel with x hx; tauto
 
 /--
-  Compatibility with Mathlib's `Function.Injective`.  You may wish to use the `unfold` tactic to
+  Compatibility with Mathlib's `Function.Injective`. You may wish to use the `unfold` tactic to
   understand Mathlib concepts such as `Function.Injective`.
 -/
 theorem Function.one_to_one_iff' {X Y: Set} (f: Function X Y) :
@@ -279,7 +279,7 @@ theorem Function.one_to_one_iff' {X Y: Set} (f: Function X Y) :
   rw [one_to_one_iff, Function.Injective]
 
 /--
-  Example 3.3.18.  One half of the example requires the integers, and so is expressed using
+  Example 3.3.18. One half of the example requires the integers, and so is expressed using
   Mathlib functions instead of Chapter 3 functions.
 -/
 theorem SetTheory.Set.f_3_3_18_one_to_one :
@@ -413,7 +413,7 @@ theorem Function.inverse_eq {X Y: Set} [Nonempty X] {f: Function X Y} (h: f.bije
   apply Function.rightInverse_invFun (f.bijective_iff.mp h).2
 
 /--
-  Exercise 3.3.1.  Although a proof operating directly on functions would be shorter,
+  Exercise 3.3.1. Although a proof operating directly on functions would be shorter,
   the spirit of the exercise is to show these using the `Function.eq_iff` definition.
 -/
 theorem Function.refl {X Y:Set} (f: Function X Y) : f = f := by sorry

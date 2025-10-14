@@ -197,7 +197,7 @@ example (ε:ℚ) (hε:ε<10):  ¬ ε.Steady ((fun n:ℕ ↦ if n = 0 then (10:�
   contrapose! hε; rw [Rat.Steady.coe] at hε; specialize hε 0 1; simpa [Rat.Close] using hε
 
 /--
-  a.from n₁ starts `a:Sequence` from `n₁`.  It is intended for use when `n₁ ≥ n₀`, but returns
+  a.from n₁ starts `a:Sequence` from `n₁`. It is intended for use when `n₁ ≥ n₀`, but returns
   the "junk" value of the original sequence `a` otherwise.
 -/
 abbrev Sequence.from (a:Sequence) (n₁:ℤ) : Sequence :=

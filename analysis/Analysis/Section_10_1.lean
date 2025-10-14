@@ -5,8 +5,8 @@ import Mathlib.Analysis.Calculus.Deriv.Basic
 # Analysis I, Section 10.1: Basic definitions
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text.  When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter.  In particular, there will be places where
+text. When there is a choice between a more idiomatic Lean solution and a more faithful
+translation, I have generally chosen the latter. In particular, there will be places where
 the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
 doing so.
 
@@ -24,7 +24,7 @@ namespace Chapter10
 
 variable (x₀ : ℝ)
 
-/-- Definition 10.1.1 (Differentiability at a point).  For the Mathlib notion `HasDerivWithinAt`, the
+/-- Definition 10.1.1 (Differentiability at a point). For the Mathlib notion `HasDerivWithinAt`, the
 hypothesis that `x₀` is a limit point is not needed. -/
 theorem _root_.HasDerivWithinAt.iff (X: Set ℝ) (x₀ : ℝ) (f: ℝ → ℝ)
   (L:ℝ) :

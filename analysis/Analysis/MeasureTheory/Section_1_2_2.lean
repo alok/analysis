@@ -17,19 +17,19 @@ theorem IsClosed.measurable {d:ℕ} {E: Set (EuclideanSpace' d)} (hE: IsClosed E
 
 abbrev IsNull {d:ℕ} (E: Set (EuclideanSpace' d)) : Prop := Lebesgue_outer_measure E = 0
 
-/-- Lemma 1.2.13(iii) (Every null set is Lebesgue measurable).  This lemma requires proof. -/
+/-- Lemma 1.2.13(iii) (Every null set is Lebesgue measurable). This lemma requires proof. -/
 theorem IsNull.measurable {d:ℕ} {E: Set (EuclideanSpace' d)} (hE: IsNull E) : LebesgueMeasurable E := by
   sorry
 
-/-- Lemma 1.2.13(iv) (Empty set is measurable). This lemma requires proof.  -/
+/-- Lemma 1.2.13(iv) (Empty set is measurable). This lemma requires proof. -/
 theorem LebesgueMeasurable.empty {d:ℕ} : LebesgueMeasurable (∅: Set (EuclideanSpace' d)) := by
   sorry
 
-/-- Lemma 1.2.13(v) (Complement of a measurable set is measurable). This lemma requires proof.  -/
+/-- Lemma 1.2.13(v) (Complement of a measurable set is measurable). This lemma requires proof. -/
 theorem LebesgueMeasurable.complement {d:ℕ} {E: Set (EuclideanSpace' d)} (hE: LebesgueMeasurable E) : LebesgueMeasurable (Eᶜ) := by
   sorry
 
-/-- Lemma 1.2.13(vi) (Countable union of measurable sets is measurable). This lemma requires proof.  -/
+/-- Lemma 1.2.13(vi) (Countable union of measurable sets is measurable). This lemma requires proof. -/
 theorem LebesgueMeasurable.countable_union {d:ℕ} {E: ℕ → Set (EuclideanSpace' d)} (hE: ∀ n, LebesgueMeasurable (E n)) : LebesgueMeasurable (⋃ n, E n) := by
   sorry
 

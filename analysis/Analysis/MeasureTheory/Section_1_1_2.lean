@@ -8,7 +8,7 @@ A companion to Section 1.1.2 of the book "An introduction to Measure Theory".
 
 -/
 
-/-- Definition 1.1.4.  We intend these concepts to only be applied for bounded sets `E`, but
+/-- Definition 1.1.4. We intend these concepts to only be applied for bounded sets `E`, but
 it is convenient to permit `E` to be unbounded for the purposes of making the definitions.
 -/
 noncomputable abbrev Jordan_inner_measure {d:ℕ} (E: Set (EuclideanSpace' d)) : ℝ :=

@@ -9,7 +9,7 @@ original text.
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter.  In particular, there will be places where the
+translation, I have generally chosen the latter. In particular, there will be places where the
 Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
 doing so.
 
@@ -19,7 +19,7 @@ Main constructions and results of this section:
   `Chapter2.Nat`.
 
 Note: at the end of this chapter, the `Chapter2.Nat` class will be deprecated in favor of the
-standard Mathlib class `_root_.Nat`, or `ℕ`.  However, we will develop the properties of
+standard Mathlib class `_root_.Nat`, or `ℕ`. However, we will develop the properties of
 `Chapter2.Nat` "by hand" for pedagogical purposes.
 
 ## Tips from past users
@@ -82,7 +82,7 @@ lemma Nat.pos_mul_pos {n m: Nat} (h₁: n.IsPos) (h₂: m.IsPos) : (n * m).IsPos
   sorry
 
 /-- Lemma 2.3.3 (Positive natural numbers have no zero divisors) / Exercise 2.3.2.
-    Compare with Mathlib's `Nat.mul_eq_zero`.  -/
+    Compare with Mathlib's `Nat.mul_eq_zero`. -/
 lemma Nat.mul_eq_zero (n m: Nat) : n * m = 0 ↔ n = 0 ∨ m = 0 := by
   sorry
 

@@ -402,7 +402,7 @@ theorem Real.inv_of_equiv {a b:ℕ → ℚ} (ha: BoundedAwayZero a)
 
 open Classical in
 /--
-  Definition 5.3.16 (Reciprocation of real numbers).  Requires classical logic because we need to
+  Definition 5.3.16 (Reciprocation of real numbers). Requires classical logic because we need to
   assign a "junk" value to the inverse of 0.
 -/
 noncomputable instance Real.instInv : Inv Real where

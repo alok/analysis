@@ -16,7 +16,7 @@ doing so.
 Main constructions and results of this section:
 
 - Definition of the "Section 4.2" rationals, `Section_4_2.Rat`, as formal differences `a // b` of
-  integers `a b:ℤ`, up to equivalence.  (This is a quotient of a scaffolding type
+  integers `a b:ℤ`, up to equivalence. (This is a quotient of a scaffolding type
   `Section_4_2.PreRat`, which consists of formal differences without any equivalence imposed.)
 
 - Field operations and order on these rationals, as well as an embedding of ℕ and ℤ.

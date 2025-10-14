@@ -31,7 +31,7 @@ theorem Lebesgue_outer_measure.finite_union_le {d n:ℕ} (E: Fin n → Set (Eucl
 noncomputable def set_dist {X:Type*} [PseudoMetricSpace X] (A B: Set X) : ℝ :=
   sInf ((fun p: X × X ↦ dist p.1 p.2) '' (A ×ˢ B))
 
-/-- Lemma 1.2.5 (Finite additivity for separated sets).  Proof has not been formalized yet. -/
+/-- Lemma 1.2.5 (Finite additivity for separated sets). Proof has not been formalized yet. -/
 theorem Lebesgue_outer_measure.union_of_separated {d:ℕ} {E F : Set (EuclideanSpace' d)} (hsep: set_dist E F > 0) :
     Lebesgue_outer_measure (E ∪ F) = Lebesgue_outer_measure E + Lebesgue_outer_measure F := by
   sorry
@@ -43,7 +43,7 @@ theorem dist_of_disj_compact_pos {d:ℕ} (E F: Set (EuclideanSpace' d)) (hE: IsC
     set_dist E F > 0 := by
   sorry
 
-/-- Lemma 1.2.6 (Outer measure of elementary sets).  Proof has not been formalized yet. -/
+/-- Lemma 1.2.6 (Outer measure of elementary sets). Proof has not been formalized yet. -/
 theorem Lebesgue_outer_measure.elementary {d:ℕ} (E: Set (EuclideanSpace' d)) (hE: IsElementary E) :
     Lebesgue_outer_measure E = hE.measure := by
   sorry
@@ -67,7 +67,7 @@ def AlmostDisjoint {d:ℕ} (B B': Box d) : Prop := interior B.toSet ∩ interior
 theorem IsElementary.almost_disjoint {d k:ℕ} {E: Set (EuclideanSpace' d)} (hE: IsElementary E) (B: Fin k → Box d) (hEB: E = ⋃ i, (B i).toSet) (hdisj : Pairwise (Function.onFun AlmostDisjoint B)) : hE.measure = ∑ i, |B i|ᵥ := by
   sorry
 
-/-- Lemma 1.2.9 (Outer measure of countable unions of almost disjoint boxes).  Proof has not been formalized yet. -/
+/-- Lemma 1.2.9 (Outer measure of countable unions of almost disjoint boxes). Proof has not been formalized yet. -/
 theorem Lebesgue_outer_measure.union_of_almost_disjoint {d:ℕ} {B : ℕ → Box d} (h : Pairwise (Function.onFun AlmostDisjoint B)) :
     Lebesgue_outer_measure (⋃ i, (B i).toSet) = ∑' i, Lebesgue_outer_measure (B i).toSet := by
   sorry
@@ -95,14 +95,14 @@ def Box.IsDyadicAtScale {d:ℕ} (B: Box d) (n:ℤ) : Prop := ∃ a: Fin d → �
 
 def Box.IsDyadic {d:ℕ} (B: Box d) : Prop := ∃ n:ℕ, B.IsDyadicAtScale n
 
-/-- Lemma 1.2.11.  Proof has not been formalized yet. -/
+/-- Lemma 1.2.11. Proof has not been formalized yet. -/
 theorem IsOpen.eq_union_boxes {d:ℕ} (E: Set (EuclideanSpace' d)) (hE: IsOpen E) : ∃ B: ℕ → Box d, (E = ⋃ n, (B n).toSet) ∧ (∀ n, (B n).IsDyadic) ∧ Pairwise (Function.onFun AlmostDisjoint B) := by
   sorry
 
 theorem Lebesgue_outer_measure.of_open {d:ℕ} (E: Set (EuclideanSpace' d)) (hE: IsOpen E) : Lebesgue_outer_measure E = Jordan_inner_measure E := by
   sorry
 
-/-- Lemma 1.2.12 (Outer regularity).  Proof has not been formalized yet. -/
+/-- Lemma 1.2.12 (Outer regularity). Proof has not been formalized yet. -/
 theorem Lebesgue_outer_measure.eq {d:ℕ} (E: Set (EuclideanSpace' d)) : Lebesgue_outer_measure E = sInf { M | ∃ U, E ⊆ U ∧ IsOpen U ∧ M = Lebesgue_outer_measure U} := by
   sorry
 

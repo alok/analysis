@@ -5,7 +5,7 @@ import Mathlib.Tactic
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter.  In particular, there will be places where the
+translation, I have generally chosen the latter. In particular, there will be places where the
 Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
 doing so.
 
@@ -15,8 +15,8 @@ Main constructions and results of this section:
   Mathlib rational numbers `ℚ` rather than the Section 4.2 rational numbers).
 
 Note: to avoid notational conflict, we are using the standard Mathlib definitions of absolute
-value and exponentiation.  As such, it is possible to solve several of the exercises here rather
-easily using the Mathlib API for these operations.  However, the spirit of the exercises is to
+value and exponentiation. As such, it is possible to solve several of the exercises here rather
+easily using the Mathlib API for these operations. However, the spirit of the exercises is to
 solve these instead using the API provided in this section, as well as more basic Mathlib API for
 the rational numbers that does not reference either absolute value or exponentiation.
 
@@ -98,8 +98,8 @@ theorem dist_symm (x y:ℚ) : dist x y = dist y x := by sorry
 theorem dist_le (x y z:ℚ) : dist x z ≤ dist x y + dist y z := by sorry
 
 /--
-  Definition 4.3.4 (eps-closeness).  In the text the notion is undefined for ε zero or negative,
-  but it is more convenient in Lean to assign a "junk" definition in this case.  But this also
+  Definition 4.3.4 (eps-closeness). In the text the notion is undefined for ε zero or negative,
+  but it is more convenient in Lean to assign a "junk" definition in this case. But this also
   allows some relaxations of hypotheses in the lemmas that follow.
 -/
 theorem close_iff (ε x y:ℚ): ε.Close x y ↔ |x - y| ≤ ε := by rfl
@@ -171,12 +171,12 @@ theorem close_mul_mul' {ε δ x y z w:ℚ} (hxy: ε.Close x y) (hzw: δ.Close z 
     (ε*|z|+δ*|y|).Close (x * z) (y * w) := by
     sorry
 
-/-- Definition 4.3.9 (exponentiation).  Here we use the Mathlib definition.-/
+/-- Definition 4.3.9 (exponentiation). Here we use the Mathlib definition.-/
 lemma pow_zero (x:ℚ) : x^0 = 1 := rfl
 
 example : (0:ℚ)^0 = 1 := pow_zero 0
 
-/-- Definition 4.3.9 (exponentiation).  Here we use the Mathlib definition.-/
+/-- Definition 4.3.9 (exponentiation). Here we use the Mathlib definition.-/
 lemma pow_succ (x:ℚ) (n:ℕ) : x^(n+1) = x^n * x := _root_.pow_succ x n
 
 /-- Proposition 4.3.10(a) (Properties of exponentiation, I) / Exercise 4.3.3 -/

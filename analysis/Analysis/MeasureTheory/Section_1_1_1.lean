@@ -7,8 +7,8 @@ A companion to Section 1.1.1 of the book "An introduction to Measure Theory".
 
 -/
 
-/- Definition 1.1.1.  (Intervals) We use the same formalization of intervals used in
-Chapter 11 of "Analysis I".  Following the usual Lean preference to admit `junk` values,
+/- Definition 1.1.1. (Intervals) We use the same formalization of intervals used in
+Chapter 11 of "Analysis I". Following the usual Lean preference to admit `junk` values,
 we allow for the possibility that `b < a`. -/
 inductive BoundedInterval where
   | Ioo (a b:ℝ) : BoundedInterval
@@ -194,7 +194,7 @@ theorem IsElementary.translate {d:ℕ} {E: Set (EuclideanSpace' d)}
   (hE: IsElementary E) (x: EuclideanSpace' d) : IsElementary (E + {x}) := by
   sorry
 
-/-- A sublemma for proving Lemma 1.1.2(i).  It is a geometrically obvious fact but surprisingly annoying to prove formally. -/
+/-- A sublemma for proving Lemma 1.1.2(i). It is a geometrically obvious fact but surprisingly annoying to prove formally. -/
 theorem BoundedInterval.partition (S: Finset BoundedInterval) : ∃ T: Finset BoundedInterval, T.toSet.PairwiseDisjoint BoundedInterval.toSet ∧ ∀ I ∈ S, ∃ U : Set T, I = ⋃ J ∈ U, J.val.toSet := by
   let endpoints : Finset ℝ := S.image BoundedInterval.a ∪ S.image BoundedInterval.b
   have ha_mem {I:BoundedInterval} (hI: I ∈ S) : I.a ∈ endpoints := by grind

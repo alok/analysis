@@ -18,10 +18,10 @@ Main constructions and results of this section:
 
 As the Chapter 3 set theory has been deprecated for many chapters at this point, we will not insert the axiom of choice directly into that theory in this text; but this could be accomplished if desired
 (e.g., by extending the `Chapter3.SetTheory` class to a `Chapter3.SetTheoryWithChoice` class), and
-students are welcome to attempt this separately.  Instead, we will use Mathlib's native
-`Classical.choice` axiom.  Technically, this axiom has already been used quite frequently in the
+students are welcome to attempt this separately. Instead, we will use Mathlib's native
+`Classical.choice` axiom. Technically, this axiom has already been used quite frequently in the
 text already, in large part because Mathlib uses `Classical.choice` to derive many weaker statements,
-such as the law of the excluded middle.  So the distinctions made in the original text regarding
+such as the law of the excluded middle. So the distinctions made in the original text regarding
 whether a given statement or not uses the axiom of choice are somewhat blurred in this formalization.
 It is theoretically possible to restore this distinction by removing the reliance on Mathlib and
 working throughout with custom structures such as `Chapter3.SetTheory` and
@@ -30,12 +30,12 @@ working throughout with custom structures such as `Chapter3.SetTheory` and
 
 namespace Chapter8
 
-/-- Definition 8.4.1 (Infinite Cartesian products).  We will avoid using this definition in favor
+/-- Definition 8.4.1 (Infinite Cartesian products). We will avoid using this definition in favor
 of the Mathlib form `∀ α, X α` which we will shortly show is equivalent to (or more precisely,
 generalizes) this one.
 
 Because Lean does not allow unrestricted unions of types, we cheat slightly here by assuming all the
-`X α` are sets in a common universe `U`.  Note that the Mathlib definition does not have this
+`X α` are sets in a common universe `U`. Note that the Mathlib definition does not have this
 restriction. -/
 abbrev CartesianProduct {I U: Type} (X : I → Set U) := { x : I → ⋃ α, X α // ∀ α, ↑(x α) ∈ X α }
 
@@ -115,7 +115,7 @@ theorem exist_tendsTo_sup {E: Set ℝ} (hnon: E.Nonempty) (hbound: BddAbove E) :
   . exact tendsto_const_nhds
   all_goals intro n; have := (a n).property; simp_all [X]
 
-/-- Remark 8.4.6.  This special case of Lemma 8.4.5 avoids (countable) choice. -/
+/-- Remark 8.4.6. This special case of Lemma 8.4.5 avoids (countable) choice. -/
 theorem exist_tendsTo_sup_of_closed {E: Set ℝ} (hnon: E.Nonempty) (hbound: BddAbove E) (hclosed: IsClosed E) :
   ∃ a : ℕ → ℝ, (∀ n, a n ∈ E) ∧ Filter.atTop.Tendsto a (nhds (sSup E)) := by
   set X : ℕ → Set ℝ := fun n ↦ { x ∈ E | sSup E - 1 / (n+1:ℝ) ≤ x ∧ x ≤ sSup E }
@@ -143,7 +143,7 @@ theorem exists_function {X Y : Type} {P : X → Y → Prop} (h: ∀ x, ∃ y, P 
   ∃ f : X → Y, ∀ x, P x (f x) := by
   sorry
 
-/-- Exercise 8.4.1.  The spirit of the question here is to establish this result directly
+/-- Exercise 8.4.1. The spirit of the question here is to establish this result directly
 from `exists_function`, avoiding previous results that relied more explicitly
 on the axiom of choice. -/
 theorem axiom_of_choice_from_exists_function {I: Type} {X: I → Type} (h : ∀ i, Nonempty (X i)) :
@@ -155,7 +155,7 @@ theorem exists_set_singleton_intersect {I U:Type} {X: I → Set U} (h: Set.Pairw
   ∃ Y : Set U, ∀ α, Nat.card (Y ∩ X α : Set U) = 1 := by
   sorry
 
-/-- Exercise 8.4.2.  The spirit of the question here is to establish this result directly
+/-- Exercise 8.4.2. The spirit of the question here is to establish this result directly
 from `exists_set_singleton_intersect`, avoiding previous results that relied more explicitly
 on the axiom of choice. -/
 theorem axiom_of_choice_from_exists_set_singleton_intersect {I: Type} {X: I → Type} (h : ∀ i, Nonempty (X i)) :
@@ -167,7 +167,7 @@ theorem Function.Injective.inv_surjective {A B:Type} {g: B → A} (hg: Function.
   ∃ f : A → B, Function.Injective f ∧ Function.RightInverse f g := by
   sorry
 
-/-- Exercise 8.4.3.  The spirit of the question here is to establish this result directly
+/-- Exercise 8.4.3. The spirit of the question here is to establish this result directly
 from `Function.Injective.inv_surjective`, avoiding previous results that relied more explicitly
 on the axiom of choice. -/
 theorem axiom_of_choice_from_function_injective_inv_surjective {I: Type} {X: I → Type} (h : ∀ i, Nonempty (X i)) :

@@ -22,7 +22,7 @@ Main constructions and results of this section:
   their attendant axioms
 - Pairwise union `X ∪ Y`, and their attendant axioms
 - Coercion of a set `A` to its associated type `A.toSubtype`, which is a subtype of `Object`, and
-  basic API.  (This is a technical construction needed to make the Zermelo-Frankel set theory
+  basic API. (This is a technical construction needed to make the Zermelo-Frankel set theory
   compatible with the dependent type theory of Lean.)
 - The specification `A.specify P` of a set `A` and a predicate `P: A.toSubtype → Prop` to the
   subset of elements of `A` obeying `P`, and the axiom of specification.
@@ -41,21 +41,21 @@ The other axioms of Zermelo-Frankel set theory are discussed in later sections.
 Some technical notes:
 - Mathlib of course has its own notion of a `Set` (or more precisely, a type `Set X` associated to
   each type `X`), which is not compatible with the notion `Chapter3.Set` defined here,
-  though we will try to make the notations match as much as possible.  This causes some notational
+  though we will try to make the notations match as much as possible. This causes some notational
   conflict: for instance, one may need to explicitly specify `(∅:Chapter3.Set)` instead of just `∅`
   to indicate that one is using the `Chapter3.Set` version of the empty set, rather than the
   Mathlib version of the empty set, and similarly for other notation defined here.
 - In Analysis I, we chose to work with an "impure" set theory, in which there could be more
-  `Object`s than just `Set`s.  In the type theory of Lean, this requires treating `Chapter3.Set`
+  `Object`s than just `Set`s. In the type theory of Lean, this requires treating `Chapter3.Set`
   and `Chapter3.Object` as distinct types. Occasionally this means we have to use a coercion
   `(X: Chapter3.Object)` of a `Chapter3.Set` `X` to make into a `Chapter3.Object`: this is
   mostly needed when manipulating sets of sets.
 - Strictly speaking, a set `X:Set` is not a type; however, we will coerce sets to types, and
-  specifically to a subtype of `Object`.  A similar coercion is in place for Mathlib's
+  specifically to a subtype of `Object`. A similar coercion is in place for Mathlib's
   formalization of sets.
 - After this chapter is concluded, the notion of a `Chapter3.SetTheory.Set` will be deprecated in
   favor of the standard Mathlib notion of a `Set` (or more precisely of the type `Set X` of a set
-  in a given type `X`).  However, due to various technical incompatibilities between set theory
+  in a given type `X`). However, due to various technical incompatibilities between set theory
   and type theory, we will not attempt to create a full equivalence between these two
   notions of sets. (As such, this makes this entire chapter optional from the point of view of
   the rest of the book, though we retain it for pedagogical purposes.)
@@ -73,7 +73,7 @@ namespace Chapter3
 becomes relevant when constructing models of set theory in the Chapter 3 epilogue. -/
 universe u v
 
-/-- The axioms of Zermelo-Frankel theory with atoms.  -/
+/-- The axioms of Zermelo-Frankel theory with atoms. -/
 class SetTheory where
   Set : Type u -- Axiom 3.1
   Object : Type v -- Axiom 3.1
@@ -135,7 +135,7 @@ theorem SetTheory.Set.coe_eq {X Y:Set} (h: (X: Object) = (Y: Object)) : X = Y :=
 theorem SetTheory.Set.coe_eq_iff (X Y:Set) : (X: Object) = (Y: Object) ↔  X = Y :=
   ⟨ coe_eq, by rintro rfl; rfl ⟩
 
-/-- Axiom 3.2 (Equality of sets).  The `[ext]` tag allows the `ext` tactic to work for sets. -/
+/-- Axiom 3.2 (Equality of sets). The `[ext]` tag allows the `ext` tactic to work for sets. -/
 @[ext]
 theorem SetTheory.Set.ext {X Y:Set} (h: ∀ x, x ∈ X ↔ x ∈ Y) : X = Y := extensionality _ _ h
 
@@ -213,11 +213,11 @@ instance SetTheory.Set.instInsert : Insert Object Set where
 theorem SetTheory.Set.mem_insert (a b: Object) (X: Set) : a ∈ insert b X ↔ a = b ∨ a ∈ X := by
   simp [instInsert]
 
-/-- Axiom 3.3(b) (pair).  Note: in some applications one may have to cast {a,b}
+/-- Axiom 3.3(b) (pair). Note: in some applications one may have to cast {a,b}
     to Set. -/
 theorem SetTheory.Set.pair_eq (a b:Object) : ({a,b}:Set) = {a} ∪ {b} := by rfl
 
-/-- Axiom 3.3(b) (pair).  Note: in some applications one may have to cast {a,b}
+/-- Axiom 3.3(b) (pair). Note: in some applications one may have to cast {a,b}
     to Set. -/
 @[simp]
 theorem SetTheory.Set.mem_pair (x a b:Object) : x ∈ ({a,b}:Set) ↔ (x = a ∨ x = b) := by
@@ -320,7 +320,7 @@ theorem SetTheory.Set.pair_union_pair (a b c:Object) :
     ({a,b}:Set) ∪ {b,c} = {a,b,c} := by
   ext; simp only [mem_union, mem_pair, mem_triple]; tauto
 
-/-- Definition 3.1.14.   -/
+/-- Definition 3.1.14.  -/
 instance SetTheory.Set.instSubset : HasSubset Set where
   Subset X Y := ∀ x, x ∈ X → x ∈ Y
 
@@ -541,7 +541,7 @@ instance SetTheory.Set.instDistribLattice : DistribLattice Set where
     intro X Y Z; change (X ∪ Y) ∩ (X ∪ Z) ⊆ X ∪ (Y ∩ Z)
     rw [←union_inter_distrib_left]
 
-/-- Sets have a minimal element.  -/
+/-- Sets have a minimal element. -/
 instance SetTheory.Set.instOrderBot : OrderBot Set where
   bot := ∅
   bot_le := empty_subset
@@ -684,7 +684,7 @@ lemma SetTheory.Set.nat_coe_eq_iff' {m: Nat} {n : ℕ} : (m:Object) = (ofNat(n):
   apply nat_equiv_coe_of_coe; rfl
 
 
-/-- Example 3.1.16 (simplified).  -/
+/-- Example 3.1.16 (simplified). -/
 example : ({3, 5}:Set) ⊆ {1, 3, 5} := by
   simp only [subset_def, mem_pair, mem_triple]; tauto
 
@@ -732,7 +732,7 @@ example : ({3,5,9}:Set).replace (P := fun x y ↦ ∃ (n:ℕ), x.val = n ∧ y =
 example : ({3,5,9}:Set).replace (P := fun _ y ↦ y=1) (by aesop) = {1} := by
   ext; simp only [replacement_axiom]; aesop
 
-/-- Exercise 3.1.5.  One can use the `tfae_have` and `tfae_finish` tactics here. -/
+/-- Exercise 3.1.5. One can use the `tfae_have` and `tfae_finish` tactics here. -/
 theorem SetTheory.Set.subset_tfae (A B:Set) : [A ⊆ B, A ∪ B = B, A ∩ B = A].TFAE := by sorry
 
 /-- Exercise 3.1.7 -/

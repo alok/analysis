@@ -9,7 +9,7 @@ A companion to Section 1.1.3 of the book "An introduction to Measure Theory".
 
 open BoundedInterval
 
-/-- Definition 1.1.5.  (Riemann integrability) The interval `I` should be closed, though we will not enforce this.  We also permit the length to be 0. We index the tags and deltas starting from 0 rather than 1
+/-- Definition 1.1.5. (Riemann integrability) The interval `I` should be closed, though we will not enforce this. We also permit the length to be 0. We index the tags and deltas starting from 0 rather than 1
 in the text as this is slightly more convenient in Lean. -/
 @[ext]
 structure TaggedPartition (I: BoundedInterval) (n:ℕ) where
@@ -28,7 +28,7 @@ noncomputable def TaggedPartition.norm {I: BoundedInterval} {n:ℕ} (P: TaggedPa
 def TaggedPartition.RiemannSum {I: BoundedInterval} {n:ℕ} (f: ℝ → ℝ) (P: TaggedPartition I n) : ℝ :=
   ∑ i, f (P.x_tag i) * P.delta i
 
-/-- `Sigma (TaggedPartition I)` is the type of all partitions of `I` with an unspecified number `n` of components.  Here we define what it means to converge to zero in this type. -/
+/-- `Sigma (TaggedPartition I)` is the type of all partitions of `I` with an unspecified number `n` of components. Here we define what it means to converge to zero in this type. -/
 instance TaggedPartition.nhds_zero (I: BoundedInterval) : Filter (Sigma (TaggedPartition I)) := Filter.comap (fun P ↦ P.snd.norm) (nhds 0)
 
 def riemann_integrable_eq (f: ℝ → ℝ) (I: BoundedInterval) (R: ℝ) : Prop := (TaggedPartition.nhds_zero I).Tendsto (fun P ↦ TaggedPartition.RiemannSum f P.snd) (nhds R)
@@ -48,7 +48,7 @@ lemma riemann_integral_eq_iff_of_integrable {f:ℝ → ℝ} {I: BoundedInterval}
 /-- Definition 1.1.15 (Riemann integrability)-/
 lemma riemann_integral_eq_iff {f:ℝ → ℝ} {I: BoundedInterval} (h: RiemannIntegrableOn f I) (R:ℝ): riemann_integrable_eq f I R ↔ ∀ ε>0, ∃ δ>0, ∀ n, ∀ P: TaggedPartition I n, P.norm ≤ δ → |P.RiemannSum f - R| ≤ ε := by sorry
 
-/-- Definition 1.1.15.  (Riemann integrability) I *think* this follows from the "junk" definitions of various Mathlib operations, but needs to be checked. If not, then the above definitions need to be adjusted appropriately. -/
+/-- Definition 1.1.15. (Riemann integrability) I *think* this follows from the "junk" definitions of various Mathlib operations, but needs to be checked. If not, then the above definitions need to be adjusted appropriately. -/
 lemma RiemannIntegrable.of_zero_length (f: ℝ → ℝ) {I: BoundedInterval} (h: |I|ₗ = 0) : RiemannIntegrableOn f I ∧ riemannIntegral f I = 0 := by sorry
 
 /-- Definition 1.1.15 -/

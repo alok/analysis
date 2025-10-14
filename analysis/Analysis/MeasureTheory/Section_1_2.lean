@@ -42,7 +42,7 @@ noncomputable def Lebesgue_outer_measure {d:ℕ} (E: Set (EuclideanSpace' d)) : 
 theorem Lebesgue_outer_measure_le_Jordan {d:ℕ} {E: Set (EuclideanSpace' d)} (hE: Bornology.IsBounded E) : Lebesgue_outer_measure E ≤ Jordan_outer_measure E := by
   sorry
 
-/-- Example 1.2.1.  With the junk value conventions of this companion, the Jordan outer measure of the rationals is zero rather than infinite (I think). -/
+/-- Example 1.2.1. With the junk value conventions of this companion, the Jordan outer measure of the rationals is zero rather than infinite (I think). -/
 example {R:ℝ} (hR: 0 < R) : Jordan_outer_measure (EuclideanSpace'.equiv_Real.symm '' (Set.Icc (-R) R ∩ Set.range (fun q:ℚ ↦ (q:ℝ)))) = 2*R := by
   sorry
 

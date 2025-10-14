@@ -5,7 +5,7 @@ import Analysis.Section_6_7
 # Analysis I, Chapter 6 epilogue: Connections with Mathlib limits
 
 In this (technical) epilogue, we show that various operations and properties we have defined for
-"Chapter 6" sequences `Chapter6.Sequence` are equivalent to Mathlib operations.  Note however
+"Chapter 6" sequences `Chapter6.Sequence` are equivalent to Mathlib operations. Note however
 that Mathlib's operations are defined in far greater generality than the setting of real-valued
 sequences, in particular using the language of filters.
 

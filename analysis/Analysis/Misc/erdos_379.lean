@@ -1,6 +1,6 @@
 import Mathlib
 
-/-! Formalizing a proof of Erdos problem \#379, arising from conversations between Stijn Cambie, Vjeko Kovac, and Terry Tao.  See the discussion at https://www.erdosproblems.com/forum/thread/379 -/
+/-! Formalizing a proof of Erdos problem \#379, arising from conversations between Stijn Cambie, Vjeko Kovac, and Terry Tao. See the discussion at https://www.erdosproblems.com/forum/thread/379 -/
 
 open Nat
 

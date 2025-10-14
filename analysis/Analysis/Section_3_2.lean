@@ -6,7 +6,7 @@ import Analysis.Section_3_1
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter.  In particular, there will be places where the
+translation, I have generally chosen the latter. In particular, there will be places where the
 Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
 doing so.
 
@@ -62,7 +62,7 @@ theorem SetTheory.Set.axiom_of_regularity {A:Set} (h: A ≠ ∅) :
   aesop
 
 /--
-  Exercise 3.2.1.  The spirit of the exercise is to establish these results without using either
+  Exercise 3.2.1. The spirit of the exercise is to establish these results without using either
   Russell's paradox, or the empty set.
 -/
 theorem SetTheory.Set.emptyset_exists (h: axiom_of_universal_specification):
@@ -70,7 +70,7 @@ theorem SetTheory.Set.emptyset_exists (h: axiom_of_universal_specification):
   sorry
 
 /--
-  Exercise 3.2.1.  The spirit of the exercise is to establish these results without using either
+  Exercise 3.2.1. The spirit of the exercise is to establish these results without using either
   Russell's paradox, or the singleton set.
 -/
 theorem SetTheory.Set.singleton_exists (h: axiom_of_universal_specification) (x:Object):
@@ -78,7 +78,7 @@ theorem SetTheory.Set.singleton_exists (h: axiom_of_universal_specification) (x:
   sorry
 
 /--
-  Exercise 3.2.1.  The spirit of the exercise is to establish these results without using either
+  Exercise 3.2.1. The spirit of the exercise is to establish these results without using either
   Russell's paradox, or the pair set.
 -/
 theorem SetTheory.Set.pair_exists (h: axiom_of_universal_specification) (x₁ x₂:Object):

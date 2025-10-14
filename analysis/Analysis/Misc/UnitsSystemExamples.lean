@@ -4,7 +4,7 @@ import Analysis.Misc.UnitsSystem
 open UnitsSystem
 variable [UnitsSystem]
 
-/- Many algebraic identities involving `Scalar` can be established by first using `simp [←toFormal_inj]`  to coerce to `Formal` and  push coercions inside, then appealing to `ring`.  We give some examples below.
+/- Many algebraic identities involving `Scalar` can be established by first using `simp [←toFormal_inj]`  to coerce to `Formal` and  push coercions inside, then appealing to `ring`. We give some examples below.
 
 Alternatively, one can "work in coordinates" by using `simp [←val_inj]` in place of `simp [←toFormal_inj]`.
 -/

@@ -11,7 +11,7 @@ doing so.
 
 Main constructions and results of this section:
 
-- Custom notions for "equal cardinality", "countable", and "at most countable".  Note that Mathlib's
+- Custom notions for "equal cardinality", "countable", and "at most countable". Note that Mathlib's
 `Countable` typeclass corresponds to what we call "at most countable" in this text.
 - Countability of the integers and rationals.
 
@@ -321,7 +321,7 @@ example (A: Type) : AtMostCountable A ↔ ∃ f : A → ℕ, Function.Injective 
 example {I X:Type} (hI: AtMostCountable I) (A: I → Set X) (hA: ∀ i, AtMostCountable (A i)) :
   AtMostCountable (⋃ i, A i) := by sorry
 
-/-- Exercise 8.1.10.  Note the lack of the `noncomputable` keyword in the `abbrev`. -/
+/-- Exercise 8.1.10. Note the lack of the `noncomputable` keyword in the `abbrev`. -/
 abbrev explicit_bijection : ℕ → ℚ := sorry
 
 theorem explicit_bijection_spec : Function.Bijective explicit_bijection := by sorry

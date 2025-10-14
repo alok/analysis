@@ -3,7 +3,7 @@ import Analysis.Misc.UnitsSystem
 import Mathlib.Algebra.Group.MinimalAxioms
 
 
-/-- The SI unit system.  In order to permit fractional dimensions, we allow dimensions to be rational; but then to maintain defeq of various explicit dimensions, we need to unseal the arithmetic operations on the rationals. -/
+/-- The SI unit system. In order to permit fractional dimensions, we allow dimensions to be rational; but then to maintain defeq of various explicit dimensions, we need to unseal the arithmetic operations on the rationals. -/
 @[ext]
 structure SI_dimensions where
   units_length : ℚ
@@ -74,7 +74,7 @@ abbrev SI : UnitsSystem := {
   addCommGroup := SI_dimensions.instAddCommGroup
 }
 
-/-- The SI system will be automatically installed as a global instance by any Lean file that imports this one.  This makes it difficult to use any competing unit system
+/-- The SI system will be automatically installed as a global instance by any Lean file that imports this one. This makes it difficult to use any competing unit system
 simultaneously, but that should be a rare use case. -/
 instance instSI : UnitsSystem := SI
 instance instSI_module : Module ℚ SI.Dimensions := SI_dimensions.instModule

@@ -8,17 +8,17 @@ In this (technical) epilogue, we show that the "Chapter 2" natural numbers `Chap
 isomorphic in various senses to the standard natural numbers `ℕ`.
 
 After this epilogue, `Chapter2.Nat` will be deprecated, and we will instead use the standard
-natural numbers `ℕ` throughout.  In particular, one should use the full Mathlib API for `ℕ` for
+natural numbers `ℕ` throughout. In particular, one should use the full Mathlib API for `ℕ` for
 all subsequent chapters, in lieu of the `Chapter2.Nat` API.
 
 Filling the sorries here requires both the Chapter2.Nat API and the Mathlib API for the standard
-natural numbers `ℕ`.  As such, they are excellent exercises to prepare you for the aforementioned
+natural numbers `ℕ`. As such, they are excellent exercises to prepare you for the aforementioned
 transition.
 
 In second half of this section we also give a fully axiomatic treatment of the natural numbers
 via the Peano axioms. The treatment in the preceding three sections was only partially axiomatic,
 because we used a specific construction `Chapter2.Nat` of the natural numbers that was an inductive
-type, and used that inductive type to construct a recursor.  Here, we give some exercises to show
+type, and used that inductive type to construct a recursor. Here, we give some exercises to show
 how one can accomplish the same tasks directly from the Peano axioms, without knowing the specific
 implementation of the natural numbers.
 

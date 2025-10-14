@@ -13,7 +13,7 @@ doing so.
 Main constructions and results of this section:
 
 - Definition of the "Section 4.1" integers, `Section_4_1.Int`, as formal differences `a —— b` of
-  natural numbers `a b:ℕ`, up to equivalence.  (This is a quotient of a scaffolding type
+  natural numbers `a b:ℕ`, up to equivalence. (This is a quotient of a scaffolding type
   `Section_4_1.PreInt`, which consists of formal differences without any equivalence imposed.)
 
 - ring operations and order these integers, as well as an embedding of ℕ.

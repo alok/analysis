@@ -3,7 +3,7 @@ import Mathlib.Tactic
 /-!
 # Analysis I, Appendix A.2: Implication
 
-An introduction to implications.  Showcases some basic tactics and Lean syntax.
+An introduction to implications. Showcases some basic tactics and Lean syntax.
 
 -/
 

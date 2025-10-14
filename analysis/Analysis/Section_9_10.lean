@@ -4,8 +4,8 @@ import Mathlib.Tactic
 # Analysis I, Section 9.10: Limits at infinity
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text.  When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter.  In particular, there will be places where
+text. When there is a choice between a more idiomatic Lean solution and a more faithful
+translation, I have generally chosen the latter. In particular, there will be places where
 the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
 doing so.
 
@@ -15,7 +15,7 @@ Main constructions and results of this section:
 
 namespace Chapter9
 
-/-- Definition 9.10.1 (Infinite adherent point).  We use `¬ BddAbove X` as our notation for `+∞` being an adherent point -/
+/-- Definition 9.10.1 (Infinite adherent point). We use `¬ BddAbove X` as our notation for `+∞` being an adherent point -/
 theorem BddAbove.unbounded_iff (X:Set ℝ) : ¬ BddAbove X ↔ ∀ M, ∃ x ∈ X, x > M := by
   simp [bddAbove_def]
 
