@@ -7,7 +7,7 @@ In this section we set up a version of Zermelo-Frankel set theory (with atoms) t
 as faithful as possible to the original text of Analysis I, Section 3.1. All numbering refers to
 the original text.
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
+I have attempted to make the translation as faithful a paraphrase as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
 translation, I have generally chosen the latter. In particular, there will be places where the
 Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
