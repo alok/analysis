@@ -3,12 +3,12 @@ import Mathlib.Tactic
 /-!
 # Analysis I, Section 2.1: The Peano Axioms
 
-This file is a translation of Section 2.1 of Analysis I to Lean 4.  All numbering refers to the
+This file is a translation of Section 2.1 of Analysis I to Lean 4. All numbering refers to the
 original text.
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text.  When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter.  In particular, there will be places where the
+I have attempted to make the translation as faithful a paraphrase as possible of the original
+text. When there is a choice between a more idiomatic Lean solution and a more faithful
+translation, I have generally chosen the latter. In particular, there will be places where the
 Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided doing
 so.
 
@@ -18,13 +18,13 @@ Main constructions and results of this section:
   Chapter2 namespace. (In the book, the natural numbers are treated in a purely axiomatic
   fashion, as a type that obeys the Peano axioms; but here we take advantage of Lean's native
   inductive types to explicitly construct a version of the natural numbers that obey those
-  axioms.  One could also proceed more axiomatically, as is done in Section 3 for set theory:
+  axioms. One could also proceed more axiomatically, as is done in Section 3 for set theory:
   see the epilogue to this chapter.)
 - Establishment of the Peano axioms for `Chapter2.Nat`.
 - Recursive definitions for `Chapter2.Nat`.
 
 Note: at the end of this chapter, the `Chapter2.Nat` class will be deprecated in favor of the
-standard Mathlib class `_root_.Nat`, or `ℕ`.  However, we will develop the properties of
+standard Mathlib class `_root_.Nat`, or `ℕ`. However, we will develop the properties of
 `Chapter2.Nat` "by hand" in the next few sections for pedagogical purposes.
 
 -/
@@ -32,14 +32,14 @@ standard Mathlib class `_root_.Nat`, or `ℕ`.  However, we will develop the pro
 namespace Chapter2
 
 /--
-  Assumption 2.6 (Existence of natural numbers).  Here we use an explicit construction of the
-  natural numbers (using an inductive type).  For a more axiomatic approach, see the epilogue to
+  Assumption 2.6 (Existence of natural numbers). Here we use an explicit construction of the
+  natural numbers (using an inductive type). For a more axiomatic approach, see the epilogue to
   this chapter.
 -/
 inductive Nat where
 | zero : Nat
 | succ : Nat → Nat
-deriving Repr, DecidableEq  -- this allows `decide` to work on `Nat`
+deriving Repr, DecidableEq  -- This allows `decide` to work on `Nat`
 
 /-- Axiom 2.1 (0 is a natural number) -/
 instance Nat.instZero : Zero Nat := ⟨ zero ⟩
@@ -65,7 +65,7 @@ lemma Nat.zero_succ : 0++ = 1 := by rfl
 lemma Nat.one_succ : 1++ = 2 := by rfl
 #check (2:Nat)
 
-/-- Proposition 2.1.4 (3 is a natural number)-/
+/-- Proposition 2.1.4 (3 is a natural number) -/
 lemma Nat.two_succ : 2++ = 3 := by rfl
 #check (3:Nat)
 
@@ -102,7 +102,7 @@ theorem Nat.succ_ne_succ (n m:Nat) : n ≠ m → n++ ≠ m++ := by
 
 /-- Proposition 2.1.8 (6 is not equal to 2) -/
 theorem Nat.six_ne_two : (6:Nat) ≠ 2 := by
--- this proof is written to follow the structure of the original text.
+  -- This proof is written to follow the structure of the original text.
   by_contra h
   change 5++ = 1++ at h
   apply succ_cancel at h
@@ -127,8 +127,8 @@ theorem Nat.induction (P : Nat → Prop) (hbase : P 0) (hind : ∀ n, P n → P 
   | succ n ih => exact hind _ ih
 
 /--
-  Recursion. Analogous to the inbuilt Mathlib method `Nat.rec` associated to
-  the Mathlib natural numbers
+  Recursion. Analogous to the built-in Mathlib method `Nat.rec` associated to
+  the Mathlib natural numbers.
 -/
 abbrev Nat.recurse (f: Nat → Nat → Nat) (c: Nat) : Nat → Nat := fun n ↦ match n with
 | 0 => c
@@ -146,14 +146,14 @@ theorem Nat.eq_recurse (f: Nat → Nat → Nat) (c: Nat) (a: Nat → Nat) :
     (a 0 = c ∧ ∀ n, a (n++) = f n (a n)) ↔ a = recurse f c := by
   constructor
   . intro ⟨ h0, hsucc ⟩
-    -- this proof is written to follow the structure of the original text.
+    -- This proof is written to follow the structure of the original text.
     apply funext; apply induction
     . exact h0
     intro n hn
     rw [hsucc n, recurse_succ, hn]
   intro h
   rw [h]
-  constructor -- could also use `split_ands` or `and_intros` here
+  constructor -- Could also use `split_ands` or `and_intros` here
   . exact recurse_zero _ _
   exact recurse_succ _ _
 
@@ -162,7 +162,7 @@ theorem Nat.eq_recurse (f: Nat → Nat → Nat) (c: Nat) (a: Nat → Nat) :
 theorem Nat.recurse_uniq (f: Nat → Nat → Nat) (c: Nat) :
     ∃! (a: Nat → Nat), a 0 = c ∧ ∀ n, a (n++) = f n (a n) := by
   apply ExistsUnique.intro (recurse f c)
-  . constructor -- could also use `split_ands` or `and_intros` here
+  . constructor -- Could also use `split_ands` or `and_intros` here
     . exact recurse_zero _ _
     . exact recurse_succ _ _
   intro a

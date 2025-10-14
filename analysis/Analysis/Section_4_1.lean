@@ -161,7 +161,7 @@ example : -(3 —— 5) = 5 —— 3 := rfl
 abbrev Int.IsPos (x:Int) : Prop := ∃ (n:ℕ), n > 0 ∧ x = n
 abbrev Int.IsNeg (x:Int) : Prop := ∃ (n:ℕ), n > 0 ∧ x = -n
 
-/-- Lemma 4.1.5 (trichotomy of integers )-/
+/-- Lemma 4.1.5 (trichotomy of integers) -/
 theorem Int.trichotomous (x:Int) : x = 0 ∨ x.IsPos ∨ x.IsNeg := by
   -- This proof is slightly modified from that in the original text.
   obtain ⟨ a, b, rfl ⟩ := eq_diff x

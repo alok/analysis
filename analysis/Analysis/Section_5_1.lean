@@ -177,7 +177,7 @@ example : ¬(0.01:ℚ).Steady ((fun n:ℕ ↦ (10:ℚ) ^ (-(n:ℤ)-1) ):Sequence
 -/
 example (ε:ℚ) : ¬ ε.Steady ((fun n:ℕ ↦ (2 ^ (n+1):ℚ) ):Sequence) := by sorry
 
-/-- Example 5.1.5:The sequence 2, 2, 2, ... is ε-steady for any ε > 0.
+/-- Example 5.1.5: The sequence 2, 2, 2, ... is ε-steady for any ε > 0.
 -/
 example (ε:ℚ) (hε: ε>0) : ε.Steady ((fun _:ℕ ↦ (2:ℚ) ):Sequence) := by
   rw [Rat.Steady.coe]; simp [Rat.Close]; positivity

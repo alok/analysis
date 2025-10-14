@@ -309,7 +309,7 @@ theorem Real.exists_rat_le_and_nat_ge {x:Real} (hx: x.IsPos) :
     _ < ((N:ℚ):Real) := by simp [hN]
     _ = N := rfl
 
-/-- Corollary 5.4.13 (Archimedean property ) -/
+/-- Corollary 5.4.13 (Archimedean property) -/
 theorem Real.le_mul {ε:Real} (hε: ε.IsPos) (x:Real) : ∃ M:ℕ, M > 0 ∧ M * ε > x := by
   -- This proof is written to follow the structure of the original text.
   obtain rfl | hx | hx := trichotomous x

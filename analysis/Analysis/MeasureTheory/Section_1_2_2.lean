@@ -71,7 +71,7 @@ abbrev CantorInterval (n:ℕ) : Set ℝ := ⋃ a : Fin n → ({0, 2}:Set ℕ), (
 
 abbrev CantorSet : Set ℝ := ⋂ n : ℕ, CantorInterval n
 
-/-- Exercise 1.2.9 (Middle thirds Cantor set ) -/
+/-- Exercise 1.2.9 (Middle thirds Cantor set) -/
 theorem CantorSet.compact : IsCompact CantorSet := by
   sorry
 
