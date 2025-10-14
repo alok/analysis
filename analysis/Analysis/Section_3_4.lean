@@ -30,7 +30,7 @@ export SetTheory (Set Object nat)
 
 variable [SetTheory]
 
-/-- Definition 3.4.1.  Interestingly, the definition does not require S to be a subset of X. -/
+/-- Definition 3.4.1. Interestingly, the definition does not require S to be a subset of X. -/
 abbrev SetTheory.Set.image {X Y:Set} (f:X → Y) (S: Set) : Set :=
   X.replace (P := fun x y ↦ f x = y ∧ x.val ∈ S) (by simp_all)
 
@@ -44,7 +44,7 @@ theorem SetTheory.Set.image_eq_specify {X Y:Set} (f:X → Y) (S: Set) :
     image f S = Y.specify (fun y ↦ ∃ x:X, x.val ∈ S ∧ f x = y) := by sorry
 
 /--
-  Connection with Mathlib's notion of image.  Note the need to utilize the `Subtype.val` coercion
+  Connection with Mathlib's notion of image. Note the need to utilize the `Subtype.val` coercion
   to make everything type consistent.
 -/
 theorem SetTheory.Set.image_eq_image {X Y:Set} (f:X → Y) (S: Set):
@@ -268,14 +268,14 @@ theorem SetTheory.Set.preimage_eq_image_of_inv {X Y V:Set} (f:X → Y) (f_inv: Y
   (hf: Function.LeftInverse f_inv f ∧ Function.RightInverse f_inv f) (hV: V ⊆ Y) :
     image f_inv V = preimage f V := by sorry
 
-/- Exercise 3.4.2.  State and prove an assertion connecting `preimage f (image f S)` and `S`. -/
+/- Exercise 3.4.2. State and prove an assertion connecting `preimage f (image f S)` and `S`. -/
 -- theorem SetTheory.Set.preimage_of_image {X Y:Set} (f:X → Y) (S: Set) (hS: S ⊆ X) : sorry := by sorry
 
-/- Exercise 3.4.2.  State and prove an assertion connecting `image f (preimage f U)` and `U`.
+/- Exercise 3.4.2. State and prove an assertion connecting `image f (preimage f U)` and `U`.
 Interestingly, it is not needed for U to be a subset of Y. -/
 -- theorem SetTheory.Set.image_of_preimage {X Y:Set} (f:X → Y) (U: Set) : sorry := by sorry
 
-/- Exercise 3.4.2.  State and prove an assertion connecting `preimage f (image f (preimage f U))` and `preimage f U`.
+/- Exercise 3.4.2. State and prove an assertion connecting `preimage f (image f (preimage f U))` and `preimage f U`.
 Interestingly, it is not needed for U to be a subset of Y.-/
 -- theorem SetTheory.Set.preimage_of_image_of_preimage {X Y:Set} (f:X → Y) (U: Set) : sorry := by sorry
 
@@ -334,7 +334,7 @@ theorem SetTheory.Set.partial_functions {X Y:Set} :
   sorry
 
 /--
-  Exercise 3.4.8.  The point of this exercise is to prove it without using the
+  Exercise 3.4.8. The point of this exercise is to prove it without using the
   pairwise union operation `∪`.
 -/
 theorem SetTheory.Set.union_pair_exists (X Y:Set) : ∃ Z:Set, ∀ x, x ∈ Z ↔ (x ∈ X ∨ x ∈ Y) := by

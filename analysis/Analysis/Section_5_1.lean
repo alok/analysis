@@ -386,7 +386,7 @@ example : ¬((fun n:ℕ ↦ (-1:ℚ)^n):Sequence).IsCauchy := by
 
 /-- Lemma 5.1.14 -/
 lemma IsBounded.finite {n:ℕ} (a: Fin n → ℚ) : ∃ M ≥ 0,  BoundedBy a M := by
-  -- this proof is written to follow the structure of the original text.
+  -- This proof is written to follow the structure of the original text.
   induction' n with n hn
   . use 0; simp
   set a' : Fin n → ℚ := fun m ↦ a m.castSucc

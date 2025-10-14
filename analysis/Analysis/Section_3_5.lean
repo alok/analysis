@@ -35,7 +35,7 @@ variable [SetTheory]
 
 open SetTheory.Set
 
-/-- Definition 3.5.1 (Ordered pair).  One could also have used `Object × Object` to
+/-- Definition 3.5.1 (Ordered pair). One could also have used `Object × Object` to
 define `OrderedPair` here. -/
 @[ext]
 structure OrderedPair where
@@ -164,9 +164,9 @@ noncomputable abbrev SetTheory.Set.curry_equiv {X Y Z:Set} : (X → Y → Z) ≃
   left_inv _ := by simp
   right_inv _ := by simp [←pair_eq_fst_snd]
 
-/-- Definition 3.5.6.  The indexing set `I` plays the role of `{ i : 1 ≤ i ≤ n }` in the text.
+/-- Definition 3.5.6. The indexing set `I` plays the role of `{ i : 1 ≤ i ≤ n }` in the text.
     See Exercise 3.5.10 below for some connections betweeen this concept and the preceding notion
-    of Cartesian product and ordered pair.  -/
+    of Cartesian product and ordered pair. -/
 abbrev SetTheory.Set.tuple {I:Set} {X: I → Set} (x: ∀ i, X i) : Object :=
   ((fun i ↦ ⟨ x i, by rw [mem_iUnion]; use i; exact (x i).property ⟩):I → iUnion I X)
 

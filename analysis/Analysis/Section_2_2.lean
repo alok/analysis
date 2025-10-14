@@ -4,12 +4,12 @@ import Analysis.Section_2_1
 /-!
 # Analysis I, Section 2.2: Addition
 
-This file is a translation of Section 2.2 of Analysis I to Lean 4.  All numbering refers to the
+This file is a translation of Section 2.2 of Analysis I to Lean 4. All numbering refers to the
 original text.
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
 text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter.  In particular, there will be places where the
+translation, I have generally chosen the latter. In particular, there will be places where the
 Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
 doing so.
 
@@ -19,7 +19,7 @@ Main constructions and results of this section:
 - Establishment of basic properties of addition and order.
 
 Note: at the end of this chapter, the `Chapter2.Nat` class will be deprecated in favor of the
-standard Mathlib class `_root_.Nat`, or `ℕ`.  However, we will develop the properties of
+standard Mathlib class `_root_.Nat`, or `ℕ`. However, we will develop the properties of
 `Chapter2.Nat` "by hand" for pedagogical purposes.
 
 ## Tips from past users
@@ -73,7 +73,7 @@ lemma Nat.add_zero (n:Nat) : n + 0 = n := by
 
 /-- Lemma 2.2.3 (n+(m++) = (n+m)++). Compare with Mathlib's `Nat.add_succ`. -/
 lemma Nat.add_succ (n m:Nat) : n + (m++) = (n + m)++ := by
-  -- this proof is written to follow the structure of the original text.
+  -- This proof is written to follow the structure of the original text.
   revert n; apply induction
   . rw [zero_add, zero_add]
   intro n ih
@@ -87,7 +87,7 @@ theorem Nat.succ_eq_add_one (n:Nat) : n++ = n + 1 := by
 
 /-- Proposition 2.2.4 (Addition is commutative). Compare with Mathlib's `Nat.add_comm` -/
 theorem Nat.add_comm (n m:Nat) : n + m = m + n := by
-  -- this proof is written to follow the structure of the original text.
+  -- This proof is written to follow the structure of the original text.
   revert n; apply induction
   . rw [zero_add, add_zero]
   intro n ih
@@ -165,7 +165,7 @@ theorem Nat.add_eq_zero (a b:Nat) (hab: a + b = 0) : a = 0 ∧ b = 0 := by
 
 /-
 The API in `Tools/ExistsUnique.Lean`, and the method `existsUnique_of_exists_of_unique` in
-particular, may be useful for the next problem.  Also, the `obtain` tactic is
+particular, may be useful for the next problem. Also, the `obtain` tactic is
 useful for extracting witnesses from existential statements; for instance, `obtain ⟨ x, hx ⟩ := h`
 extracts a witness `x` and a proof `hx : P x` of the property from a hypothesis `h : ∃ x, P x`.
 -/
@@ -234,7 +234,7 @@ theorem Nat.le_refl (a:Nat) : a ≤ a := a.ge_refl
 /-- The refl tag allows for the `rfl` tactic to work for inequalities. -/
 example (a b:Nat): a+b ≥ a+b := by rfl
 
-/-- (b) (Order is transitive).  The `obtain` tactic will be useful here.
+/-- (b) (Order is transitive). The `obtain` tactic will be useful here.
     Compare with Mathlib's `Nat.le_trans`. -/
 theorem Nat.ge_trans {a b c:Nat} (hab: a ≥ b) (hbc: b ≥ c) : a ≥ c := by
   sorry
@@ -245,22 +245,22 @@ theorem Nat.le_trans {a b c:Nat} (hab: a ≤ b) (hbc: b ≤ c) : a ≤ c := Nat.
 theorem Nat.ge_antisymm {a b:Nat} (hab: a ≥ b) (hba: b ≥ a) : a = b := by
   sorry
 
-/-- (d) (Addition preserves order).  Compare with Mathlib's `Nat.add_le_add_right`. -/
+/-- (d) (Addition preserves order). Compare with Mathlib's `Nat.add_le_add_right`. -/
 theorem Nat.add_ge_add_right (a b c:Nat) : a ≥ b ↔ a + c ≥ b + c := by
   sorry
 
-/-- (d) (Addition preserves order).  Compare with Mathlib's `Nat.add_le_add_left`.  -/
+/-- (d) (Addition preserves order). Compare with Mathlib's `Nat.add_le_add_left`. -/
 theorem Nat.add_ge_add_left (a b c:Nat) : a ≥ b ↔ c + a ≥ c + b := by
   simp only [add_comm]
   exact add_ge_add_right _ _ _
 
-/-- (d) (Addition preserves order).  Compare with Mathlib's `Nat.add_le_add_right`.  -/
+/-- (d) (Addition preserves order). Compare with Mathlib's `Nat.add_le_add_right`. -/
 theorem Nat.add_le_add_right (a b c:Nat) : a ≤ b ↔ a + c ≤ b + c := add_ge_add_right _ _ _
 
-/-- (d) (Addition preserves order).  Compare with Mathlib's `Nat.add_le_add_left`.  -/
+/-- (d) (Addition preserves order). Compare with Mathlib's `Nat.add_le_add_left`. -/
 theorem Nat.add_le_add_left (a b c:Nat) : a ≤ b ↔ c + a ≤ c + b := add_ge_add_left _ _ _
 
-/-- (e) a < b iff a++ ≤ b.  Compare with Mathlib's `Nat.succ_le_iff`. -/
+/-- (e) a < b iff a++ ≤ b. Compare with Mathlib's `Nat.succ_le_iff`. -/
 theorem Nat.lt_iff_succ_le (a b:Nat) : a < b ↔ a++ ≤ b := by
   sorry
 
@@ -301,7 +301,7 @@ theorem Nat.zero_le (a:Nat) : 0 ≤ a := by
   sorry
 
 /-- Proposition 2.2.13 (Trichotomy of order for natural numbers) / Exercise 2.2.4
-    Compare with Mathlib's `trichotomous`.  Parts of this theorem have been placed
+    Compare with Mathlib's `trichotomous`. Parts of this theorem have been placed
     in the preceding Lean theorems. -/
 theorem Nat.trichotomous (a b:Nat) : a < b ∨ a = b ∨ a > b := by
   -- This proof is written to follow the structure of the original text.
@@ -320,9 +320,9 @@ theorem Nat.trichotomous (a b:Nat) : a < b ∨ a = b ∨ a > b := by
   tauto
 
 /--
-  (Not from textbook) Establish the decidability of this order computably.  The portion of the
+  (Not from textbook) Establish the decidability of this order computably. The portion of the
   proof involving decidability has been provided; the remaining sorries involve claims about the
-  natural numbers.  One could also have established this result by the `classical` tactic
+  natural numbers. One could also have established this result by the `classical` tactic
   followed by `exact Classical.decRel _`, but this would make this definition (as well as some
   instances below) noncomputable.
 
