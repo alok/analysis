@@ -98,7 +98,7 @@ theorem Nat.mul_add (a b c: Nat) : a * (b + c) = a * b + a * c := by
   rw [mul_succ, ←add_assoc, ←habc]
 
 /-- Proposition 2.3.4 (Distributive law)
-Compare with Mathlib's `Nat.add_mul`  -/
+Compare with Mathlib's `Nat.add_mul` -/
 theorem Nat.add_mul (a b c: Nat) : (a + b)*c = a*c + b*c := by
   simp only [mul_comm, mul_add]
 

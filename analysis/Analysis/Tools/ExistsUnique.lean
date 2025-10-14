@@ -30,7 +30,7 @@ theorem ExistsUnique.choose_eq_choose {α: Sort*} {p: α → Prop} (h : ∃! x, 
   rw [←choose_iff]; exact (Exists.choose_spec h).1
 
 
-/-- An alternate form of the axiom of unique choice.  -/
+/-- An alternate form of the axiom of unique choice. -/
 noncomputable def Subsingleton.choose {α: Sort*} [Subsingleton α] [hn: Nonempty α] : α := hn.some
 
 theorem Subsingleton.choose_spec {α: Sort*} [hs: Subsingleton α] [Nonempty α] (x:α) : x = hs.choose := Subsingleton.elim _ _

@@ -176,7 +176,7 @@ example {A:Type} {x : A → ENNReal} (hx: ∑' α, x α < ⊤) :
       (Summable.countable_support_ennreal (ne_of_lt hx))
   · aesop
 
-/-- Theorem 0.0.2 (Tonelli's theorem for series)  -/
+/-- Theorem 0.0.2 (Tonelli's theorem for series) -/
 theorem ENNReal.tsum_of_tsum (x: ℕ → ℕ → ENNReal) : ∑' p:ℕ × ℕ, x p.1 p.2 = ∑' n, ∑' m, x n m := by
   -- This proof is written to largely follow the structure of the original text.
   refine' le_antisymm _ _

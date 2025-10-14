@@ -45,7 +45,7 @@ theorem BoundedInterval.coe_empty : ((∅ : BoundedInterval):Set ℝ) = ∅ := b
   simp [toSet]
 
 open Classical in
-/-- This is to make Finsets of BoundedIntervals work properly  -/
+/-- This is to make Finsets of BoundedIntervals work properly -/
 noncomputable instance BoundedInterval.decidableEq : DecidableEq BoundedInterval := instDecidableEqOfLawfulBEq
 
 @[simp]
@@ -63,7 +63,7 @@ theorem BoundedInterval.set_Ico (a b:ℝ) : (Ico a b : Set ℝ) = .Ico a b := by
 -- Definition 11.1.1
 #check Set.ordConnected_def
 
-/-- Examples 11.1.3  -/
+/-- Examples 11.1.3 -/
 example : (Set.Icc 1 2 : Set ℝ).OrdConnected := by sorry
 
 example : (Set.Ioo 1 2 : Set ℝ).OrdConnected := by sorry
@@ -74,14 +74,14 @@ example : (∅:Set ℝ).OrdConnected := by sorry
 
 example (x:ℝ) : ({x}: Set ℝ).OrdConnected := by sorry
 
-/-- Lemma 11.1.4 / Exercise 11.1.1  -/
+/-- Lemma 11.1.4 / Exercise 11.1.1 -/
 theorem Bornology.IsBounded.of_boundedInterval (I: BoundedInterval) : Bornology.IsBounded (I:Set ℝ) := by
   sorry
 
 theorem BoundedInterval.ordConnected_iff (X:Set ℝ) : Bornology.IsBounded X ∧ X.OrdConnected ↔ ∃ I: BoundedInterval, X = I := by
   sorry
 
-/-- Corollary 11.1.6 / Exercise 11.1.2  -/
+/-- Corollary 11.1.6 / Exercise 11.1.2 -/
 theorem BoundedInterval.inter (I J: BoundedInterval) : ∃ K : BoundedInterval, (I:Set ℝ) ∩ (J:Set ℝ) = (K:Set ℝ) := by
   sorry
 
@@ -141,7 +141,7 @@ theorem BoundedInterval.mem_inter (I J: BoundedInterval) (x:ℝ) :
 
 abbrev BoundedInterval.length (I: BoundedInterval) : ℝ := max (I.b - I.a) 0
 
-/-- Using ||ₗ subscript here to not override ||  -/
+/-- Using ||ₗ subscript here to not override || -/
 macro:max atomic("|" noWs) a:term noWs "|ₗ" : term => `(BoundedInterval.length $a)
 
 example : |Icc 3 5|ₗ = 2 := by
@@ -299,13 +299,13 @@ example : ¬∃ P:Partition (Ioo 1 5), P.intervals = {Ioo 0 3, Ico 3 5} := by
   sorry
 
 
-/-- Exercise 11.1.3. The exercise only claims c ≤ b, but the stronger claim c < b is true and useful.  -/
+/-- Exercise 11.1.3. The exercise only claims c ≤ b, but the stronger claim c < b is true and useful. -/
 theorem Partition.exist_right {I: BoundedInterval} (hI: I.a < I.b) (hI': I.b ∉ I)
   {P: Partition I}
   : ∃ c ∈ Set.Ico I.a I.b, Ioo c I.b ∈ P ∨ Ico c I.b ∈ P := by
   sorry
 
-/-- Theorem 11.1.13 (Length is finitely additive).  -/
+/-- Theorem 11.1.13 (Length is finitely additive). -/
 theorem Partition.sum_of_length  (I: BoundedInterval) (P: Partition I) :
   ∑ J ∈ P.intervals, |J|ₗ = |I|ₗ := by
   -- This proof is written to follow the structure of the original text.
@@ -389,7 +389,7 @@ theorem Partition.sum_of_length  (I: BoundedInterval) (P: Partition I) :
   rw [h3, ←Finset.add_sum_erase _ _ hK, ←hP', add_comm]; congr
   apply hn; simp [hP', Finset.card_erase_of_mem hK, hcard]
 
-/-- Definition 11.1.14 (Finer and coarser partitions)  -/
+/-- Definition 11.1.14 (Finer and coarser partitions) -/
 instance Partition.instLE (I: BoundedInterval) : LE (Partition I) where
   le P P' := ∀ J ∈ P'.intervals, ∃ K ∈ P, J ⊆ K
 
@@ -403,7 +403,7 @@ instance Partition.instOrderBot (I: BoundedInterval) : OrderBot (Partition I) wh
   bot_le := by
     sorry
 
-/-- Example 11.1.15  -/
+/-- Example 11.1.15 -/
 example : ∃ P P' : Partition (Icc 1 4),
   P.intervals = {Ico 1 2, Icc 2 2, Ioo 2 3,
                  Icc 3 4} ∧
@@ -429,17 +429,17 @@ noncomputable instance Partition.instMax (I: BoundedInterval) : Max (Partition I
     }
 
 
-/-- Example 11.1.17  -/
+/-- Example 11.1.17 -/
 example : ∃ P P' : Partition (Icc 1 4), P.intervals = {Ico 1 3, Icc 3 4} ∧ P'.intervals = {Icc 1 2, Ioc 2 4} ∧
   (P' ⊔ P).intervals = {Icc 1 2, Ioo 2 3, Icc 3 4, ∅} := by
   sorry
 
-/-- Lemma 11.1.8 / Exercise 11.1.4  -/
+/-- Lemma 11.1.8 / Exercise 11.1.4 -/
 theorem BoundedInterval.le_max {I: BoundedInterval} (P P': Partition I) :
   P ≤ P ⊔ P' ∧ P' ≤ P ⊔ P' := by
   sorry
 
-/-- Not from textbook: the reverse inclusion  -/
+/-- Not from textbook: the reverse inclusion -/
 theorem BoundedInterval.max_le_iff (I: BoundedInterval) {P P' P'': Partition I}
   {hP : P ≤ P''} {hP': P' ≤ P''} : P ⊔ P' ≤ P''  := by
   sorry

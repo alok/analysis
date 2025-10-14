@@ -333,7 +333,7 @@ theorem Sequence.IsCauchy.harmonic : (mk' 1 (fun n ↦ (1:ℚ)/n)).IsCauchy := b
     - 1/j ∈ [0, 1/N]
     - 1/k ∈ [0, 1/N]
     These imply that the distance between 1/j and 1/k is at most 1/N - when they are as "far apart" as possible.
-    -/
+   -/
     have : 1/j ≤ (1:ℚ)/N := by gcongr
     observe : (0:ℚ) ≤ 1/j
     have : 1/k ≤ (1:ℚ)/N := by gcongr

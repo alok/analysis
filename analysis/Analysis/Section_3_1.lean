@@ -320,7 +320,7 @@ theorem SetTheory.Set.pair_union_pair (a b c:Object) :
     ({a,b}:Set) ∪ {b,c} = {a,b,c} := by
   ext; simp only [mem_union, mem_pair, mem_triple]; tauto
 
-/-- Definition 3.1.14.  -/
+/-- Definition 3.1.14. -/
 instance SetTheory.Set.instSubset : HasSubset Set where
   Subset X Y := ∀ x, x ∈ X → x ∈ Y
 

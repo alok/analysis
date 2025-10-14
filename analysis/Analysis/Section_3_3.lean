@@ -81,7 +81,7 @@ theorem Function.eval_of {X Y: Set} (f: X → Y) (x:X) : (Function.mk_fn f) x = 
   symm; rw [eval]
 
 
-/-- Example 3.3.3.  -/
+/-- Example 3.3.3. -/
 abbrev P_3_3_3a : Nat → Nat → Prop := fun x y ↦ (y:ℕ) = (x:ℕ)+1
 
 theorem SetTheory.Set.P_3_3_3a_existsUnique (x: Nat) : ∃! y: Nat, P_3_3_3a x y := by

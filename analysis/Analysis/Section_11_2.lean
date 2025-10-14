@@ -207,7 +207,7 @@ theorem PiecewiseConstantWith.integ_eq {f:ℝ → ℝ} {I: BoundedInterval} {P P
   sorry
 
 open Classical in
-/-- Definition 11.2.14 (Piecewise constant integral II)  -/
+/-- Definition 11.2.14 (Piecewise constant integral II) -/
 noncomputable abbrev PiecewiseConstantOn.integ (f:ℝ → ℝ) (I: BoundedInterval) :
   ℝ := if h: PiecewiseConstantOn f I then PiecewiseConstantWith.integ f h.choose else 0
 

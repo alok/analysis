@@ -63,7 +63,7 @@ theorem Nat.not_even_and_odd (n:ℕ) : ¬ (Even n ∧ Odd n) := by
 
 #check Nat.rec
 
-/-- Proposition 4.4.4 / Exercise 4.4.3  -/
+/-- Proposition 4.4.4 / Exercise 4.4.3 -/
 theorem Rat.not_exist_sqrt_two : ¬ ∃ x:ℚ, x^2 = 2 := by
   -- This proof is written to follow the structure of the original text.
   by_contra h; choose x hx using h

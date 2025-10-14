@@ -142,7 +142,7 @@ example : ¬ ((fun n:ℕ ↦ f_9_9_11 (n+1:ℝ)):Sequence).equiv ((fun n:ℕ ↦
 example : ¬ UniformContinuousOn f_9_9_11 .univ := by
   sorry
 
-/-- Proposition 9.9.12 / Exercise 9.9.3  -/
+/-- Proposition 9.9.12 / Exercise 9.9.3 -/
 theorem UniformContinuousOn.ofCauchy  {X:Set ℝ} (f: ℝ → ℝ)
   (hf: UniformContinuousOn f X) {x: ℕ → ℝ} (hx: (x:Sequence).IsCauchy) (hmem : ∀ n, x n ∈ X) :
   (f ∘ x:Sequence).IsCauchy := by
