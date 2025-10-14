@@ -6,12 +6,12 @@ import Mathlib.Order.Defs.PartialOrder
 -/
 
 /- Dimensions of units are measured by an additive group `Dimensions`, which will typically be a
-free module inan group on a finite number of generators, representing fundamental units such as length,
+free module over an abelian group on a finite number of generators, representing fundamental units such as length,
 mass, and time. We bundle this together in a class `UnitsSystem`. To use this system, we create
 an instance of it, allowing in particular the additive group `Dimensions` to be accessed freely
 within the `UnitsSystem` namespace.
 
-I am no longer actively maintaining this code, and others are welcome to incorporate it into their own units implementations. Existing units implications in Lean include
+I am no longer actively maintaining this code, and others are welcome to incorporate it into their own units implementations. Existing units implementations in Lean include
 
 - https://github.com/ATOMSLab/LeanDimensionalAnalysis/tree/main
 - https://github.com/ecyrbe/lean-units

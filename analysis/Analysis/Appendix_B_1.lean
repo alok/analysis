@@ -3,9 +3,9 @@ import Mathlib.Tactic
 /-!
 # Analysis I, Appendix B.1: The decimal representation of natural numbers
 
-Am implementation of the decimal representation of Mathlib's natural numbers `ℕ`.
+An implementation of the decimal representation of Mathlib's natural numbers `ℕ`.
 
-This is separate from the way decimal numerals are already represenated in Mathlib via the `OfNat` typeclass.
+This is separate from the way decimal numerals are already represented in Mathlib via the `OfNat` typeclass.
 -/
 
 namespace AppendixB
