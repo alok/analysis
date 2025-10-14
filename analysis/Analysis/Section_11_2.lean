@@ -160,7 +160,7 @@ theorem PiecewiseConstantOn.div {f g: ℝ → ℝ} {I: BoundedInterval}
   (hf: PiecewiseConstantOn f I) (hg: PiecewiseConstantOn f I) : PiecewiseConstantOn (f / g) I := by
   sorry
 
-/-- Definition 11.2.9 (Piecewise constant integral I) -/
+/-- Definition 11.2.9 (Piecewise constant integral I)-/
 noncomputable abbrev PiecewiseConstantWith.integ (f:ℝ → ℝ) {I: BoundedInterval} (P: Partition I)  :
   ℝ := ∑ J ∈ P.intervals, constant_value_on f (J:Set ℝ) * |J|ₗ
 

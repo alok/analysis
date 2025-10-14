@@ -26,7 +26,7 @@ inductive BoundedInterval where
 
 open BoundedInterval
 
-/-- There is a technical issue in that this coercion is not injective: the empty set is represented by multiple bounded intervals. This causes some of the statements in this section to be a little uglier than necessary. -/
+/-- There is a technical issue in that this coercion is not injective: the empty set is represented by multiple bounded intervals.  This causes some of the statements in this section to be a little uglier than necessary.-/
 @[coe]
 def BoundedInterval.toSet (I: BoundedInterval) : Set ℝ := match I with
   | Ioo a b => .Ioo a b
@@ -299,7 +299,7 @@ example : ¬∃ P:Partition (Ioo 1 5), P.intervals = {Ioo 0 3, Ico 3 5} := by
   sorry
 
 
-/-- Exercise 11.1.3. The exercise only claims c ≤ b, but the stronger claim c < b is true and useful. -/
+/-- Exercise 11.1.3.  The exercise only claims c ≤ b, but the stronger claim c < b is true and useful. -/
 theorem Partition.exist_right {I: BoundedInterval} (hI: I.a < I.b) (hI': I.b ∉ I)
   {P: Partition I}
   : ∃ c ∈ Set.Ico I.a I.b, Ioo c I.b ∈ P ∨ Ico c I.b ∈ P := by
@@ -411,7 +411,7 @@ example : ∃ P P' : Partition (Icc 1 4),
   P' ≤ P := by
   sorry
 
-/-- Definition 11.1.16 (Common refinement) -/
+/-- Definition 11.1.16 (Common refinement)-/
 noncomputable instance Partition.instMax (I: BoundedInterval) : Max (Partition I) where
   max P P' := {
     intervals := Finset.image₂ (fun J K ↦ J ∩ K) P.intervals P'.intervals

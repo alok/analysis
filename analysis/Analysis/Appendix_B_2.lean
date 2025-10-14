@@ -6,7 +6,7 @@ import Analysis.Appendix_B_1
 
 An implementation of the decimal representation of Mathlib's real numbers `ℝ`.
 
-This is separate from the way decimal numerals are already represented in Mathlib. We also represent the integer part of the natural numbers just by `ℕ`, avoiding using the decimal representation from the
+This is separate from the way decimal numerals are already represented in Mathlib.  We also represent the integer part of the natural numbers just by `ℕ`, avoiding using the decimal representation from the
 previous section, although we still retain the `Digit` class.
 -/
 
@@ -132,7 +132,7 @@ theorem RealDecimal.not_inj_terminating {x:ℝ} (hx: TerminatingDecimal x) : ∃
 
 theorem RealDecimal.inj_nonterminating {x:ℝ} (hx: ¬TerminatingDecimal x) : ∃! d:RealDecimal, d = x := by sorry
 
-/-- Exercise B.2.4. This is Corollary 8.3.4, but the intent is to rewrite the proof using the decimal system. -/
+/-- Exercise B.2.4.  This is Corollary 8.3.4, but the intent is to rewrite the proof using the decimal system. -/
 example : Uncountable ℝ := by sorry
 
 

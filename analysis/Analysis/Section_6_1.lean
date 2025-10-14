@@ -20,7 +20,7 @@ Main constructions and results of this section:
 -/
 
 
-/- Definition 6.1.1 (Distance). Here we use the Mathlib distance. -/
+/- Definition 6.1.1 (Distance).  Here we use the Mathlib distance. -/
 #check Real.dist_eq
 
 abbrev Real.Close (ε x y : ℝ) : Prop := dist x y ≤ ε
@@ -71,7 +71,7 @@ lemma Sequence.eval_mk {n m:ℤ} (a: { n // n ≥ m } → ℝ) (h: n ≥ m) :
 lemma Sequence.eval_coe (n:ℕ) (a: ℕ → ℝ) : (a:Sequence) n = a n := by simp
 
 /--
-  a.from n₁ starts `a:Sequence` from `n₁`. It is intended for use when `n₁ ≥ n₀`, but returns
+  a.from n₁ starts `a:Sequence` from `n₁`.  It is intended for use when `n₁ ≥ n₀`, but returns
   the "junk" value of the original sequence `a` otherwise.
 -/
 abbrev Sequence.from (a:Sequence) (m₁:ℤ) : Sequence := mk' (max a.m m₁) (a ↑·)
@@ -292,7 +292,7 @@ theorem Sequence.divergent_def (a:Sequence) : a.Divergent ↔ ¬ a.Convergent :=
 
 open Classical in
 /--
-  Definition 6.1.8. We give the limit of a sequence the junk value of 0 if it is not convergent.
+  Definition 6.1.8.  We give the limit of a sequence the junk value of 0 if it is not convergent.
 -/
 noncomputable abbrev lim (a:Sequence) : ℝ := if h: a.Convergent then h.choose else 0
 
@@ -391,7 +391,7 @@ theorem Sequence.add_coe (a b: ℕ → ℝ) : (a:Sequence) + (b:Sequence) = (fun
   ext n; rfl
   by_cases h:n ≥ 0 <;> simp [h, HAdd.hAdd, Add.add]
 
-/-- Theorem 6.1.19(a) (limit laws). The `tendsTo` version is more usable than the `lim` version
+/-- Theorem 6.1.19(a) (limit laws).  The `tendsTo` version is more usable than the `lim` version
     in applications. -/
 theorem Sequence.tendsTo_add {a b:Sequence} {L M:ℝ} (ha: a.TendsTo L) (hb: b.TendsTo M) :
   (a+b).TendsTo (L+M) := by
@@ -412,7 +412,7 @@ theorem Sequence.mul_coe (a b: ℕ → ℝ) : (a:Sequence) * (b:Sequence) = (fun
   ext n; rfl
   by_cases h:n ≥ 0 <;> simp [h, HMul.hMul, Mul.mul]
 
-/-- Theorem 6.1.19(b) (limit laws). The `tendsTo` version is more usable than the `lim` version
+/-- Theorem 6.1.19(b) (limit laws).  The `tendsTo` version is more usable than the `lim` version
     in applications. -/
 theorem Sequence.tendsTo_mul {a b:Sequence} {L M:ℝ} (ha: a.TendsTo L) (hb: b.TendsTo M) :
     (a * b).TendsTo (L * M) := by
@@ -434,7 +434,7 @@ theorem Sequence.smul_coe (c:ℝ) (a:ℕ → ℝ) : (c • (a:Sequence)) = (fun 
   ext n; rfl
   by_cases h:n ≥ 0 <;> simp [h, HSMul.hSMul, SMul.smul]
 
-/-- Theorem 6.1.19(c) (limit laws). The `tendsTo` version is more usable than the `lim` version
+/-- Theorem 6.1.19(c) (limit laws).  The `tendsTo` version is more usable than the `lim` version
     in applications. -/
 theorem Sequence.tendsTo_smul (c:ℝ) {a:Sequence} {L:ℝ} (ha: a.TendsTo L) :
     (c • a).TendsTo (c * L) := by
@@ -455,7 +455,7 @@ theorem Sequence.sub_coe (a b: ℕ → ℝ) : (a:Sequence) - (b:Sequence) = (fun
   ext n; rfl
   by_cases h:n ≥ 0 <;> simp [h, HSub.hSub, Sub.sub]
 
-/-- Theorem 6.1.19(d) (limit laws). The `tendsTo` version is more usable than the `lim` version
+/-- Theorem 6.1.19(d) (limit laws).  The `tendsTo` version is more usable than the `lim` version
     in applications. -/
 theorem Sequence.tendsTo_sub {a b:Sequence} {L M:ℝ} (ha: a.TendsTo L) (hb: b.TendsTo M) :
     (a - b).TendsTo (L - M) := by
@@ -477,7 +477,7 @@ theorem Sequence.inv_coe (a: ℕ → ℝ) : (a:Sequence)⁻¹ = (fun n ↦ (a n)
   by_cases h:n ≥ 0 <;> simp [h, Inv.inv]
   change (0:ℝ)⁻¹ = 0; simp
 
-/-- Theorem 6.1.19(e) (limit laws). The `tendsTo` version is more usable than the `lim` version
+/-- Theorem 6.1.19(e) (limit laws).  The `tendsTo` version is more usable than the `lim` version
     in applications. -/
 theorem Sequence.tendsTo_inv {a:Sequence} {L:ℝ} (ha: a.TendsTo L) (hnon: L ≠ 0) :
     (a⁻¹).TendsTo (L⁻¹) := by
@@ -498,7 +498,7 @@ theorem Sequence.div_coe (a b: ℕ → ℝ) : (a:Sequence) / (b:Sequence) = (fun
   ext n; rfl
   by_cases h:n ≥ 0 <;> simp [h, HDiv.hDiv, Div.div]
 
-/-- Theorem 6.1.19(f) (limit laws). The `tendsTo` version is more usable than the `lim` version
+/-- Theorem 6.1.19(f) (limit laws).  The `tendsTo` version is more usable than the `lim` version
     in applications. -/
 theorem Sequence.tendsTo_div {a b:Sequence} {L M:ℝ} (ha: a.TendsTo L) (hb: b.TendsTo M) (hnon: M ≠ 0) :
     (a / b).TendsTo (L / M) := by
@@ -519,7 +519,7 @@ theorem Sequence.max_coe (a b: ℕ → ℝ) : (a:Sequence) ⊔ (b:Sequence) = (f
   ext n; rfl
   by_cases h:n ≥ 0 <;> simp [h, Max.max]
 
-/-- Theorem 6.1.19(g) (limit laws). The `tendsTo` version is more usable than the `lim` version
+/-- Theorem 6.1.19(g) (limit laws).  The `tendsTo` version is more usable than the `lim` version
     in applications. -/
 theorem Sequence.tendsTo_max {a b:Sequence} {L M:ℝ} (ha: a.TendsTo L) (hb: b.TendsTo M) :
     (max a b).TendsTo (max L M) := by

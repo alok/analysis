@@ -3,12 +3,12 @@ import Mathlib.Tactic
 /-!
 # Analysis I, Appendix A.1: Mathematical Statements
 
-An introduction to mathematical statements. Showcases some basic tactics and Lean syntax.
+An introduction to mathematical statements.  Showcases some basic tactics and Lean syntax.
 
 -/
 
 
--- Example A.1.1. What the textbook calls "statements" are objects of type `Prop` in Lean. Also, in Lean we tend to assign "junk" values to expressions that might normally be considered undefined, so discussions regarding undefined terms in the textbook should be adjusted accordingly.
+-- Example A.1.1. What the textbook calls "statements" are objects of type `Prop` in Lean.  Also, in Lean we tend to assign "junk" values to expressions that might normally be considered undefined, so discussions regarding undefined terms in the textbook should be adjusted accordingly.
 
 #check 2+2=4
 #check 2+2=5
@@ -190,10 +190,10 @@ example {X Y Z:Prop} (hXY: X ↔ Y) (hXZ: X ↔ Z) : [X,Y,Z].TFAE := by
 example {X Y Z:Prop} (h: [X,Y,Z].TFAE) : X ↔ Y := by
   exact h.out 0 1
 
-/-- Exercise A.1.1. Fill in the first `sorry` with something reasonable. -/
+/-- Exercise A.1.1.  Fill in the first `sorry` with something reasonable. -/
 example {X Y:Prop} : ¬ ((X ∨ Y) ∧ ¬ (X ∧ Y)) ↔ sorry := by sorry
 
-/-- Exercise A.1.2. Fill in the first `sorry` with something reasonable. -/
+/-- Exercise A.1.2.  Fill in the first `sorry` with something reasonable. -/
 example {X Y:Prop} : ¬ (X ↔ Y) ↔ sorry := by sorry
 
 /-- Exercise A.1.3. -/

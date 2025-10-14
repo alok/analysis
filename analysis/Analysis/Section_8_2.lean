@@ -29,7 +29,7 @@ After this section, the summation notation developed here will be deprecated in 
 namespace Chapter8
 open Chapter7 Chapter7.Series Finset Function Filter
 
-/-- Definition 8.2.1 (Series on countable sets). Note that with this definition, functions defined
+/-- Definition 8.2.1 (Series on countable sets).  Note that with this definition, functions defined
 on finite sets will not be absolutely convergent; one should use `AbsConvergent'` instead for such
 cases.-/
 abbrev AbsConvergent {X:Type} (f: X → ℝ) : Prop := ∃ g: ℕ → X, Bijective g ∧ (f ∘ g: Series).absConverges
@@ -85,7 +85,7 @@ theorem Finset.Icc_eq_cast (N:ℕ) : Icc 0 (N:ℤ) = map Nat.castEmbedding (.Icc
 theorem Finset.Icc_empty {N:ℤ} (h: ¬ N ≥ 0) : Icc 0 N = ∅ := by
   ext; simp; intros; contrapose! h; linarith
 
-/-- Theorem 8.2.2, preliminary version. The arguments here are rearranged slightly from the text. -/
+/-- Theorem 8.2.2, preliminary version.  The arguments here are rearranged slightly from the text. -/
 theorem sum_of_sum_of_AbsConvergent_nonneg {f:ℕ × ℕ → ℝ} (hf:AbsConvergent f) (hpos: ∀ n m, 0 ≤ f (n, m)) :
   (∀ n, ((fun m ↦ f (n, m)):Series).converges) ∧
   (fun n ↦ ((fun m ↦ f (n, m)):Series).sum:Series).convergesTo (Sum f) := by
@@ -247,7 +247,7 @@ theorem AbsConvergent'.subtype {X:Type} {f:X → ℝ} (hf: AbsConvergent' f) (A:
   intro z hz; simp at *; choose A hA using hz
   use A.map (Embedding.subtype _); simp [hA]
 
-/-- A generalized sum. Note that this will give junk values if `f` is not `AbsConvergent'`. -/
+/-- A generalized sum.  Note that this will give junk values if `f` is not `AbsConvergent'`. -/
 noncomputable abbrev Sum' {X:Type} (f: X → ℝ) : ℝ := Sum (fun x : { x | f x ≠ 0 } ↦ f x)
 
 /-- Not in textbook, but should have been included (the series laws are significantly harder
@@ -273,7 +273,7 @@ theorem Sum'.of_countable_supp {X:Type} {f:X → ℝ} {A: Set X} (hA: CountablyI
   rw [AbsConvergent'.of_countable hA]
   refine ⟨ hconv', ?_ ⟩
   set E := { x | f x ≠ 0 }
-  -- The main challenge here is to relate a sum on E with a sum on A. First, we show containment.
+  -- The main challenge here is to relate a sum on E with a sum on A.  First, we show containment.
   have hE : E ⊆ A := by intro _; simp [E]; by_contra!; aesop
   -- Now, we map A back to the natural numbers, thus identifying E with a subset E' of ℕ.
   choose g hg using hA.symm
@@ -429,7 +429,7 @@ theorem Sum'.sub {X:Type} {f g:X → ℝ} (hf: AbsConvergent' f) (hg: AbsConverg
   . congr; simp; abel
   rw [(smul hg (-1)).2]; ring
 
-/-- Proposition 8.2.6 (c) (Absolutely convergent series laws) / Exercise 8.2.3. The first
+/-- Proposition 8.2.6 (c) (Absolutely convergent series laws) / Exercise 8.2.3.  The first
     part of this proposition has been moved to `AbsConvergent'.subtype`. -/
 theorem Sum'.of_disjoint_union {X:Type} {f:X → ℝ} (hf: AbsConvergent' f) {X₁ X₂ : Set X} (hdisj: Disjoint X₁ X₂):
   Sum' (fun x: (X₁ ∪ X₂: Set X) ↦ f x) = Sum' (fun x : X₁ ↦ f x) + Sum' (fun x : X₂ ↦ f x) := by

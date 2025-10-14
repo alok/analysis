@@ -6,8 +6,8 @@ import Analysis.Section_9_1
 # Analysis I, Section 9.3: Limiting values of functions
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter. In particular, there will be places where
+text.  When there is a choice between a more idiomatic Lean solution and a more faithful
+translation, I have generally chosen the latter.  In particular, there will be places where
 the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
 doing so.
 
@@ -18,9 +18,9 @@ Main constructions and results of this section:
 - Limit laws for functions
 
 Technical point: in the text, the functions `f` studied are defined only on subsets `X` of `ℝ`, and
-left undefined elsewhere. However, in Lean, this then creates some fiddly conversions when trying
+left undefined elsewhere.  However, in Lean, this then creates some fiddly conversions when trying
 to restrict `f` to various subsets of `X` (which, technically, are not precisely subsets of `ℝ`,
-though they can be coerced to such). To avoid this issue we will deviate from the text by having
+though they can be coerced to such).  To avoid this issue we will deviate from the text by having
 our functions defined on all of `ℝ` (with the understanding that they are assigned "junk" values
 outside of the domain `X` of interest).
 -/
@@ -96,7 +96,7 @@ theorem Convergesto.comp {E:Set ℝ} {f: ℝ → ℝ} {L:ℝ} {x₀:ℝ} (h: Adh
   Filter.atTop.Tendsto (fun n ↦ f (a n)) (nhds L) := by
   rw [iff_conv f L h] at hf; solve_by_elim
 
--- Remark 9.3.11 may possibly be inaccurate, in that one may be able to safely delete the hypothesis `AdherentPt x₀ E` in the above theorems. This is something that formalization might be able to clarify!  If so, the hypothesis may also be deletable in several of the theorems below.
+-- Remark 9.3.11 may possibly be inaccurate, in that one may be able to safely delete the hypothesis `AdherentPt x₀ E` in the above theorems.  This is something that formalization might be able to clarify!  If so, the hypothesis may also be deletable in several of the theorems below.
 
 /-- Corollary 9.3.13 -/
 theorem Convergesto.uniq {E:Set ℝ} {f: ℝ → ℝ} {L L':ℝ} {x₀:ℝ} (h: AdherentPt x₀ E)
@@ -144,7 +144,7 @@ theorem Convergesto.mul {E:Set ℝ} {f g: ℝ → ℝ} {L M:ℝ} {x₀:ℝ} (h: 
   Convergesto E (f * g) (L * M) x₀ := by
     sorry
 
-/-- Proposition 9.3.14 (Limit laws for functions) / Exercise 9.3.2. The hypothesis in the book that g is non-vanishing on E can be dropped. -/
+/-- Proposition 9.3.14 (Limit laws for functions) / Exercise 9.3.2.  The hypothesis in the book that g is non-vanishing on E can be dropped. -/
 theorem Convergesto.div {E:Set ℝ} {f g: ℝ → ℝ} {L M:ℝ} {x₀:ℝ} (h: AdherentPt x₀ E) (hM: M ≠ 0)
   (hf: Convergesto E f L x₀) (hg: Convergesto E g M x₀) :
   Convergesto E (f / g) (L / M) x₀ := by
@@ -195,7 +195,7 @@ theorem Convergesto.local {E:Set ℝ} {f: ℝ → ℝ} {L:ℝ} {x₀:ℝ} (h: Ad
   Convergesto E f L x₀ ↔ Convergesto (E ∩ .Ioo (x₀-δ) (x₀+δ)) f L x₀ := by
     sorry
 
-/-- Example 9.3.19. The point of this example is somewhat blunted by the ability to remove the hypothesis that `g` is non-zero from the relevant part of Proposition 9.3.14 -/
+/-- Example 9.3.19.  The point of this example is somewhat blunted by the ability to remove the hypothesis that `g` is non-zero from the relevant part of Proposition 9.3.14 -/
 example : Convergesto .univ (fun x ↦ (x+2)/(x+1)) (4/3:ℝ) 2 := by sorry
 
 /-- Example 9.3.20 -/

@@ -7,8 +7,8 @@ import Analysis.Section_9_3
 # Analysis I, Section 9.4: Continuous functions
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter. In particular, there will be places where
+text.  When there is a choice between a more idiomatic Lean solution and a more faithful
+translation, I have generally chosen the latter.  In particular, there will be places where
 the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
 doing so.
 
@@ -19,7 +19,7 @@ Main constructions and results of this section:
 
 namespace Chapter9
 
-/-- Definition 9.4.1. Here we use the Mathlib definition of continuity. The hypothesis `x ∈ X` is not needed! -/
+/-- Definition 9.4.1.  Here we use the Mathlib definition of continuity.  The hypothesis `x ∈ X` is not needed! -/
 theorem ContinuousWithinAt.iff (X:Set ℝ) (f: ℝ → ℝ)  (x₀:ℝ) :
   ContinuousWithinAt f X x₀ ↔ Convergesto X f (f x₀) x₀ := by
   rw [ContinuousWithinAt.eq_1, Convergesto.iff, nhdsWithin.eq_1]
@@ -57,7 +57,7 @@ example : ¬ ContinuousAt f_9_4_6 0 := by sorry
 
 example : ContinuousWithinAt f_9_4_6 (.Ici 0) 0 := by sorry
 
-/-- Proposition 9.4.7 / Exercise 9.4.1. It is possible that the hypothesis `x₀ ∈ X` is unnecessary. -/
+/-- Proposition 9.4.7 / Exercise 9.4.1.  It is possible that the hypothesis `x₀ ∈ X` is unnecessary. -/
 theorem ContinuousWithinAt.tfae (X:Set ℝ) (f: ℝ → ℝ) {x₀:ℝ} (h : x₀ ∈ X) :
   [
     ContinuousWithinAt f X x₀,

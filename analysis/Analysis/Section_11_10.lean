@@ -31,7 +31,7 @@ theorem integ_of_mul_deriv {a b:ℝ} (hab: a ≤ b) {F G: ℝ → ℝ}
     integ (G * derivWithin F (Icc a b)) (Icc a b) := by
     sorry
 
-/-- Theorem 11.10.2. Need to add continuity of α due to our conventions on α-length -/
+/-- Theorem 11.10.2.  Need to add continuity of α due to our conventions on α-length -/
 theorem PiecewiseConstantOn.RS_integ_eq_integ_of_mul_deriv
   {a b:ℝ} {α f:ℝ → ℝ}
   (hα_diff: DifferentiableOn ℝ α (Icc a b)) (hαcont: Continuous α)

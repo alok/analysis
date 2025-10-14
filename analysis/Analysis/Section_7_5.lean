@@ -7,13 +7,13 @@ import Mathlib.Analysis.SpecialFunctions.Pow.Continuity
 /-!
 # Analysis I, Section 7.5: The root and ratio tests
 
-I have attempted to make the translation as faithful a paraphrasing as possible of the original text. When there is a choice between a more idiomatic Lean solution and a more faithful translation, I have generally chosen the latter. In particular, there will be places where the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided doing so.
+I have attempted to make the translation as faithful a paraphrasing as possible of the original text.  When there is a choice between a more idiomatic Lean solution and a more faithful translation, I have generally chosen the latter.  In particular, there will be places where the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided doing so.
 
 Main constructions and results of this section:
 
 - The root and ratio tests/
 
-A point that is only implicitly stated in the text is that for the root and ratio tests, the lim inf and lim sup should be interpreted within the extended reals. The Lean formalizations below make this point more explicit.
+A point that is only implicitly stated in the text is that for the root and ratio tests, the lim inf and lim sup should be interpreted within the extended reals.  The Lean formalizations below make this point more explicit.
 
 -/
 
@@ -21,7 +21,7 @@ namespace Chapter7
 
 open Filter Real EReal
 
-/-- Theorem 7.5.1(a) (Root test). A technical condition is needed to ensure the limsup is finite. -/
+/-- Theorem 7.5.1(a) (Root test).  A technical condition is needed to ensure the limsup is finite. -/
 theorem Series.root_test_pos {s : Series}
   (h : atTop.limsup (fun n ↦ ((|s.seq n|^(1/(n:ℝ)):ℝ):EReal)) < 1) : s.absConverges := by
     -- This proof is written to follow the structure of the original text.

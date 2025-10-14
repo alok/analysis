@@ -7,8 +7,8 @@ import Analysis.Section_9_6
 # Analysis I, Section 9.9: Uniform continuity
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original
-text. When there is a choice between a more idiomatic Lean solution and a more faithful
-translation, I have generally chosen the latter. In particular, there will be places where
+text.  When there is a choice between a more idiomatic Lean solution and a more faithful
+translation, I have generally chosen the latter.  In particular, there will be places where
 the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided
 doing so.
 
@@ -64,7 +64,7 @@ example (x₀ x : ℝ) :
   extract_lets g ε δ
   sorry
 
-/-- Definition 9.9.2. Here we use the Mathlib term `UniformContinuousOn` -/
+/-- Definition 9.9.2.  Here we use the Mathlib term `UniformContinuousOn` -/
 theorem UniformContinuousOn.iff (f: ℝ → ℝ) (X:Set ℝ) : UniformContinuousOn f X  ↔
   ∀ ε > (0:ℝ), ∃ δ > (0:ℝ), ∀ x₀ ∈ X, ∀ x ∈ X, δ.Close x x₀ → ε.Close (f x) (f x₀) := by
   simp_rw [Metric.uniformContinuousOn_iff_le, Real.Close]
@@ -79,7 +79,7 @@ example : ¬ UniformContinuousOn (fun x:ℝ ↦ 1/x) (Set.Icc 0 2) := by
 
 end Chapter9
 
-/-- Definition 9.9.5. This is similar but not identical to `Real.close_seq` from Section 6.1. -/
+/-- Definition 9.9.5.  This is similar but not identical to `Real.close_seq` from Section 6.1. -/
 abbrev Real.CloseSeqs (ε:ℝ) (a b: Chapter6.Sequence) : Prop :=
   (a.m = b.m) ∧ ∀ n ≥ a.m, ε.Close (a n) (b n)
 
