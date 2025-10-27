@@ -118,6 +118,7 @@ I am using this repository to host some other minor Lean content unrelated to th
   - [Documentation](https://teorth.github.io/analysis/docs/Analysis/Misc/FiniteChoice.html) ([Lean source](https://github.com/teorth/analysis/blob/main/analysis/Analysis/Misc/FiniteChoice.lean))
 - Some finite probability theory [Documentation](https://teorth.github.io/analysis/docs/Analysis/Misc/Probability.html) ([Lean source](https://github.com/teorth/analysis/blob/main/analysis/Analysis/Misc/Probability.lean))
 - A [solution to Erdos problem \#379](https://teorth.github.io/analysis/docs/Analysis/Misc/erdos_379.html) ([Lean source](https://github.com/teorth/analysis/blob/main/analysis/Analysis/Misc/erdos_379.lean))
+- A [solution to Erdos problem \#707](https://teorth.github.io/analysis/docs/Analysis/Misc/erdos_707.html) ([Lean source](https://github.com/teorth/analysis/blob/main/analysis/Analysis/Misc/erdos_707.lean))
 - A [solution to Erdos problem \#987](https://teorth.github.io/analysis/docs/Analysis/Misc/erdos_987.html) ([Lean source](https://github.com/teorth/analysis/blob/main/analysis/Analysis/Misc/erdos_987.lean))
 
 ## Other resources

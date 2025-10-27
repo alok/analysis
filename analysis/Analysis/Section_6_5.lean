@@ -28,11 +28,23 @@ instance Sequence.inst_pow: Pow Sequence ℕ where
   }
 
 @[simp]
+lemma Sequence.pow_eval {a:Sequence} {k: ℕ} {n: ℤ} (hn : n ≥ a.m): (a ^ k) n = a n ^ k := by
+  rw [HPow.hPow, instHPow, Pow.pow, inst_pow]
+  grind
+
+@[simp]
 lemma Sequence.pow_one (a:Sequence) : a^1 = a := by
   ext n; rfl; simp only [HPow.hPow, Pow.pow]; split_ifs with h; simp; simp [a.vanish n (by grind)]
 
-lemma Sequence.pow_succ (a:Sequence) (k:ℕ) : a^(k+1) = a^k * a := by
-  ext <;> simp only [HPow.hPow, Pow.pow, HMul.hMul, Mul.mul, max_self]; split_ifs with h <;> rfl
+lemma Sequence.pow_succ (a:Sequence) (k:ℕ): a^(k+1) = a^k * a := by
+  ext x
+  . symm; exact Int.min_self a.m
+  . simp only [mul_eval]
+    by_cases h: x ≥ a.m
+    · simp [pow_eval h]
+      rfl
+    · rw [a.vanish x (by grind), mul_zero]
+      exact vanish _ _ (by simp at h; exact h)
 
 /-- Corollary 6.5.1 -/
 theorem Sequence.lim_of_power_decay {k:ℕ} :

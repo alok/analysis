@@ -433,13 +433,13 @@ theorem Function.comp_of_surj {X Y Z:Set} {f: Function X Y} {g : Function Y Z} (
   (hg: g.onto) : (g ○ f).onto := by sorry
 
 /--
-  Exercise 3.3.3 - fill in the sorrys in the statements in  a reasonable fashion.
+  Exercise 3.3.3 - fill in the sorrys in the statements in a reasonable fashion.
 -/
-example (X: Set) : (SetTheory.Set.f_3_3_11 X).one_to_one ↔ sorry := by sorry
+theorem empty_function_one_to_one_iff (X: Set) (f: Function ∅ X) : f.one_to_one ↔ sorry := by sorry
 
-example (X: Set) : (SetTheory.Set.f_3_3_11 X).onto ↔ sorry := by sorry
+theorem empty_function_onto_iff (X: Set) (f: Function ∅ X) : f.onto ↔ sorry := by sorry
 
-example (X: Set) : (SetTheory.Set.f_3_3_11 X).bijective ↔ sorry := by sorry
+theorem empty_function_bijective_iff (X: Set) (f: Function ∅ X) : f.bijective ↔ sorry:= by sorry
 
 /--
   Exercise 3.3.4.
@@ -464,15 +464,15 @@ def Function.comp_cancel_right_without_hg : Decidable (∀ (X Y Z:Set) (f: Funct
 theorem Function.comp_injective {X Y Z:Set} {f: Function X Y} {g : Function Y Z} (hinj :
     (g ○ f).one_to_one) : f.one_to_one := by sorry
 
-theorem Function.comp_surjective {X Y Z:Set} {f: Function X Y} {g : Function Y Z}
-  (hinj : (g ○ f).onto) : g.onto := by sorry
+theorem Function.comp_surjective {X Y Z:Set} {f: Function X Y} {g : Function Y Z} (hsurj :
+    (g ○ f).onto) : g.onto := by sorry
 
 def Function.comp_injective' : Decidable (∀ (X Y Z:Set) (f: Function X Y) (g : Function Y Z) (hinj :
     (g ○ f).one_to_one), g.one_to_one) := by
   -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
   sorry
 
-def Function.comp_surjective' : Decidable (∀ (X Y Z:Set) (f: Function X Y) (g : Function Y Z) (hinj :
+def Function.comp_surjective' : Decidable (∀ (X Y Z:Set) (f: Function X Y) (g : Function Y Z) (hsurj :
     (g ○ f).onto), f.onto) := by
   -- the first line of this construction should be either `apply isTrue` or `apply isFalse`.
   sorry

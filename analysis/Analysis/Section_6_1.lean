@@ -382,14 +382,17 @@ example : ¬ ((fun (n:ℕ) ↦ (n+1:ℝ)):Sequence).Convergent := by sorry
 
 instance Sequence.inst_add : Add Sequence where
   add a b := {
-    m := max a.m b.m
-    seq n := if n ≥ max a.m b.m then a n + b n else 0
-    vanish n hn := by rw [lt_iff_not_ge] at hn; simp [hn]
+    m := min a.m b.m
+    seq n := a n + b n
+    vanish n hn := by simp [a.vanish n (by grind), b.vanish n (by grind)]
   }
+
+@[simp]
+theorem Sequence.add_eval {a b: Sequence} (n:ℤ) : (a + b) n = a n + b n := rfl
 
 theorem Sequence.add_coe (a b: ℕ → ℝ) : (a:Sequence) + (b:Sequence) = (fun n ↦ a n + b n) := by
   ext n; rfl
-  by_cases h:n ≥ 0 <;> simp [h, HAdd.hAdd, Add.add]
+  by_cases h:n ≥ 0 <;> simp [h]
 
 /-- Theorem 6.1.19(a) (limit laws). The `tendsTo` version is more usable than the `lim` version
     in applications. -/
@@ -403,14 +406,17 @@ theorem Sequence.lim_add {a b:Sequence} (ha: a.Convergent) (hb: b.Convergent) :
 
 instance Sequence.inst_mul : Mul Sequence where
   mul a b := {
-    m := max a.m b.m
-    seq n := if n ≥ max a.m b.m then a n * b n else 0
-    vanish := by grind
+    m := min a.m b.m
+    seq n := a n * b n
+    vanish n hn := by simp [a.vanish n (by grind), b.vanish n (by grind)]
   }
+
+@[simp]
+theorem Sequence.mul_eval {a b: Sequence} (n:ℤ) : (a * b) n = a n * b n := rfl
 
 theorem Sequence.mul_coe (a b: ℕ → ℝ) : (a:Sequence) * (b:Sequence) = (fun n ↦ a n * b n) := by
   ext n; rfl
-  by_cases h:n ≥ 0 <;> simp [h, HMul.hMul, Mul.mul]
+  by_cases h:n ≥ 0 <;> simp [h]
 
 /-- Theorem 6.1.19(b) (limit laws). The `tendsTo` version is more usable than the `lim` version
     in applications. -/
@@ -430,6 +436,9 @@ instance Sequence.inst_smul : SMul ℝ Sequence where
     vanish n hn := by simp [a.vanish n hn]
   }
 
+@[simp]
+theorem Sequence.smul_eval {a: Sequence} (c: ℝ) (n:ℤ) : (c • a) n = c * a n := rfl
+
 theorem Sequence.smul_coe (c:ℝ) (a:ℕ → ℝ) : (c • (a:Sequence)) = (fun n ↦ c * a n) := by
   ext n; rfl
   by_cases h:n ≥ 0 <;> simp [h, HSMul.hSMul, SMul.smul]
@@ -446,14 +455,17 @@ theorem Sequence.lim_smul (c:ℝ) {a:Sequence} (ha: a.Convergent) :
 
 instance Sequence.inst_sub : Sub Sequence where
   sub a b := {
-    m := max a.m b.m
-    seq n := if n ≥ max a.m b.m then a n - b n else 0
-    vanish := by grind
+    m := min a.m b.m
+    seq n := a n - b n
+    vanish n hn := by simp [a.vanish n (by grind), b.vanish n (by grind)]
   }
+
+@[simp]
+theorem Sequence.sub_eval {a b: Sequence} (n:ℤ) : (a - b) n = a n - b n := rfl
 
 theorem Sequence.sub_coe (a b: ℕ → ℝ) : (a:Sequence) - (b:Sequence) = (fun n ↦ a n - b n) := by
   ext n; rfl
-  by_cases h:n ≥ 0 <;> simp [h, HSub.hSub, Sub.sub]
+  by_cases h:n ≥ 0 <;> simp [h]
 
 /-- Theorem 6.1.19(d) (limit laws). The `tendsTo` version is more usable than the `lim` version
     in applications. -/
@@ -472,10 +484,12 @@ noncomputable instance Sequence.inst_inv : Inv Sequence where
     vanish n hn := by simp [a.vanish n hn]
   }
 
+@[simp]
+theorem Sequence.inv_eval {a: Sequence} (n:ℤ) : (a⁻¹) n = (a n)⁻¹ := rfl
+
 theorem Sequence.inv_coe (a: ℕ → ℝ) : (a:Sequence)⁻¹ = (fun n ↦ (a n)⁻¹) := by
   ext n; rfl
-  by_cases h:n ≥ 0 <;> simp [h, Inv.inv]
-  change (0:ℝ)⁻¹ = 0; simp
+  by_cases h:n ≥ 0 <;> simp [h]
 
 /-- Theorem 6.1.19(e) (limit laws). The `tendsTo` version is more usable than the `lim` version
     in applications. -/
@@ -489,14 +503,17 @@ theorem Sequence.lim_inv {a:Sequence} (ha: a.Convergent) (hnon: lim a ≠ 0) :
 
 noncomputable instance Sequence.inst_div : Div Sequence where
   div a b := {
-    m := max a.m b.m
-    seq n := if n ≥ max a.m b.m then a n / b n else 0
-    vanish := by grind
+    m := min a.m b.m
+    seq n := a n / b n
+    vanish n hn := by simp [a.vanish n (by grind), b.vanish n (by grind)]
   }
+
+@[simp]
+theorem Sequence.div_eval {a b: Sequence} (n:ℤ) : (a / b) n = a n / b n := rfl
 
 theorem Sequence.div_coe (a b: ℕ → ℝ) : (a:Sequence) / (b:Sequence) = (fun n ↦ a n / b n) := by
   ext n; rfl
-  by_cases h:n ≥ 0 <;> simp [h, HDiv.hDiv, Div.div]
+  by_cases h:n ≥ 0 <;> simp [h]
 
 /-- Theorem 6.1.19(f) (limit laws). The `tendsTo` version is more usable than the `lim` version
     in applications. -/
@@ -510,14 +527,17 @@ theorem Sequence.lim_div {a b:Sequence} (ha: a.Convergent) (hb: b.Convergent) (h
 
 instance Sequence.inst_max : Max Sequence where
   max a b := {
-    m := max a.m b.m
-    seq n := if n ≥ max a.m b.m then max (a n) (b n) else 0
-    vanish := by grind
+    m := min a.m b.m
+    seq n := max (a n) (b n)
+    vanish n hn := by simp [a.vanish n (by grind), b.vanish n (by grind)]
   }
+
+@[simp]
+theorem Sequence.max_eval {a b: Sequence} (n:ℤ) : (a ⊔ b) n = (a n) ⊔ (b n) := rfl
 
 theorem Sequence.max_coe (a b: ℕ → ℝ) : (a:Sequence) ⊔ (b:Sequence) = (fun n ↦ max (a n) (b n)) := by
   ext n; rfl
-  by_cases h:n ≥ 0 <;> simp [h, Max.max]
+  by_cases h:n ≥ 0 <;> simp [h]
 
 /-- Theorem 6.1.19(g) (limit laws). The `tendsTo` version is more usable than the `lim` version
     in applications. -/
@@ -531,14 +551,17 @@ theorem Sequence.lim_max {a b:Sequence} (ha: a.Convergent) (hb: b.Convergent) :
 
 instance Sequence.inst_min : Min Sequence where
   min a b := {
-    m := max a.m b.m
-    seq n := if n ≥ max a.m b.m then min (a n) (b n) else 0
-    vanish := by grind
+    m := min a.m b.m
+    seq n := min (a n) (b n)
+    vanish n hn := by simp [a.vanish n (by grind), b.vanish n (by grind)]
   }
+
+@[simp]
+theorem Sequence.min_eval {a b: Sequence} (n:ℤ) : (a ⊓ b) n = (a n) ⊓ (b n) := rfl
 
 theorem Sequence.min_coe (a b: ℕ → ℝ) : (a:Sequence) ⊓ (b:Sequence) = (fun n ↦ min (a n) (b n)) := by
   ext n; rfl
-  by_cases h:n ≥ 0 <;> simp [h, Min.min]
+  by_cases h:n ≥ 0 <;> simp [h]
 
 /-- Theorem 6.1.19(h) (limit laws) -/
 theorem Sequence.tendsTo_min {a b:Sequence} {L M:ℝ} (ha: a.TendsTo L) (hb: b.TendsTo M) :
