@@ -1,6 +1,7 @@
 import Mathlib.Tactic
 import Analysis.Section_2_1
 
+-- set_option doc.verso true
 /-!
 # Analysis I, Section 2.2: Addition
 
@@ -80,10 +81,11 @@ lemma Nat.add_succ (n m:Nat) : n + (m++) = (n + m)++ := by
   rw [succ_add, ih]
   rw [succ_add]
 
-
 /-- n++ = n + 1 (Why?). Compare with Mathlib's `Nat.succ_eq_add_one` -/
 theorem Nat.succ_eq_add_one (n:Nat) : n++ = n + 1 := by
-  rfl
+  rw [← Nat.zero_succ, Nat.add_succ, Nat.add_zero]
+
+example : 2 + 2  = 4 := Eq.refl (2 + 2)
 
 /-- Proposition 2.2.4 (Addition is commutative). Compare with Mathlib's `Nat.add_comm` -/
 theorem Nat.add_comm (n m:Nat) : n + m = m + n := by
@@ -97,7 +99,20 @@ theorem Nat.add_comm (n m:Nat) : n + m = m + n := by
 /-- Proposition 2.2.5 (Addition is associative) / Exercise 2.2.1
     Compare with Mathlib's `Nat.add_assoc`. -/
 theorem Nat.add_assoc (a b c:Nat) : (a + b) + c = a + (b + c) := by
-  sorry
+    revert a; apply induction
+
+    . rw [zero_add, zero_add (b + c)]
+    rw []
+    intro n
+
+    . conv_rhs =>
+      rhs
+      rw [Nat.succ_add]
+
+      -- rw [Nat.add_comm, Nat.add_succ]
+      -- goal: rewrite to `(a+b+c)++ = (a+b+c)++`, pushing out the `++`
+
+
 
 /-- Proposition 2.2.6 (Cancellation law).
     Compare with Mathlib's `Nat.add_left_cancel`. -/
