@@ -43,12 +43,13 @@ deriving Repr, DecidableEq  -- This allows `decide` to work on `Nat`
 
 /-- Axiom 2.1 (0 is a natural number) -/
 instance Nat.instZero : Zero Nat := ⟨ zero ⟩
+
 #check (0:Nat)
 
 /-- Axiom 2.2 (Successor of a natural number is a natural number) -/
 postfix:100 "++" => Nat.succ
-#check (fun n ↦ n++)
 
+#check (fun n ↦ n++)
 
 /--
   Definition 2.1.3 (Definition of the numerals 0, 1, 2, etc.). Note: to avoid ambiguity, one may
@@ -59,6 +60,8 @@ instance Nat.instOfNat {n:_root_.Nat} : OfNat Nat n where
   ofNat := _root_.Nat.rec 0 (fun _ n ↦ n++) n
 
 instance Nat.instOne : One Nat := ⟨ 1 ⟩
+
+/-- Truly you need everything-/
 lemma Nat.zero_succ : 0++ = 1 := by rfl
 #check (1:Nat)
 
