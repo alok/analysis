@@ -4,13 +4,11 @@ open Lake DSL
 package «Analysis» where
   -- Settings applied to both builds and interactive editing
   leanOptions := #[
-    ⟨`pp.unicode.fun, true⟩ -- pretty-prints `fun a ↦ b`
+    ⟨`pp.unicode.fun, true⟩,
+    -- ⟨`doc.verso, true⟩
   ]
   -- Settings applied only to command line builds
-  moreLeanArgs := #[
-    "-Dwarn.sorry=false" -- suppress warnings about `sorry` on the command line; remove when project is complete
-  ]
-  -- add any additional package configuration options here
+  moreLeanArgs := #[]
 
 -- Require Mathlib (the comprehensive library of mathematics in Lean)
 require mathlib from git
