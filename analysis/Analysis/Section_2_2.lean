@@ -102,15 +102,9 @@ theorem Nat.add_assoc (a b c:Nat) : (a + b) + c = a + (b + c) := by
     revert a; apply induction
 
     . rw [zero_add, zero_add (b + c)]
-    rw []
-    intro n
-
-    . conv_rhs =>
-      rhs
-      rw [Nat.succ_add]
-
-      -- rw [Nat.add_comm, Nat.add_succ]
+    intro n ih
       -- goal: rewrite to `(a+b+c)++ = (a+b+c)++`, pushing out the `++`
+    rw [Nat.succ_add,succ_add,succ_add,ih]
 
 
 
@@ -187,9 +181,21 @@ extracts a witness `x` and a proof `hx : P x` of the property from a hypothesis 
 
 #check existsUnique_of_exists_of_unique
 
+/-
+
+∃! = ∃ x, p x ∧ ∀ y, p y → y = x
+-/
+
 /-- Lemma 2.2.10 (unique predecessor) / Exercise 2.2.2 -/
 lemma Nat.uniq_succ_eq (a:Nat) (ha: a.IsPos) : ∃! b, b++ = a := by
-  sorry
+  induction a
+  case zero =>
+    absurd ha
+    rfl
+  case succ =>
+    rename_i a ih
+    rw [] -- TODO alok
+    -- obtain ⟨a, ah⟩ :=
 
 /-- Definition 2.2.11 (Ordering of the natural numbers).
     This defines the `≤` notation on the natural numbers. -/
