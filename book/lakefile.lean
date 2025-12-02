@@ -1,7 +1,7 @@
 import Lake
 open Lake DSL
 
-require verso from git "https://github.com/leanprover/verso.git"@"v4.26.0-rc2"
+require verso from git "https://github.com/leanprover/verso.git"@"795bc01"
 
 package "analysis-book" where
   version := v!"0.1.0"
