@@ -356,9 +356,9 @@ def elabAnalysisPage (x : Ident) (mod : Ident) (config : LitPageConfig) (title :
   let items ← withTraceNode `verso.blog.literate.loadMod (fun _ => pure m!"Loading '{mod}'") <|
     loadModuleContent mod.getId.toString
 
-  let g ← runTermElabM fun _ => Term.elabTerm genre (some (.const ``Doc.Genre []))
+  let ctx ← runTermElabM fun _ => DocElabContext.fromGenreTerm genre
 
-  let ((), _st, st') ← liftTermElabM <| PartElabM.run genre g {} initState <| do
+  let ((), docState, partState) ← liftTermElabM <| PartElabM.run ctx {} initState <| do
     setTitle titleString (← liftDocElabM <| titleParts.mapM (elabInline ⟨·⟩))
     if let some metadata := metadata? then
       modifyThe PartElabM.State fun st => {st with partContext.metadata := some metadata}
@@ -367,7 +367,7 @@ def elabAnalysisPage (x : Ident) (mod : Ident) (config : LitPageConfig) (title :
       docFromModAndTerms config items rewriter
 
 
-  let finished := st'.partContext.toPartFrame.close 0
+  let finished := partState.partContext.toPartFrame.close 0
   let finished :=
     -- Obey the Markdown convention of a single top-level header being the title of the document, if it's been followed
     if let .mk _ _ _ metadata #[] #[p] _ := finished then
@@ -378,7 +378,9 @@ def elabAnalysisPage (x : Ident) (mod : Ident) (config : LitPageConfig) (title :
       | _ => p
     else finished
 
-  elabCommand <| ← `(def $x : Part $genre := $(← finished.toSyntax' genre))
+  let ty ← ``(VersoDoc $genre)
+  let doc ← Command.runTermElabM fun _ => finished.toVersoDoc genre ctx docState partState
+  elabCommand <| ← `(def $x : $ty := $doc)
 
 open Verso.Genre.Blog.Literate in
 open Lean.Parser.Tactic in
