@@ -1,9 +1,7 @@
 import Lake
 open Lake DSL
 
--- This is set to `main` to get improvements made since the v4.23.0-rc2 tag. At the next Lean
--- version bump, switch this back to a versioned tag and delete this comment.
-require verso from git "https://github.com/leanprover/verso.git"@"main"
+require verso from git "https://github.com/leanprover/verso.git"@"v4.26.0-rc2"
 
 package "analysis-book" where
   version := v!"0.1.0"

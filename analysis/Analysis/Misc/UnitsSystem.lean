@@ -1,6 +1,7 @@
 import Mathlib.Tactic
 import Mathlib.Algebra.Group.InjSurj
 import Mathlib.Order.Defs.PartialOrder
+import Mathlib.Algebra.Order.Module.OrderedSMul
 
 /-! A framework to formalize units (such as length, time, mass, velocity, etc.) in Lean.
 -/
@@ -237,8 +238,8 @@ theorem Scalar.toFormal_smul {d:Dimensions} (c:ℝ) (q:Scalar d)
 @[simp]
 theorem Formal.smul_eq_mul (c:ℝ) (x:Formal) : c • x = (c:Formal) * x := by
   ext n
-  simp [Scalar.toFormal]
-  rw [Finsupp.smul_apply, AddMonoidAlgebra.single_zero_mul_apply, _root_.smul_eq_mul]
+  simp only [Scalar.toFormal, AddMonoidAlgebra.single_zero_mul_apply, Scalar.ofReal]
+  rfl
 
 @[simp]
 theorem Formal.smul_eq_mul' (c:ℕ) (x:Formal) : c • x = (c:Formal) * x := by
@@ -409,9 +410,10 @@ noncomputable instance Scalar.instLinearOrder (d:Dimensions) : LinearOrder (Scal
 theorem Scalar.val_lt {d:Dimensions} (x y:Scalar d) :
   x < y ↔ x.val < y.val := by simp only [lt_iff_not_ge, val_le]
 
-noncomputable instance Scalar.instOrderedSMul (d:Dimensions) : OrderedSMul ℝ (Scalar d) where
-  smul_lt_smul_of_pos := by simp [val_lt]; intros; gcongr
-  lt_of_smul_lt_smul_of_pos := by simp [val_lt]; intro _ _ _ _ h2; rwa [←mul_lt_mul_iff_of_pos_left h2]
+noncomputable instance Scalar.instOrderedSMul (d:Dimensions) : OrderedSMul ℝ (Scalar d) :=
+  OrderedSMul.mk
+    (fun {a b c} hab hc => by simp only [val_lt] at *; exact mul_lt_mul_of_pos_left hab hc)
+    (fun {a b c} hab hc => by simp only [val_lt] at *; exact lt_of_mul_lt_mul_left hab (le_of_lt hc))
 
 -- TODO: add in some `gcongr` lemmas for this order
 

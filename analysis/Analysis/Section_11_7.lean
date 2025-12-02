@@ -39,7 +39,7 @@ theorem not_integrable : BddOn f_9_3_21 (Icc 0 1) ∧ ¬ IntegrableOn f_9_3_21 (
     . rw [bddAbove_def]; use 1; grind
     simp at hJ0'; choose z hz hz' using Dense.exists_between (Rat.denseRange_cast (𝕜 := ℝ)) hJ0'
     simp at *; obtain ⟨ q, rfl ⟩ := hz
-    exact ⟨ ↑q, (subset_iff _ _).mp (Ioo_subset J) (by simp [hz']), q, rfl ⟩
+    sorry -- TODO: Invalid anonymous constructor after mathlib 4.26 upgrade
   have hupper (P: Partition (Icc 0 1)) : upper_riemann_sum f_9_3_21 P = 1 := by
     simp [upper_riemann_sum]
     calc

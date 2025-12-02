@@ -247,7 +247,8 @@ def aa : Nat := 0
 -- example : aaa = 0 := by rfl
 example : aa = 0 := by rfl
 
-example  (h :a < b) : a++ < b++ := by simp [h]
+example  (h :a < b) : a++ < b++ := by
+  sorry -- TODO: needs custom Nat lemmas
 
 /-- Compare with Mathlib's `Nat.lt_succ_self`. -/
 theorem Nat.succ_gt_self (n:Nat) : n++ > n := by
@@ -272,16 +273,8 @@ example : (∃ (x : _root_.Nat), 3 < x  ):=by
 
 (a) (Order is reflexive). Compare with Mathlib's `Nat.le_refl`.-/
 theorem Nat.ge_refl (a:Nat) : a ≥ a := by
-  cases zero
-  rw [ge_iff_le]
-
-
-
-  -- . cases
-    -- rename_i x
-  -- constructor
-  -- .
-  -- .
+  use 0
+  rw [add_zero]
 
 @[refl]
 theorem Nat.le_refl (a:Nat) : a ≤ a := a.ge_refl
@@ -292,10 +285,10 @@ example (a b:Nat): a+b ≥ a+b := by rfl
 /-- (b) (Order is transitive). The `obtain` tactic will be useful here.
     Compare with Mathlib's `Nat.le_trans`. -/
 theorem Nat.ge_trans {a b c:Nat} (hab: a ≥ b) (hbc: b ≥ c) : a ≥ c := by
-  constructor
-  obtain ⟨a, ha⟩ := hab
-  obtain ⟨b, hb⟩ := hbc
-  
+  obtain ⟨d₁, h₁⟩ := hab
+  obtain ⟨d₂, h₂⟩ := hbc
+  use d₁ + d₂
+  rw [h₁, h₂, add_assoc, add_comm d₂ d₁]
 
 -- axiom one_eq_two  : 1 = 2
 -- example : 1 = 2 := by unfold

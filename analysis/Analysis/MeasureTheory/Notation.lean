@@ -24,15 +24,10 @@ theorem Set.indicator'_of_notMem {X: Type*} {E:Set X} {x:X} (h: x ∉ E) : indic
 /-- A version of `EuclideanSpace` suitable for this text. -/
 noncomputable abbrev EuclideanSpace' (n: ℕ) := EuclideanSpace ℝ (Fin n)
 
-abbrev EuclideanSpace'.equiv_Real : EuclideanSpace' 1 ≃ ℝ where
-  toFun x := x ⟨ 0, by simp ⟩
-  invFun x := (fun _ ↦ x)
-  left_inv x := by
-    ext ⟨ i, hi ⟩; have : i=0 := by omega
-    subst this; simp
-  right_inv x := by aesop
+noncomputable abbrev EuclideanSpace'.equiv_Real : EuclideanSpace' 1 ≃ ℝ :=
+  (EuclideanSpace.equiv (Fin 1) ℝ).toEquiv.trans (Equiv.funUnique (Fin 1) ℝ)
 
-instance EuclideanSpace'.inst_coeReal : Coe ℝ (EuclideanSpace' 1) := ⟨equiv_Real.symm⟩
+noncomputable instance EuclideanSpace'.inst_coeReal : Coe ℝ (EuclideanSpace' 1) := ⟨equiv_Real.symm⟩
 
 theorem EuclideanSpace'.norm_eq {n:ℕ} (x: EuclideanSpace' n) : ‖x‖ = √(∑ i, (x i)^2) := by
   convert EuclideanSpace.norm_eq x using 3 with i
@@ -50,20 +45,8 @@ theorem EuclideanSpace'.dot_apply {n:ℕ} (x y: EuclideanSpace' n) : x ⬝ y = �
 #check ENNReal.mul_top
 #check lt_top_iff_ne_top
 
-def EuclideanSpace'.prod_equiv (d₁ d₂:ℕ) : EuclideanSpace' (d₁ + d₂) ≃ EuclideanSpace' d₁ × EuclideanSpace' d₂ where
-  toFun x := by
-    constructor
-    . intro ⟨ i, hi ⟩; exact x ⟨ i, by omega ⟩
-    intro ⟨ i, hi⟩; exact x ⟨ i+d₁, by omega ⟩
-  invFun x i := by
-    obtain ⟨ i, hi ⟩ := i
-    exact if h:i < d₁ then x.1 ⟨ i, h ⟩ else x.2 ⟨ i-d₁, by omega ⟩
-  left_inv x := by
-    ext ⟨ i, hi ⟩; by_cases h : i < d₁ <;> simp [h]
-    congr; omega
-  right_inv x := by
-    ext ⟨ i, hi ⟩ <;> simp [hi]
-    congr!; omega
+noncomputable def EuclideanSpace'.prod_equiv (d₁ d₂:ℕ) : EuclideanSpace' (d₁ + d₂) ≃ EuclideanSpace' d₁ × EuclideanSpace' d₂ :=
+  (EuclideanSpace.finAddEquivProd (𝕜 := ℝ) (n := d₁) (m := d₂)).toEquiv
 
 def EuclideanSpace'.prod {d₁ d₂:ℕ} (E₁: Set (EuclideanSpace' d₁)) (E₂: Set (EuclideanSpace' d₂)) : Set (EuclideanSpace' (d₁+d₂)) := (EuclideanSpace'.prod_equiv d₁ d₂).symm '' (E₁ ×ˢ E₂)
 

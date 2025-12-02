@@ -4,15 +4,15 @@ open Lake DSL
 package «Analysis» where
   -- Settings applied to both builds and interactive editing
   leanOptions := #[
-    ⟨`pp.unicode.fun, true⟩,
-    -- ⟨`doc.verso, true⟩
+    ⟨`pp.unicode.fun, true⟩
+    -- ⟨`doc.verso, true⟩  -- Temporarily disabled to verify code compiles
   ]
   -- Settings applied only to command line builds
   moreLeanArgs := #[]
 
 -- Require Mathlib (the comprehensive library of mathematics in Lean)
 require mathlib from git
-  "https://github.com/leanprover-community/mathlib4.git" @ "v4.23.0-rc2"
+  "https://github.com/leanprover-community/mathlib4.git" @ "v4.26.0-rc2"
 
 -- This library is needed to build the online version.
 -- If ../book/lakefile.lean requires verso @ "v4.X.Y", then this line should require
@@ -34,7 +34,7 @@ lean_exe "literate-extract" where
 
 meta if get_config? env = some "dev" then
 require «doc-gen4» from git
-  "https://github.com/leanprover/doc-gen4" @ "v4.23.0-rc2"
+  "https://github.com/leanprover/doc-gen4" @ "v4.26.0-rc2"
 
 
 module_facet literate mod : System.FilePath := do

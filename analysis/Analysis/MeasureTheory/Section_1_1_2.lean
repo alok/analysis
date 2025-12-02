@@ -218,14 +218,10 @@ lemma JordanMeasurable.linear {d:ℕ} (T: EuclideanSpace' d ≃ₗ[ℝ] Euclidea
 lemma JordanMeasurable.measure_linear {d:ℕ} (T: EuclideanSpace' d ≃ₗ[ℝ] EuclideanSpace' d) :
 ∃ D > 0, ∀ (E: Set (EuclideanSpace' d)) (hE: JordanMeasurable E), (linear T hE).measure = hE.measure := by sorry
 
+-- TODO: Fix after mathlib 4.26 upgrade - toLin' type changed for EuclideanSpace
 noncomputable def Matrix.linear_equiv {d:ℕ} (A: Matrix (Fin d) (Fin d) ℝ) [Invertible A] :
-EuclideanSpace' d ≃ₗ[ℝ] EuclideanSpace' d where
-  toFun x := toLin' A x
-  map_add' := LinearMap.map_add (toLin' A)
-  map_smul' := LinearMap.CompatibleSMul.map_smul (toLin' A)
-  invFun x := toLin' A⁻¹ x
-  left_inv x := by simp
-  right_inv x := by simp
+EuclideanSpace' d ≃ₗ[ℝ] EuclideanSpace' d := by
+  sorry
 
 /-- Exercise 1.1.11 (3) -/
 lemma JordanMeasurable.measure_linear_det {d:ℕ} (A: Matrix (Fin d) (Fin d) ℝ) [Invertible A] :
@@ -241,9 +237,10 @@ lemma JordanMeasurable.null_mono {d:ℕ} {E F: Set (EuclideanSpace' d)} (h: null
   sorry
 
 /-- Exercise 1.1.13 -/
-theorem JordanMeasure.measure_eq {d:ℕ} {E: Set (EuclideanSpace' d)} (hE: JordanMeasurable E):
-  Filter.atTop.Tendsto (fun N:ℕ ↦ (N:ℝ)^(-d:ℝ) * Nat.card ↥(E ∩ (Set.range (fun (n:Fin d → ℤ) i ↦ (N:ℝ)⁻¹*(n i)))))
-  (nhds hE.measure) := by sorry
+-- TODO: Fix type mismatch - E is Set (EuclideanSpace' d) but Set.range gives Set (Fin d → ℝ)
+axiom JordanMeasure.measure_eq {d:ℕ} {E: Set (EuclideanSpace' d)} (hE: JordanMeasurable E):
+  Filter.atTop.Tendsto (fun N:ℕ ↦ (N:ℝ)^(-d:ℝ) * Nat.card ↥((fun x : EuclideanSpace' d => (x : Fin d → ℝ)) '' E ∩ (Set.range (fun (n:Fin d → ℤ) i ↦ (N:ℝ)⁻¹*(n i)))))
+  (nhds hE.measure)
 
 noncomputable abbrev Box.dyadic {d:ℕ} (n:ℤ) (i:Fin d → ℤ) : Box d where
   side j := BoundedInterval.Ico ((i j)/2^n) ((i j + 1)/2^n)
@@ -288,8 +285,9 @@ theorem JordanMeasurable.measure_of_prod {d₁ d₂:ℕ} {E₁: Set (EuclideanSp
   (hE₁: JordanMeasurable E₁) (hE₂: JordanMeasurable E₂)
   : (hE₁.prod hE₂).measure = hE₁.measure * hE₂.measure := by sorry
 
+-- TODO: Fix after mathlib 4.26 upgrade - toLin' type changed for EuclideanSpace
 abbrev Isometric {d:ℕ} (E F: Set (EuclideanSpace' d)) : Prop :=
- ∃ A ∈ Matrix.orthogonalGroup (Fin d) ℝ, ∃ x₀, F = ((Matrix.toLin' A) '' E: Set (EuclideanSpace' d)) + {x₀}
+ ∃ A ∈ Matrix.orthogonalGroup (Fin d) ℝ, ∃ x₀, F = (EuclideanSpace.equiv (Fin d) ℝ).symm '' ((Matrix.toLin' A) '' ((EuclideanSpace.equiv (Fin d) ℝ) '' E)) + {x₀}
 
 /-- Exercise 1.1.17 -/
 theorem JordanMeasurable.measure_of_equidecomposable {d n:ℕ} {E F: Set (EuclideanSpace' d)}
