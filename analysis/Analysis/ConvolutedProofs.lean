@@ -59,8 +59,7 @@ lemma rat_to_coprime_pair (q : ℚ) (hq_pos : 0 < q) :
   · simp only [Rat.cast_def, a, b]
     congr
     exact (Int.natAbs_of_nonneg (le_of_lt (Rat.num_pos.mpr hq_pos))).symm
--- set_option pp.coercions false in
-theorem idk (h: ¬(∃q : ℚ, ↑q = √(2:Rat))) : True := by sorry
+
 
 /-- If √2 = a/b with a, b coprime, then a² = 2b². -/
 lemma sqrt_two_eq_ratio_implies_square_eq (a b : ℕ) (hb_pos : 0 < b)
