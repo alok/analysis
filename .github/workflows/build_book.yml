@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - main
+    - verso-4.26.0-rc2
   pull_request:
   workflow_dispatch:
 
@@ -94,7 +95,7 @@ jobs:
 
     # Specify runner + deployment step
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/verso-4.26.0-rc2'
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
