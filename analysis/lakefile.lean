@@ -17,9 +17,8 @@ require mathlib from git
 -- This library is needed to build the online version.
 -- If ../book/lakefile.lean requires verso @ "v4.X.Y", then this line should require
 -- subverso @ "verso-v4.X.Y".
--- Right now, it's set to `main` instead to get newer improvements; next time Verso is
--- updated in `../book/`, this should be set to the corresponding tag again.
-require subverso from git "https://github.com/leanprover/subverso" @ "main"
+-- Pinned to match book's verso (795bc01) which uses this subverso version.
+require subverso from git "https://github.com/leanprover/subverso" @ "519b262cfc93634f904c9fb0992a45377ee49a9d"
 
 -- This library is needed to build the online version.
 require MD4Lean from git "https://github.com/acmepjz/md4lean" @ "main"
