@@ -43,7 +43,7 @@ jobs:
 
       # Getting the mathlib cache is only useful when mathlib gets updated, but will save a lot of time in that case.
       - name: Get Mathlib cache
-        run: ~/.elan/bin/lake exe cache get || true
+        run: ~/.elan/bin/lake exe cache get
         working-directory: ./analysis
       - name: Build doc-gen
         run: ~/.elan/bin/lake -R -Kenv=dev build Analysis:docs
