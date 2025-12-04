@@ -167,7 +167,7 @@ end
 
 def codeOpts : CodeOpts := { contextName := `name }
 
-open Verso Doc Elab PartElabM in
+open Verso Verso.Doc Elab PartElabM in
 open Verso.Genre Blog in
 open Lean.Parser.Command in
 partial def docFromModAndTerms
@@ -264,26 +264,26 @@ where
     let inlines ← txt.mapM (ofInline tms)
     ``(Block.para $(← arr inlines))
   | .ul _ _ lis => do
-    ``(Doc.Block.ul $(← arr (← lis.mapM (ofLi tms))))
+    ``(Block.ul $(← arr (← lis.mapM (ofLi tms))))
   | .ol _ start _ lis => do
-    ``(Doc.Block.ol $(quote (start : Int)) $(← arr (← lis.mapM (ofLi tms))))
+    ``(Block.ol $(quote (start : Int)) $(← arr (← lis.mapM (ofLi tms))))
   | .code info lang _ strs => do
     let str := strs.toList |> String.join
     if info.isEmpty && lang.isEmpty then
-      ``(Doc.Block.code $(quote str))
+      ``(Block.code $(quote str))
     else
       let msg : MessageData :=
         "Info and language information in code blocks is not supported:" ++
         indentD m!"info is {repr info} and language is {repr lang}"
       throwError msg
   | .blockquote bs => do
-    ``(Doc.Block.blockquote $(← arr (← bs.mapM (ofBlock tms))))
+    ``(Block.blockquote $(← arr (← bs.mapM (ofBlock tms))))
   | b => throwError "Unsupported block {repr b}"
 
   ofLi (tms : HashMap String Highlighted) : MD4Lean.Li MD4Lean.Block → PartElabM Term
   | {isTask, taskChar:=_, taskMarkOffset:=_, contents} => do
     if isTask then throwError "Tasks not supported"
-    ``(Doc.ListItem.mk $(← arr (← contents.mapM (ofBlock tms))))
+    ``(ListItem.mk $(← arr (← contents.mapM (ofBlock tms))))
 
   ofInline (tms : HashMap String Highlighted) : MD4Lean.Text → PartElabM Term
   | .normal str => ``(Inline.text $(quote str))
