@@ -11,7 +11,7 @@ import MD4Lean
 open Lean Elab Frontend
 open Lean.Elab.Command hiding Context
 open SubVerso Examples Module
-open SubVerso.Highlighting (Highlighted highlight highlightMany)
+open SubVerso.Highlighting (Highlighted highlight highlightFrontendResult)
 
 def helpText : String :=
 "Extract a module's highlighted representation as JSON
@@ -77,28 +77,6 @@ where
       else
         pure none
 
-/--
-Extends the last token's trailing whitespace to include the rest of the file.
--/
-partial def wholeFile (contents : String) (stx : Syntax) : Syntax :=
-  wholeFile' stx |>.getD stx
-where
-  wholeFile' : Syntax → Option Syntax
-  | Syntax.atom info val => pure <| Syntax.atom (wholeFileInfo info) val
-  | Syntax.ident info rawVal val pre => pure <| Syntax.ident (wholeFileInfo info) rawVal val pre
-  | Syntax.node info k args => do
-    for i in [0:args.size - 1] do
-      let j := args.size - (i + 1)
-      if let some s := wholeFile' args[j]! then
-        let args := args.set! j s
-        return Syntax.node info k args
-    none
-  | .missing => none
-
-  wholeFileInfo : SourceInfo → SourceInfo
-    | .original l l' t _ => .original l l' t contents.endPos
-    | i => i
-
 structure ModuleItem' extends ModuleItem where
   terms : Array (String × Highlighted)
 
@@ -133,29 +111,12 @@ unsafe def go (suppressedNamespaces : Array Name) (mod : String) (out : IO.FS.St
     let cmdPos := parserState.pos
     let cmdSt ← IO.mkRef {commandState, parserState, cmdPos}
 
-    processCommands pctx cmdSt
+    let res ← Compat.Frontend.processCommands headerStx pctx cmdSt
+    let res := res.updateLeading contents
 
-    -- The EOI parser uses a constant `"".toSubstring` for its leading and trailing info, which gets
-    -- in the way of `updateLeading`. This can lead to missing comments from the end of the file.
-    -- This fixup replaces it with an empty substring that's actually at the end of the input, which
-    -- fixes this.
-    let cmdStx := (← cmdSt.get).commands.map fun cmd =>
-      if cmd.isOfKind ``Lean.Parser.Command.eoi then
-        let s := {contents.toSubstring with startPos := contents.endPos, stopPos := contents.endPos}
-        .node .none ``Lean.Parser.Command.eoi #[.atom (.original s contents.endPos s contents.endPos) ""]
-      else cmd
+    let hls ← (Frontend.runCommandElabM <| liftTermElabM <| highlightFrontendResult res (suppressNamespaces := suppressedNamespaces.toList)) pctx cmdSt
 
-    let infos := (← cmdSt.get).commandState.infoState.trees
-    let msgs := Compat.messageLogArray (← cmdSt.get).commandState.messages
-
-
-    let .node _ _ cmds := mkNullNode (#[headerStx] ++ cmdStx) |>.updateLeading |> wholeFile contents
-      | panic! "updateLeading created non-node"
-
-    let infos := infos.toArray.map some
-    let infos := #[none] ++ infos
-
-    let hls ← (Frontend.runCommandElabM <| liftTermElabM <| highlightMany cmds msgs infos (suppressNamespaces := suppressedNamespaces.toList)) pctx cmdSt
+    let cmds := res.syntax
 
     let env := (← cmdSt.get).commandState.env
     let getTerms := cmds.mapM fun (stx : Syntax) => show FrontendM _ from do
