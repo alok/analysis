@@ -221,16 +221,16 @@ partial def docFromModAndTerms
         match docCommentIdx with
         | some i =>
           let codeBefore ← hlViaExport (Highlighted.seq s[:i])
-          let codeBefore ← ``(Block.other
+          let codeBefore ← ``(Verso.Doc.Block.other
             (BlockExt.highlightedCode codeOpts $(mkIdent codeBefore)) Array.mkArray0)
           let some ⟨mdBlocks⟩ := MD4Lean.parse (← getDocCommentString s[i]!)
             | throwError m!"Failed to parse Markdown: {← getDocCommentString s[i]!}"
           let docCommentBlocks ← mdBlocks.mapM (fun b => ofBlock tms b)
           let codeAfter ← hlViaExport (Highlighted.seq s[i+1:])
-          let codeAfter ←``(Block.other (BlockExt.highlightedCode codeOpts $(mkIdent codeAfter)) Array.mkArray0)
+          let codeAfter ←``(Verso.Doc.Block.other (BlockExt.highlightedCode codeOpts $(mkIdent codeAfter)) Array.mkArray0)
 
           let blocks : Array Term := #[codeBefore] ++ docCommentBlocks ++ #[codeAfter]
-          addBlock (← ``(Block.other (BlockExt.htmlDiv "declaration") #[$blocks,*]))
+          addBlock (← ``(Verso.Doc.Block.other (BlockExt.htmlDiv "declaration") #[$blocks,*]))
         | none =>
           -- No docComment attached to declaration, render definition as usual
           addCodeBlock code
@@ -242,7 +242,7 @@ partial def docFromModAndTerms
       -- addCodeBlock code
       if let some msg := getFirstMessage code then
         let msg : Highlighted.Message := ⟨msg.1, msg.2⟩
-        addBlock (← ``(Block.other (Blog.BlockExt.message false $(quote msg) []) #[]))
+        addBlock (← ``(Verso.Doc.Block.other (Blog.BlockExt.message false $(quote msg) []) #[]))
     | _ =>
       pure ()
       addCodeBlock code
@@ -250,7 +250,7 @@ partial def docFromModAndTerms
 where
   addCodeBlock (code : Highlighted) := do
     let n ← hlViaExport code
-    addBlock (← ``(Block.other (BlockExt.highlightedCode codeOpts $(mkIdent n)) Array.mkArray0))
+    addBlock (← ``(Verso.Doc.Block.other (BlockExt.highlightedCode codeOpts $(mkIdent n)) Array.mkArray0))
 
   arr (xs : Array Term) : PartElabM Term := do
     if xs.size ≤ 8 then
@@ -262,45 +262,45 @@ where
   | .header .. => throwError "Headers should be processed at the part level"
   | .p txt => do
     let inlines ← txt.mapM (ofInline tms)
-    ``(Block.para $(← arr inlines))
+    ``(Verso.Doc.Block.para $(← arr inlines))
   | .ul _ _ lis => do
-    ``(Block.ul $(← arr (← lis.mapM (ofLi tms))))
+    ``(Verso.Doc.Block.ul $(← arr (← lis.mapM (ofLi tms))))
   | .ol _ start _ lis => do
-    ``(Block.ol $(quote (start : Int)) $(← arr (← lis.mapM (ofLi tms))))
+    ``(Verso.Doc.Block.ol $(quote (start : Int)) $(← arr (← lis.mapM (ofLi tms))))
   | .code info lang _ strs => do
     let str := strs.toList |> String.join
     if info.isEmpty && lang.isEmpty then
-      ``(Block.code $(quote str))
+      ``(Verso.Doc.Block.code $(quote str))
     else
       let msg : MessageData :=
         "Info and language information in code blocks is not supported:" ++
         indentD m!"info is {repr info} and language is {repr lang}"
       throwError msg
   | .blockquote bs => do
-    ``(Block.blockquote $(← arr (← bs.mapM (ofBlock tms))))
+    ``(Verso.Doc.Block.blockquote $(← arr (← bs.mapM (ofBlock tms))))
   | b => throwError "Unsupported block {repr b}"
 
   ofLi (tms : HashMap String Highlighted) : MD4Lean.Li MD4Lean.Block → PartElabM Term
   | {isTask, taskChar:=_, taskMarkOffset:=_, contents} => do
     if isTask then throwError "Tasks not supported"
-    ``(ListItem.mk $(← arr (← contents.mapM (ofBlock tms))))
+    ``(Verso.Doc.ListItem.mk $(← arr (← contents.mapM (ofBlock tms))))
 
   ofInline (tms : HashMap String Highlighted) : MD4Lean.Text → PartElabM Term
-  | .normal str => ``(Inline.text $(quote str))
+  | .normal str => ``(Verso.Doc.Inline.text $(quote str))
   | .nullchar => throwError "Unsupported null character in Markdown"
-  | .softbr txt => ``(Inline.linebreak $(quote txt))
+  | .softbr txt => ``(Verso.Doc.Inline.linebreak $(quote txt))
   | .a href _title _isAuto contents => do
     let href := (← href.mapM ofAttrText).toList |> String.join
     let contents ← contents.mapM (ofInline tms)
-    ``(Inline.link $(← arr contents) $(quote href))
+    ``(Verso.Doc.Inline.link $(← arr contents) $(quote href))
   | .code str => do
     let codeStr := String.join str.toList
     if let some hl := tms[codeStr]? then
-      ``(Inline.other (InlineExt.highlightedCode codeOpts $(quote hl)) #[])
+      ``(Verso.Doc.Inline.other (InlineExt.highlightedCode codeOpts $(quote hl)) #[])
     else
-      ``(Inline.code $(quote <| String.join str.toList))
-  | .em txt => do ``(Inline.emph $(← arr (← txt.mapM (ofInline tms))))
-  | .strong txt => do ``(Inline.bold $(← arr (← txt.mapM (ofInline tms))))
+      ``(Verso.Doc.Inline.code $(quote <| String.join str.toList))
+  | .em txt => do ``(Verso.Doc.Inline.emph $(← arr (← txt.mapM (ofInline tms))))
+  | .strong txt => do ``(Verso.Doc.Inline.bold $(← arr (← txt.mapM (ofInline tms))))
   | .img src _title alt => do
     let mut src := (← src.mapM ofAttrText).toList |> String.join
     for (pat, template) in rewriter do
@@ -312,13 +312,13 @@ where
           | .ok v => src := src ++ v
         break
     let alt := (alt.map inlineText).toList |> String.join
-    ``(Inline.image $(quote alt) $(quote src))
+    ``(Verso.Doc.Inline.image $(quote alt) $(quote src))
   | .latexMath strs =>
     let str := strs.toList |> String.join
-    ``(Inline.math MathMode.inline $(quote str))
+    ``(Verso.Doc.Inline.math Verso.Doc.MathMode.inline $(quote str))
   | .latexMathDisplay strs =>
     let str := strs.toList |> String.join
-    ``(Inline.math MathMode.display $(quote str))
+    ``(Verso.Doc.Inline.math Verso.Doc.MathMode.display $(quote str))
   | other => throwError "Unimplemented {repr other}"
 
   inlineText : MD4Lean.Text → String
