@@ -34,12 +34,13 @@ example : ∃ ε > 0, ∀ x, 0 < x ∧ x < ε → sin x > x / 2 := by
   have := exists_deriv_eq_slope sin hpos (by fun_prop) (by fun_prop)
   simp [hderiv] at this
   obtain ⟨ y, ⟨ hy1, hy2 ⟩, hy3 ⟩ := this
-  suffices hcosy : cos y > 1/2
-  . rw [hy3, gt_iff_lt, ←(mul_lt_mul_left hpos)] at hcosy
-    rw [gt_iff_lt]
-    convert hcosy using 1
-    . ring
-    field_simp
+  suffices hcosyₕ : cos y > 1/2
+  . have hcosyₕ' : (1/2:ℝ) < sin x / x := by
+      simpa [hy3, gt_iff_lt] using hcosyₕ
+    have hcosyₕ'' : (1/2:ℝ) * x < sin x := (lt_div_iff₀ hpos).1 hcosyₕ'
+    have hcosyₕ''' : x / 2 < sin x := by
+      simpa [div_eq_mul_inv, mul_comm, mul_left_comm, mul_assoc] using hcosyₕ''
+    exact (by simpa [gt_iff_lt] using hcosyₕ''')
   suffices ybound : y < π/3
   . have := cos_lt_cos_of_nonneg_of_le_pi (le_of_lt hy1) (by linarith) ybound
     simp only [cos_pi_div_three, ←gt_iff_lt] at this
@@ -64,10 +65,11 @@ example : ∃ ε > 0, ∀ x, 0 < x ∧ x < ε → sin x > x / 2 := by
   simp [hderiv] at this
   obtain ⟨ y, ⟨ hy1, hy2 ⟩, hy3 ⟩ := this
   have ybound : y < π/3 := by linarith
-  have hcosy := cos_lt_cos_of_nonneg_of_le_pi (le_of_lt hy1) (by linarith) ybound
-  simp only [cos_pi_div_three, ←gt_iff_lt] at hcosy
-  rw [hy3, gt_iff_lt, ←(mul_lt_mul_left hpos)] at hcosy
-  rw [gt_iff_lt]
-  convert hcosy using 1
-  . ring
-  field_simp
+  have hcosyₕ := cos_lt_cos_of_nonneg_of_le_pi (le_of_lt hy1) (by linarith) ybound
+  simp only [cos_pi_div_three, ←gt_iff_lt] at hcosyₕ
+  have hcosyₕ' : (1/2:ℝ) < sin x / x := by
+    simpa [hy3, gt_iff_lt] using hcosyₕ
+  have hcosyₕ'' : (1/2:ℝ) * x < sin x := (lt_div_iff₀ hpos).1 hcosyₕ'
+  have hcosyₕ''' : x / 2 < sin x := by
+    simpa [div_eq_mul_inv, mul_comm, mul_left_comm, mul_assoc] using hcosyₕ''
+  exact (by simpa [gt_iff_lt] using hcosyₕ''')

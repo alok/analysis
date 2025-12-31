@@ -87,30 +87,88 @@ theorem integ_of_monotone {a b:ℝ} {f:ℝ → ℝ} (hf: MonotoneOn f (Icc a b))
       _ = ∑ j ∈ .range N, (sSup (f '' (Ico (a + δ*j) (a + δ*(j+1))))) * |Ico (a + δ*j) (a + δ*(j+1))|ₗ := by simp [P]; congr
       _ ≤ ∑ j ∈ .range N, f (a + δ*(j+1)) * δ := by
         apply Finset.sum_le_sum; intro j hj
-        convert (mul_le_mul_right hδpos).mpr ?_
-        . simp [length]; ring_nf; simp [le_of_lt hδpos]
-        apply csSup_le
-        . simp; grind
-        intro y hy; simp at hy; obtain ⟨ x, ⟨ hx1, hx2 ⟩, rfl ⟩ := hy
-        have : a + δ*(j+1) ≤ b := by simp [hbeq]; gcongr; norm_cast; grind
-        have hδj : 0 ≤ δ*j := by positivity
-        have hδj1 : 0 ≤ δ*(j+1) := by positivity
-        apply hf _ _ (by order) <;> simp [I, hδj1, this]; grind
+        have hδleₕ : 0 ≤ δ := le_of_lt hδpos
+        have hsupₕ : sSup (f '' (Ico (a + δ*j) (a + δ*(j+1)))) ≤ f (a + δ*(j+1)) := by
+          apply csSup_le
+          . refine ⟨f (a + δ*j), ?_⟩
+            refine ⟨a + δ*j, ?_, rfl⟩
+            have hjltₕ : (j:ℝ) < j + 1 := by
+              exact_mod_cast Nat.lt_succ_self j
+            have hltₕ : a + δ*j < a + δ*(j+1) := by
+              have hlt' : δ*(j:ℝ) < δ*(j+1) := by
+                exact mul_lt_mul_of_pos_left hjltₕ hδpos
+              linarith
+            exact ⟨le_rfl, hltₕ⟩
+          intro y hy; simp at hy; obtain ⟨ x, ⟨ hx1, hx2 ⟩, rfl ⟩ := hy
+          have hjltₕ : j < N := by simpa [Finset.mem_range] using hj
+          have hjleₕ : (j:ℝ) + 1 ≤ (N:ℝ) := by
+            exact_mod_cast Nat.succ_le_of_lt hjltₕ
+          have hajbₕ : a + δ*(j+1) ≤ b := by
+            simp [hbeq]
+            gcongr
+          have hδj1ₕ : 0 ≤ δ*(j+1) := by positivity
+          have hxIₕ : x ∈ I := by
+            have hδjₕ : 0 ≤ δ*j := by positivity
+            have hx_lowerₕ : a ≤ x := by linarith [hx1, hδjₕ]
+            have hx_upperₕ : x ≤ b := by
+              exact le_of_lt (lt_of_lt_of_le hx2 hajbₕ)
+            exact ⟨hx_lowerₕ, hx_upperₕ⟩
+          have hrightIₕ : a + δ*(j+1) ∈ I := by
+            have hleftₕ : a ≤ a + δ*(j+1) := by linarith [hδj1ₕ]
+            exact ⟨hleftₕ, hajbₕ⟩
+          exact hf hxIₕ hrightIₕ (le_of_lt hx2)
+        have hmulₕ : sSup (f '' (Ico (a + δ*j) (a + δ*(j+1)))) * δ
+            ≤ f (a + δ*(j+1)) * δ := mul_le_mul_of_nonneg_right hsupₕ hδleₕ
+        calc
+          sSup (f '' (Ico (a + δ*j) (a + δ*(j+1)))) * |Ico (a + δ*j) (a + δ*(j+1))|ₗ
+              = sSup (f '' (Ico (a + δ*j) (a + δ*(j+1)))) * δ := by
+                simp [length]; ring_nf; simp [le_of_lt hδpos]
+          _ ≤ f (a + δ*(j+1)) * δ := hmulₕ
     have hdown := calc
       lower_integral f I ≥ ∑ J ∈ P.intervals, (sInf (f '' (J:Set ℝ))) * |J|ₗ :=
         lower_integ_ge_lower_sum hbound P
       _ = ∑ j ∈ .range N, (sInf (f '' (Ico (a + δ*j) (a + δ*(j+1))))) * |Ico (a + δ*j) (a + δ*(j+1))|ₗ := by simp [P]; congr
       _ ≥ ∑ j ∈ .range N, f (a + δ*j) * δ := by
         apply Finset.sum_le_sum; intro j hj
-        convert (mul_le_mul_right hδpos).mpr ?_
-        . simp [length]; ring_nf; simp [le_of_lt hδpos]
-        apply le_csInf
-        . simp; grind
-        intro y hy; simp at hy; obtain ⟨ x, ⟨ hx1, hx2 ⟩, rfl ⟩ := hy
-        have hajb': a + δ*(j+1) ≤ b := by simp [hbeq]; gcongr; norm_cast; grind
-        have hδj : 0 ≤ δ*j := by positivity
-        have hδj1 : 0 ≤ δ*(j+1) := by positivity
-        apply_rules [hf] <;> simp [I, hδj] <;> grind
+        have hδleₕ : 0 ≤ δ := le_of_lt hδpos
+        have hlowₕ : f (a + δ*j) ≤ sInf (f '' (Ico (a + δ*j) (a + δ*(j+1)))) := by
+          apply le_csInf
+          . refine ⟨f (a + δ*j), ?_⟩
+            refine ⟨a + δ*j, ?_, rfl⟩
+            have hjltₕ : (j:ℝ) < j + 1 := by
+              exact_mod_cast Nat.lt_succ_self j
+            have hltₕ : a + δ*j < a + δ*(j+1) := by
+              have hlt' : δ*(j:ℝ) < δ*(j+1) := by
+                exact mul_lt_mul_of_pos_left hjltₕ hδpos
+              linarith
+            exact ⟨le_rfl, hltₕ⟩
+          intro y hy; simp at hy; obtain ⟨ x, ⟨ hx1, hx2 ⟩, rfl ⟩ := hy
+          have hjltₕ : j < N := by simpa [Finset.mem_range] using hj
+          have hjleₕ : (j:ℝ) + 1 ≤ (N:ℝ) := by
+            exact_mod_cast Nat.succ_le_of_lt hjltₕ
+          have hajbₕ : a + δ*(j+1) ≤ b := by
+            simp [hbeq]
+            gcongr
+          have hδjₕ : 0 ≤ δ*j := by positivity
+          have hδj1ₕ : 0 ≤ δ*(j+1) := by positivity
+          have hleftIₕ : a + δ*j ∈ I := by
+            have hleftₕ : a ≤ a + δ*j := by linarith [hδjₕ]
+            have hstepₕ : a + δ*j ≤ a + δ*(j+1) := by linarith [hδleₕ]
+            have hrightₕ : a + δ*j ≤ b := le_trans hstepₕ hajbₕ
+            exact ⟨hleftₕ, hrightₕ⟩
+          have hxIₕ : x ∈ I := by
+            have hx_lowerₕ : a ≤ x := by linarith [hx1, hδjₕ]
+            have hx_upperₕ : x ≤ b := by
+              exact le_of_lt (lt_of_lt_of_le hx2 hajbₕ)
+            exact ⟨hx_lowerₕ, hx_upperₕ⟩
+          exact hf hleftIₕ hxIₕ hx1
+        have hmulₕ : f (a + δ*j) * δ
+            ≤ sInf (f '' (Ico (a + δ*j) (a + δ*(j+1)))) * δ := mul_le_mul_of_nonneg_right hlowₕ hδleₕ
+        calc
+          sInf (f '' (Ico (a + δ*j) (a + δ*(j+1)))) * |Ico (a + δ*j) (a + δ*(j+1))|ₗ
+              = sInf (f '' (Ico (a + δ*j) (a + δ*(j+1)))) * δ := by
+                simp [length]; ring_nf; simp [le_of_lt hδpos]
+          _ ≥ f (a + δ*j) * δ := hmulₕ
     calc
       _ ≤ ∑ j ∈ .range N, f (a + δ*(j+1)) * δ - ∑ j ∈ .range N, f (a + δ*j) * δ := by linarith
       _ = (f b - f a) * δ := by

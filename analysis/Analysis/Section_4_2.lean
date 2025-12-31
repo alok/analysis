@@ -64,7 +64,15 @@ infix:100 " // " => Rat.formalDiv
 
 /-- Definition 4.2.1 (Rationals) -/
 theorem Rat.eq (a c:ℤ) {b d:ℤ} (hb: b ≠ 0) (hd: d ≠ 0): a // b = c // d ↔ a * d = c * b := by
-  simp [hb, hd, Setoid.r]
+  constructor
+  · intro hₕ
+    have h'ₕ : (⟨ a,b,hb ⟩: PreRat) ≈ ⟨ c,d,hd ⟩ := by
+      simpa [Rat.formalDiv, hb, hd] using (Quotient.exact hₕ)
+    simpa [PreRat.eq] using h'ₕ
+  · intro hₕ
+    have h'ₕ : (⟨ a,b,hb ⟩: PreRat) ≈ ⟨ c,d,hd ⟩ := by
+      simpa [PreRat.eq] using hₕ
+    simpa [Rat.formalDiv, hb, hd] using (Quotient.sound h'ₕ)
 
 /-- Definition 4.2.1 (Rationals) -/
 theorem Rat.eq_diff (n:Rat) : ∃ a b, b ≠ 0 ∧ n = a // b := by
@@ -84,11 +92,20 @@ instance Rat.decidableEq : DecidableEq Rat := by
 instance Rat.add_inst : Add Rat where
   add := Quotient.lift₂ (fun ⟨ a, b, h1 ⟩ ⟨ c, d, h2 ⟩ ↦ (a*d+b*c) // (b*d)) (by
     intro ⟨ a, b, h1 ⟩ ⟨ c, d, h2 ⟩ ⟨ a', b', h1' ⟩ ⟨ c', d', h2' ⟩ h3 h4
-    simp_all [Setoid.r]
+    have h3ₕ : a * b' = a' * b := by simpa [PreRat.eq] using h3
+    have h4ₕ : c * d' = c' * d := by simpa [PreRat.eq] using h4
+    have h3ₕ' : a * b' * d * d' = a' * b * d * d' := by
+      simpa [mul_assoc] using congrArg (fun t => t * d * d') h3ₕ
+    have h4ₕ' : b * b' * c * d' = b * b' * c' * d := by
+      simpa [mul_assoc] using congrArg (fun t => b * b' * t) h4ₕ
+    have hbdₕ : b * d ≠ 0 := mul_ne_zero h1 h2
+    have hb'd'ₕ : b' * d' ≠ 0 := mul_ne_zero h1' h2'
+    apply (Rat.eq (a := a*d + b*c) (c := a'*d' + b'*c') (b := b*d) (d := b'*d') hbdₕ hb'd'ₕ).2
     calc
-      _ = (a*b')*d*d' + b*b'*(c*d') := by ring
-      _ = (a'*b)*d*d' + b*b'*(c'*d) := by rw [h3, h4]
-      _ = _ := by ring
+      (a*d + b*c) * (b'*d') = a*b'*d*d' + b*b'*c*d' := by ring_nf
+      _ = a'*b*d*d' + b*b'*c*d' := by rw [h3ₕ']
+      _ = a'*b*d*d' + b*b'*c'*d := by rw [h4ₕ']
+      _ = (a'*d' + b'*c') * (b*d) := by ring_nf
   )
 
 /-- Definition 4.2.2 (Addition of rationals) -/

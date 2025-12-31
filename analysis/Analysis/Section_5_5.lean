@@ -181,7 +181,14 @@ theorem Real.LUB_exist {E: Set Real} (hE: Set.Nonempty E) (hbound: BddAbove E): 
     simp [←LIM_sub claim3 hb, S, this]
   rw [isLUB_def, upperBound_def]
   split_ands
-  . intros; apply LIM_of_ge claim3; grind [upperBound_def]
+  . intro x hx
+    have hₕ : ∀ n, (a n : Real) ≥ x := by
+      intro n
+      have hupperₕ : (a n : Real) ∈ upperBounds E := by
+        simpa [a, m] using (hm1 n)
+      exact (upperBound_def E (a n : Real)).1 hupperₕ x hx
+    have hlimₕ : LIM a ≥ x := LIM_of_ge claim3 hₕ
+    simpa [S] using hlimₕ
   intro y hy
   have claim5 (n:ℕ) : y ≥ (a-b) n := by contrapose! hm2; use n; apply upperBound_upper _ hy; order
   rw [claim4]; apply LIM_of_le _ claim5; solve_by_elim [Sequence.IsCauchy.sub]

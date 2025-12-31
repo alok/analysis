@@ -100,7 +100,8 @@ theorem DifferentiableOn.of_F_11_9_2 {x:ℝ} (hx: ¬ ∃ r:ℚ, x = r) (hx': x �
   DifferentiableWithinAt ℝ F_11_9_2 (.Icc 0 1) x := by
   have := deriv_of_integ (show 0 < 1 by norm_num) .of_f_9_8_5 hx' (ContinuousAt.of_f_9_8_5 hx).continuousWithinAt
   rw [hasDerivWithinAt_iff_hasFDerivWithinAt] at this
-  use (ContinuousLinearMap.smulRight (1:ℝ →L[ℝ] ℝ) (f_9_8_5 x))
+  refine ⟨ContinuousLinearMap.toSpanSingleton ℝ (f_9_8_5 x), ?_⟩
+  simpa [F_11_9_2] using this
 
 /-- Exercise 11.9.1 -/
 theorem DifferentiableOn.of_F_11_9_2' {q:ℚ} (hq: (q:ℝ) ∈ Set.Icc 0 1) : ¬ DifferentiableWithinAt ℝ F_11_9_2 (.Icc 0 1) q := by sorry

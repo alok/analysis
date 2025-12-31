@@ -81,11 +81,13 @@ theorem Int.eq_diff (n:Int) : ∃ a b, n = a —— b := by apply n.ind _; intro
 instance Int.instAdd : Add Int where
   add := Quotient.lift₂ (fun ⟨ a, b ⟩ ⟨ c, d ⟩ ↦ (a+c) —— (b+d) ) (by
     intro ⟨ a, b ⟩ ⟨ c, d ⟩ ⟨ a', b' ⟩ ⟨ c', d' ⟩ h1 h2
-    simp [Setoid.r] at *
+    have h1ₕ : a + b' = a' + b := by simpa [PreInt.eq] using h1
+    have h2ₕ : c + d' = c' + d := by simpa [PreInt.eq] using h2
+    apply (Int.eq (a := a + c) (b := b + d) (c := a' + c') (d := b' + d')).2
     calc
-      _ = (a+b') + (c+d') := by abel
-      _ = (a'+b) + (c'+d) := by rw [h1,h2]
-      _ = _ := by abel)
+      (a + c) + (b' + d') = (a + b') + (c + d') := by abel_nf
+      _ = (a' + b) + (c' + d) := by rw [h1ₕ, h2ₕ]
+      _ = (a' + c') + (b + d) := by abel_nf)
 
 /-- Definition 4.1.2 (Definition of addition) -/
 theorem Int.add_eq (a b c d:ℕ) : a —— b + c —— d = (a+c)——(b+d) := Quotient.lift₂_mk _ _ _ _
@@ -115,8 +117,13 @@ theorem Int.mul_congr {a b c d a' b' c' d' : ℕ} (h1: a —— b = a' —— b'
 
 instance Int.instMul : Mul Int where
   mul := Quotient.lift₂ (fun ⟨ a, b ⟩ ⟨ c, d ⟩ ↦ (a * c + b * d) —— (a * d + b * c)) (by
-    intro ⟨ a, b ⟩ ⟨ c, d ⟩ ⟨ a', b' ⟩ ⟨ c', d' ⟩ h1 h2; simp at h1 h2
-    convert mul_congr _ _ <;> simpa
+    intro ⟨ a, b ⟩ ⟨ c, d ⟩ ⟨ a', b' ⟩ ⟨ c', d' ⟩ h1 h2
+    have h1ₕ : a —— b = a' —— b' := by
+      exact Quotient.sound h1
+    have h2ₕ : c —— d = c' —— d' := by
+      exact Quotient.sound h2
+    simpa using (mul_congr (a := a) (b := b) (c := c) (d := d)
+      (a' := a') (b' := b') (c' := c') (d' := d') h1ₕ h2ₕ)
     )
 
 /-- Definition 4.1.2 (Multiplication of integers) -/

@@ -45,6 +45,8 @@ instance Nat.instAdd : Add Nat where
 @[simp]
 theorem Nat.zero_add (m: Nat) : 0 + m = m := recurse_zero (fun _ sum ↦ sum++) _
 
+
+
 /-- Compare with Mathlib's `Nat.succ_add`. -/
 theorem Nat.succ_add (n m: Nat) : n++ + m = (n+m)++ := by rfl
 
@@ -81,11 +83,8 @@ lemma Nat.add_succ (n m:Nat) : n + (m++) = (n + m)++ := by
   rw [succ_add, ih]
   rw [succ_add]
 
-/-- n++ = n + 1 (Why?). Compare with Mathlib's `Nat.succ_eq_add_one` -/
-theorem Nat.succ_eq_add_one (n:Nat) : n++ = n + 1 := by
-  rw [← zero_succ, add_succ, add_zero]
-
-example : 2 + 2  = 4 := Eq.refl (2 + 2)
+theorem Nat.add_one (m:Nat) : m + 1 = m++ := by
+  rw [show 1 = 0++ from rfl, add_succ, add_zero]
 
 /-- Proposition 2.2.4 (Addition is commutative). Compare with Mathlib's `Nat.add_comm` -/
 theorem Nat.add_comm (n m:Nat) : n + m = m + n := by
@@ -96,6 +95,23 @@ theorem Nat.add_comm (n m:Nat) : n + m = m + n := by
   rw [succ_add]
 
   rw [add_succ, ih]
+
+theorem Nat.succ_comm (m n  :  Nat) : (m+n)++ = (n+m)++ := by
+-- idea rw m+n and n+m inside
+  rw [show m + n = n+m from Nat.add_comm m n]
+
+theorem Nat.add_succ' (n m : Nat ) : m + n++ = (n+m)++ := by
+  calc
+    m + n++ = (m + n)++ := by simpa using (Nat.add_succ m n)
+    _ = (n + m)++ := by simpa using (Nat.succ_comm m n)
+
+-- #loogle Real.sin
+
+/-- n++ = n + 1 (Why?). Compare with Mathlib's `Nat.succ_eq_add_one` -/
+theorem Nat.succ_eq_add_one (n:Nat) : n++ = n + 1 := by
+  rw [← zero_succ, add_succ, add_zero]
+
+example : 2 + 2  = 4 := Eq.refl (2 + 2)
 -- #eval congrArg
 /-- Proposition 2.2.5 (Addition is associative) / Exercise 2.2.1
     Compare with Mathlib's `Nat.add_assoc`. -/
@@ -107,8 +123,6 @@ theorem Nat.add_assoc (a b c:Nat) : (a + b) + c = a + (b + c) := by
       -- goal: rewrite to `(a+b+c)++ = (a+b+c)++`, pushing out the `++`
     rw [Nat.succ_add,succ_add,succ_add,ih]
 
-
-
 /-- Proposition 2.2.6 (Cancellation law).
     Compare with Mathlib's `Nat.add_left_cancel`. -/
 theorem Nat.add_left_cancel (a b c:Nat) (habc: a + b = a + c) : b = c := by
@@ -116,12 +130,10 @@ theorem Nat.add_left_cancel (a b c:Nat) (habc: a + b = a + c) : b = c := by
   revert a; apply induction
   . intro hbc
     rwa [zero_add, zero_add] at hbc
-  intro a ih
-  intro hbc
+  intro a ih hbc
   rw [succ_add, succ_add] at hbc
   replace hbc := succ_cancel hbc
   exact ih hbc
-
 
 /-- (Not from textbook) Nat can be given the structure of a commutative additive monoid.
 This permits tactics such as `abel` to apply to the Chapter 2 natural numbers. -/
@@ -138,6 +150,7 @@ example (a b c d:Nat) : (a+b)+(c+0+d) = (b+c)+(d+a) := by abel
 
 /-- Definition 2.2.7 (Positive natural numbers).-/
 def Nat.IsPos (n:Nat) : Prop := n ≠ 0
+
 
 theorem Nat.isPos_iff (n:Nat) : n.IsPos ↔ n ≠ 0 := by rfl
 
@@ -160,7 +173,9 @@ theorem Nat.add_pos_right {a:Nat} (b:Nat) (ha: a.IsPos) : (b + a).IsPos := by
   grind [add_comm, add_pos_left]
 
 /-- Corollary 2.2.9 (if sum vanishes, then summands vanish).
-    Compare with Mathlib's `Nat.add_eq_zero`. -/
+    Compare with Mathlib's `Nat.add_eq_zero`.
+
+    -/
 theorem Nat.add_eq_zero (a b:Nat) (hab: a + b = 0) : a = 0 ∧ b = 0 := by
   -- This proof is written to follow the structure of the original text.
   by_contra h
@@ -241,23 +256,39 @@ example : (8:Nat) > 5 := by
 
 opaque aaa : Nat := 0
 def aa : Nat := 0
-
+#loogle _++
 -- /---/
 -- #guard_msgs in
 -- example : aaa = 0 := by rfl
 example : aa = 0 := by rfl
 
-example  (h :a < b) : a++ < b++ := by
-  sorry -- TODO: needs custom Nat lemmas
+-- example  (h :a < b) : a++ < b++ := by
+--   sorry -- TODO: needs custom Nat lemmas
+
+example (n:Nat): n++ ≠ n+1 := by
+  simp only [ne_eq]
+  sorry
+
 
 /-- Compare with Mathlib's `Nat.lt_succ_self`. -/
 theorem Nat.succ_gt_self (n:Nat) : n++ > n := by
-  sorry -- TODO: succ_eq_add_one renamed in mathlib v4.26
+  -- n  + 1  > n
+  -- rewrite to `le`
+  -- `use 1`
+  simp [Nat.lt_iff]
+  constructor
+  use 1
 
-example : (∃ (x : _root_.Nat), 3 < x  ):=by
+  simp [succ_eq_add_one n]
+  case right =>
+    sorry
+
+
+
+example : ∃ x, 3 < x  := by
   use 4
-  simp
-
+  -- show_term decide -- hammer
+  constructor -- works bc 4 was just 1 more than 3
 
 -- #eval Ne
 /-- Proposition 2.2.12 (Basic properties of order for natural numbers) / Exercise 2.2.3
@@ -270,14 +301,17 @@ theorem Nat.ge_refl (a:Nat) : a ≥ a := by
 @[refl]
 theorem Nat.le_refl (a:Nat) : a ≤ a := a.ge_refl
 
-/-- The refl tag allows for the `rfl` tactic to work for inequalities. -/
+/-- The `refl` tag allows for the `rfl` tactic to work for inequalities. -/
 example (a b:Nat): a+b ≥ a+b := by rfl
 
 /-- (b) (Order is transitive). The `obtain` tactic will be useful here.
     Compare with Mathlib's `Nat.le_trans`. -/
-theorem Nat.ge_trans {a b c:Nat} (hab: a ≥ b) (hbc: b ≥ c) : a ≥ c := by
-  sorry -- TODO: fix for mathlib v4.26
-
+theorem Nat.ge_trans {a b c : Nat} (hab: a ≥ b) (hbc: b ≥ c) : a ≥ c := by
+  -- obtain a number that is bigger that b, thru diff, then apply to show diff is still > 0
+--instance Nat.instLE : LE Nat where
+--  le n m := ∃ a:Nat, m = n + a
+-- first convert to statement about less instaed of graeter
+  sorry
 -- axiom one_eq_two  : 1 = 2
 -- example : 1 = 2 := by unfold
 theorem Nat.le_trans {a b c:Nat} (hab: a ≤ b) (hbc: b ≤ c) : a ≤ c := Nat.ge_trans hbc hab
@@ -432,7 +466,8 @@ example (a b c d e:Nat) (hab: a ≤ b) (hbc: b < c) (hcd: c ≤ d)
 /-- (Not from textbook) Nat has the structure of an ordered monoid. This allows for tactics
 such as `gcongr` to be applicable to the Chapter 2 natural numbers. -/
 instance Nat.isOrderedAddMonoid : IsOrderedAddMonoid Nat where
-  add_le_add_left a b hab c := (add_le_add_left a b c).mp hab
+  add_le_add_left a b hab c := by
+    simpa [Nat.add_comm] using (add_le_add_left a b c).mp hab
 
 /-- This illustration of the `gcongr` tactic is not from the
     textbook. -/
