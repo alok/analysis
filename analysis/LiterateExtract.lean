@@ -7,6 +7,7 @@ import SubVerso.Compat
 import SubVerso.Examples.Env
 import SubVerso.Module
 import MD4Lean
+import Init.Data.String.Legacy
 
 open Lean Elab Frontend
 open Lean.Elab.Command hiding Context
@@ -85,7 +86,7 @@ instance : ToJson ModuleItem' where
 where
   mkJson xs := Json.mkObj <| xs.toList.map fun (txt, tm) => (txt, toJson tm)
 
-unsafe def go (suppressedNamespaces : Array Name) (mod : String) (out : IO.FS.Stream) : IO UInt32 := do
+unsafe def go (suppressedNamespaces : List Name) (mod : String) (out : IO.FS.Stream) : IO UInt32 := do
   try
     initSearchPath (← findSysroot)
     let modName := mod.toName
@@ -114,7 +115,7 @@ unsafe def go (suppressedNamespaces : Array Name) (mod : String) (out : IO.FS.St
     let res ← Compat.Frontend.processCommands headerStx pctx cmdSt
     let res := res.updateLeading contents
 
-    let hls ← (Frontend.runCommandElabM <| liftTermElabM <| highlightFrontendResult res (suppressNamespaces := suppressedNamespaces.toList)) pctx cmdSt
+    let hls ← (Frontend.runCommandElabM <| liftTermElabM <| highlightFrontendResult res (suppressNamespaces := suppressedNamespaces)) pctx cmdSt
 
     let cmds := res.syntax
 
@@ -164,28 +165,32 @@ unsafe def go (suppressedNamespaces : Array Name) (mod : String) (out : IO.FS.St
     return 2
 
 structure Config where
-  suppressedNamespaces : Array Name := #[]
+  suppressedNamespaces : List Name := []
   mod : String
   outFile : Option String := none
 
-def Config.fromArgs (args : List String) : IO Config := go #[] args
-where
-  go (nss : Array Name) : List String → IO Config
-    | "--suppress-namespace" :: more =>
-      if let ns :: more := more then
-        go (nss.push ns.toName) more
-      else
-        throw <| .userError "No namespace given after --suppress-namespace"
-    | "--suppress-namespaces" :: more => do
-      if let file :: more := more then
-        let contents ← IO.FS.readFile file
-        let nss' := contents.split (·.isWhitespace) |>.filter (!·.isEmpty) |>.map (·.toName)
-        go (nss ++ nss') more
-      else
-        throw <| .userError "No namespace file given after --suppress-namespaces"
-    | [mod] => pure {suppressedNamespaces := nss, mod}
-    | [mod, outFile] => pure {suppressedNamespaces := nss, mod, outFile := some outFile}
-    | other => throw <| .userError s!"Didn't understand remaining arguments: {other}"
+def parseConfigArgs (nss : List Name) (args : List String) : IO Config := do
+  match args with
+  | "--suppress-namespace" :: more =>
+    match more with
+    | ns :: more => parseConfigArgs (nss ++ [ns.toName]) more
+    | [] => throw <| .userError "No namespace given after --suppress-namespace"
+  | "--suppress-namespaces" :: more => do
+    match more with
+    | file :: more =>
+      let contents ← IO.FS.readFile file
+      let nss' :=
+        contents.splitToList (·.isWhitespace)
+          |>.filter (!·.isEmpty)
+          |>.map (·.toName)
+      parseConfigArgs (nss ++ nss') more
+    | [] =>
+      throw <| .userError "No namespace file given after --suppress-namespaces"
+  | [mod] => pure {suppressedNamespaces := nss, mod}
+  | [mod, outFile] => pure {suppressedNamespaces := nss, mod, outFile := some outFile}
+  | other => throw <| .userError s!"Didn't understand remaining arguments: {other}"
+
+def Config.fromArgs (args : List String) : IO Config := parseConfigArgs [] args
 
 unsafe def main (args : List String) : IO UInt32 := do
   try

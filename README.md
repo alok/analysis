@@ -180,6 +180,10 @@ To build the project's web page after [installing Lean](https://lean-lang.org/do
 After this, `book/_site/` contains the project's web page.
 This can be served as a webpage by executing `python3 serve.py`
 
+Note: `./build-web.sh` runs `scripts/prepare-verso-deps.sh` to patch Verso-related
+dependencies for Lean v4.27.0-rc1. If you build in `book/` directly, run the script
+once after `lake update`.
+
 ### Updating the Lean/Mathlib version
 
 Because this project uses a deprecated method to conditionally require `doc-gen4`

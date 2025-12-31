@@ -1,7 +1,7 @@
 import Lake
 open Lake DSL
 
-require verso from git "https://github.com/leanprover/verso.git"@"795bc01"
+require verso from git "https://github.com/leanprover/verso.git"@"v4.27.0-rc1"
 
 package "analysis-book" where
   version := v!"0.1.0"
@@ -89,56 +89,6 @@ def sections := #[
   (`Analysis.Section_11_8, "The Riemann-Stieltjes integral"),
   (`Analysis.Section_11_9, "The two fundamental theorems of calculus"),
   (`Analysis.Section_11_10, "Consequences of the fundamental theorem of calculus"),
-  (`Analysis.Section_9_1, "Subsets of the real line"),
-  (`Analysis.Section_9_2, "The algebra of real-valued functions"),
-  (`Analysis.Section_9_3, "Limiting values of functions"),
-  (`Analysis.Section_9_4, "Continuous functions"),
-  (`Analysis.Section_9_5, "Limits from the left and right"),
-  (`Analysis.Section_9_6, "The maximum principle"),
-  (`Analysis.Section_9_7, "The intermediate value theorem"),
-  (`Analysis.Section_9_8, "Monotone functions"),
-  (`Analysis.Section_9_9, "Uniform continuity"),
-  (`Analysis.Section_9_10, "Limits at infinity"),
-  (`Analysis.Section_10_1, "Basic definitions"),
-  (`Analysis.Section_10_2, "Local maxima, local minima, and derivatives"),
-  (`Analysis.Section_10_3, "Monotone functions and derivatives"),
-  (`Analysis.Section_10_4, "The inverse function theorem"),
-  (`Analysis.Section_10_5, "L'Hôpital's rule"),
-  (`Analysis.Section_11_1, "Partitions"),
-  (`Analysis.Section_11_2, "Piecewise constant functions"),
-  (`Analysis.Section_11_3, "Upper and lower Riemann integrals"),
-  (`Analysis.Section_11_4, "Basic properties of the Riemann integral"),
-  (`Analysis.Section_11_5, "Riemann integrability of continuous functions"),
-  (`Analysis.Section_11_6, "Riemann integrability of monotone functions"),
-  (`Analysis.Section_11_7, "A non-Riemann integrable function"),
-  (`Analysis.Section_11_8, "The Riemann-Stieltjes integral"),
-  (`Analysis.Section_11_9, "The two fundamental theorems of calculus"),
-  (`Analysis.Section_11_10, "Consequences of the fundamental theorem of calculus"),
-  (`Analysis.Section_9_1, "Subsets of the real line"),
-  (`Analysis.Section_9_2, "The algebra of real-valued functions"),
-  (`Analysis.Section_9_3, "Limiting values of functions"),
-  (`Analysis.Section_9_4, "Continuous functions"),
-  (`Analysis.Section_9_5, "Limits from the left and right"),
-  (`Analysis.Section_9_6, "The maximum principle"),
-  (`Analysis.Section_9_7, "The intermediate value theorem"),
-  (`Analysis.Section_9_8, "Monotone functions"),
-  (`Analysis.Section_9_9, "Uniform continuity"),
-  (`Analysis.Section_9_10, "Limits at infinity"),
-  (`Analysis.Section_10_1, "Basic definitions"),
-  (`Analysis.Section_10_2, "Local maxima, local minima, and derivatives"),
-  (`Analysis.Section_10_3, "Monotone functions and derivatives"),
-  (`Analysis.Section_10_4, "The inverse function theorem"),
-  (`Analysis.Section_10_5, "L'Hôpital's rule"),
-  (`Analysis.Section_11_1, "Partitions"),
-  (`Analysis.Section_11_2, "Piecewise constant functions"),
-  (`Analysis.Section_11_3, "Upper and lower Riemann integrals"),
-  (`Analysis.Section_11_4, "Basic properties of the Riemann integral"),
-  (`Analysis.Section_11_5, "Riemann integrability of continuous functions"),
-  (`Analysis.Section_11_6, "Riemann integrability of monotone functions"),
-  (`Analysis.Section_11_7, "A non-Riemann integrable function"),
-  (`Analysis.Section_11_8, "The Riemann-Stieltjes integral"),
-  (`Analysis.Section_11_9, "The two fundamental theorems of calculus"),
-  (`Analysis.Section_11_10, "Consequences of the fundamental theorem of calculus"),
   (`Analysis.Appendix_A_1, "Mathematical statements"),
   (`Analysis.Appendix_A_2, "Implication"),
   (`Analysis.Appendix_A_3, "The structure of proofs"),
@@ -168,7 +118,7 @@ def buildLiterateJson (pkg : NPackage n) (mod : String) : LogIO Unit := do
 
 
   let toolchainFile := pkg.dir / analysisRoot / "lean-toolchain"
-  let toolchain := (← IO.FS.readFile toolchainFile).trim
+  let toolchain := (← IO.FS.readFile toolchainFile).trimAscii.toString
 
   let f ← IO.FS.Handle.mk lakeConfig .read
   -- The locking here and in the generator prevent concurrent builds from interfering
