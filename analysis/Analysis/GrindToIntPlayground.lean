@@ -66,8 +66,13 @@ instance : Lean.Grind.ToInt QInt .ii where
 instance QInt.instAdd : Add QInt where
   add := Quotient.lift₂ (fun ⟨ a, b ⟩ ⟨ c, d ⟩ ↦ (a+c) —— (b+d) ) (by
     intro ⟨ a, b ⟩ ⟨ c, d ⟩ ⟨ a', b' ⟩ ⟨ c', d' ⟩ h1ₕ h2ₕ
-    simp [Setoid.r] at *
-    grind)
+    have h1ₕ' : a + b' = a' + b := by simpa [PreInt.eq] using h1ₕ
+    have h2ₕ' : c + d' = c' + d := by simpa [PreInt.eq] using h2ₕ
+    apply (QInt.eq (a := a + c) (b := b + d) (c := a' + c') (d := b' + d')).2
+    calc
+      (a + c) + (b' + d') = (a + b') + (c + d') := by abel_nf
+      _ = (a' + b) + (c' + d) := by rw [h1ₕ', h2ₕ']
+      _ = (a' + c') + (b + d) := by abel_nf)
 
 /-- Definition 4.1.2 (Definition of addition) -/
 theorem QInt.add_eq (a b c d:ℕ) : a —— b + c —— d = (a+c)——(b+d) :=
@@ -83,6 +88,14 @@ instance : Lean.Grind.ToInt.Add QInt .ii where
 theorem QInt.eq_of_toInt_eq (x y : QInt) :
     QInt.toInt x = QInt.toInt y → x = y := by
   simpa [QInt.toInt] using (Lean.Grind.ToInt.toInt_inj (α:=QInt) (range:=.ii) x y)
+
+@[simp]
+theorem QInt.eq_iff_toInt_eq (x y : QInt) :
+    x = y ↔ QInt.toInt x = QInt.toInt y := by
+  constructor
+  · intro hₕ
+    simpa using congrArg QInt.toInt hₕ
+  · exact QInt.eq_of_toInt_eq x y
 
 @[simp]
 theorem QInt.toInt_add (x y : QInt) :
