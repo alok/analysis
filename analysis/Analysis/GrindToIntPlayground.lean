@@ -89,7 +89,6 @@ theorem QInt.eq_of_toInt_eq (x y : QInt) :
     QInt.toInt x = QInt.toInt y → x = y := by
   simpa [QInt.toInt] using (Lean.Grind.ToInt.toInt_inj (α:=QInt) (range:=.ii) x y)
 
-@[simp]
 theorem QInt.eq_iff_toInt_eq (x y : QInt) :
     x = y ↔ QInt.toInt x = QInt.toInt y := by
   constructor
@@ -97,20 +96,24 @@ theorem QInt.eq_iff_toInt_eq (x y : QInt) :
     simpa using congrArg QInt.toInt hₕ
   · exact QInt.eq_of_toInt_eq x y
 
-@[simp]
+@[simp, grind =]
 theorem QInt.toInt_add (x y : QInt) :
     QInt.toInt (x + y) = QInt.toInt x + QInt.toInt y := by
   simpa [QInt.toInt] using (Lean.Grind.ToInt.Add.toInt_add (α:=QInt) (I:=.ii) x y)
 
--- Reduce to an `Int` goal, then let `grind` solve it.
+@[grind inj] theorem QInt.toInt_injective : Function.Injective QInt.toInt := by
+  intro x y hₕ
+  exact Lean.Grind.ToInt.toInt_inj (α:=QInt) (range:=.ii) x y hₕ
+
+-- `grind` does not support `ToInt` interval `.ii` in Lean 4.27-rc1, so reduce manually to `Int`.
 theorem QInt.addAssoc (a b c : QInt) : a + (b + c) = a + b + c := by
   apply QInt.eq_of_toInt_eq
-  simp
+  simp [QInt.toInt_add]
   grind
 
 theorem QInt.addComm (a b : QInt) : a + b = b + a := by
   apply QInt.eq_of_toInt_eq
-  simp
+  simp [QInt.toInt_add]
   grind
 
 end Section_4_1
