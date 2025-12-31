@@ -1,5 +1,6 @@
 import Lean.Data.Json
-import VersoBlog
+import VersoBlog.Basic
+import VersoBlog.LiterateLeanPage
 import SubVerso.Highlighting.Highlighted
 import SubVerso.Module
 import Std.Data.HashMap
@@ -15,8 +16,8 @@ variable [Monad m] [MonadError m] [MonadQuotation m]
 
 
 partial def getCommentString' (pref : String) (hl : Highlighted) : m String := do
-  let str := (← getString hl).trim
-  let str := str.stripPrefix pref |>.stripSuffix "-/" |>.trim
+  let str := (← getString hl).trimAscii.toString
+  let str := str.dropPrefix pref |>.dropSuffix "-/" |>.trimAscii |>.toString
   pure str
 where getString : Highlighted → m String
   | .text txt | .unparsed txt => pure txt
@@ -45,7 +46,8 @@ def loadModuleContent (mod : String) (leanProject : System.FilePath := "../analy
       let toolchainfile := projectDir / "lean-toolchain"
       if !(← toolchainfile.pathExists) then
         throw <| .userError s!"File {toolchainfile} doesn't exist, couldn't load project"
-      pure (← IO.FS.readFile toolchainfile).trim
+      let toolchainStr := (← IO.FS.readFile toolchainfile).trimAscii.toString
+      pure toolchainStr
     | some override => pure override
 
   -- Kludge: remove variables introduced by Lake. Clearing out DYLD_LIBRARY_PATH and
@@ -56,6 +58,7 @@ def loadModuleContent (mod : String) (leanProject : System.FilePath := "../analy
       "LEAN_SYSROOT", "LEAN_AR", "LEAN_PATH", "LEAN_SRC_PATH",
       "LEAN_GITHASH",
       "ELAN_TOOLCHAIN", "DYLD_LIBRARY_PATH", "LD_LIBRARY_PATH"]
+  let env := lakeVars.map (·, none) |>.push ("LAKE_ARTIFACT_CACHE", some "false")
 
   let f ← IO.FS.Handle.mk lakeConfig .read
   f.lock (exclusive := true)
@@ -68,7 +71,7 @@ def loadModuleContent (mod : String) (leanProject : System.FilePath := "../analy
       let res ← IO.Process.output {
         cmd, args, cwd := projectDir
         -- Unset Lake's environment variables
-        env := lakeVars.map (·, none)
+        env := env
       }
       if res.exitCode != 0 then
         reportFail projectDir cmd args res
@@ -78,11 +81,11 @@ def loadModuleContent (mod : String) (leanProject : System.FilePath := "../analy
       let res ← IO.Process.output {
         cmd, args, cwd := projectDir
         -- Unset Lake's environment variables
-        env := lakeVars.map (·, none)
+        env := env
       }
       if res.exitCode != 0 then
         reportFail projectDir cmd args res
-      IO.FS.readFile res.stdout.trim
+      IO.FS.readFile (res.stdout.trimAscii.toString)
     finally f.unlock
 
   let .ok (.arr json) := Json.parse jsonFile

@@ -127,11 +127,12 @@ def buildLiterateJson (pkg : NPackage n) (mod : String) : LogIO Unit := do
     let cmd := "elan"
 
     let args := #["run", "--install", toolchain, "lake", "build", s!"+{mod}:literate"]
+    let env := lakeVars.map (·, none) |>.push ("LAKE_ARTIFACT_CACHE", some "false")
 
     proc (quiet := true) {
       cmd, args, cwd := pkg.dir / analysisRoot,
       -- Unset Lake's environment variables
-      env := lakeVars.map (·, none)
+      env := env
     }
 
   finally

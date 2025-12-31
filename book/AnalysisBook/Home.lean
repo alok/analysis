@@ -1,4 +1,7 @@
-import VersoBlog
+import VersoBlog.Basic
+import Verso.Doc.Concrete
+
+set_option doc.verso true
 open Verso Genre Blog
 
 #doc (Page) " Partial Lean formalization of Analysis I" =>

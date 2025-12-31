@@ -3,6 +3,7 @@
 # This script builds the project's web page, including documentation.
 
 set -o pipefail # stop if any command fails
+export LAKE_ARTIFACT_CACHE=false
 
 cd analysis/
 lake exe cache get
