@@ -66,7 +66,8 @@ theorem Sequence.lim_of_power_decay {k:ℕ} :
     · sorry -- TODO: grind fails after mathlib 4.26 upgrade
   have hlim : (lim a)^(k+1) = 0 := by
     sorry -- TODO: Fix convert goals after mathlib 4.26 upgrade
-  simp [lim_eq, ha', pow_eq_zero hlim]
+  have hlim' : lim a = 0 := eq_zero_of_pow_eq_zero hlim
+  simp [lim_eq, ha', hlim']
 
 /-- Lemma 6.5.2 / Exercise 6.5.2 -/
 theorem Sequence.lim_of_geometric {x:ℝ} (hx: |x| < 1) : ((fun (n:ℕ) ↦ x^n):Sequence).TendsTo 0 := by

@@ -189,7 +189,10 @@ theorem IsElementary.translate {d:ℕ} {E: Set (EuclideanSpace' d)}
   sorry
 
 /-- A sublemma for proving Lemma 1.1.2(i). It is a geometrically obvious fact but surprisingly annoying to prove formally. -/
-theorem BoundedInterval.partition (S: Finset BoundedInterval) : ∃ T: Finset BoundedInterval, T.toSet.PairwiseDisjoint BoundedInterval.toSet ∧ ∀ I ∈ S, ∃ U : Set T, I = ⋃ J ∈ U, J.val.toSet := by
+theorem BoundedInterval.partition (S: Finset BoundedInterval) :
+  ∃ T: Finset BoundedInterval,
+    (T : Set BoundedInterval).PairwiseDisjoint BoundedInterval.toSet
+      ∧ ∀ I ∈ S, ∃ U : Set T, I = ⋃ J ∈ U, J.val.toSet := by
   let endpoints : Finset ℝ := S.image BoundedInterval.a ∪ S.image BoundedInterval.b
   have ha_mem {I:BoundedInterval} (hI: I ∈ S) : I.a ∈ endpoints := by grind
   have hb_mem {I:BoundedInterval} (hI: I ∈ S) : I.b ∈ endpoints := by grind
@@ -263,11 +266,16 @@ theorem BoundedInterval.partition (S: Finset BoundedInterval) : ∃ T: Finset Bo
   grind
 
 /-- Lemma 1.1.2(i) -/
-theorem Box.partition {d:ℕ} (S: Finset (Box d)) : ∃ T: Finset (Box d), T.toSet.PairwiseDisjoint Box.toSet ∧ ∀ I ∈ S, ∃ U : Set T, I = ⋃ J ∈ U, J.val.toSet := by
+theorem Box.partition {d:ℕ} (S: Finset (Box d)) :
+  ∃ T: Finset (Box d),
+    (T : Set (Box d)).PairwiseDisjoint Box.toSet
+      ∧ ∀ I ∈ S, ∃ U : Set T, I = ⋃ J ∈ U, J.val.toSet := by
   sorry -- TODO: Fix after mathlib 4.26 upgrade - Set.mem_pi rewrite fails
 
 theorem IsElementary.partition {d:ℕ} {E: Set (EuclideanSpace' d)}
-(hE: IsElementary E) : ∃ T: Finset (Box d), T.toSet.PairwiseDisjoint Box.toSet ∧ E = ⋃ J ∈ T, J.toSet := by
+(hE: IsElementary E) :
+  ∃ T: Finset (Box d),
+    (T : Set (Box d)).PairwiseDisjoint Box.toSet ∧ E = ⋃ J ∈ T, J.toSet := by
   obtain ⟨ S, rfl ⟩ := hE
   have ⟨ T', hT', hST' ⟩ := Box.partition S
   choose U hU using hST'
@@ -304,14 +312,14 @@ axiom Box.vol_eq {d:ℕ} (B: Box d):
 
 /-- Lemma 1.1.2(ii), helper lemma -/
 axiom Box.sum_vol_eq {d:ℕ} {T: Finset (Box d)}
- (hT: T.toSet.PairwiseDisjoint Box.toSet) :
+ (hT: (T : Set (Box d)).PairwiseDisjoint Box.toSet) :
   Filter.atTop.Tendsto (fun N:ℕ ↦ (N:ℝ)^(-d:ℝ) * Nat.card ↥((fun x : EuclideanSpace' d => (x : Fin d → ℝ)) '' (⋃ B ∈ T, B.toSet) ∩ (Set.range (fun (n:Fin d → ℤ) i ↦ (N:ℝ)⁻¹*(n i)))))
   (nhds (∑ B ∈ T, |B|ᵥ))
 
 /-- Lemma 1.1.2(ii) -/
 theorem Box.measure_uniq {d:ℕ} {T₁ T₂: Finset (Box d)}
- (hT₁: T₁.toSet.PairwiseDisjoint Box.toSet)
- (hT₂: T₂.toSet.PairwiseDisjoint Box.toSet)
+ (hT₁: (T₁ : Set (Box d)).PairwiseDisjoint Box.toSet)
+ (hT₂: (T₂ : Set (Box d)).PairwiseDisjoint Box.toSet)
  (heq: ⋃ B ∈ T₁, B.toSet = ⋃ B ∈ T₂, B.toSet) :
  ∑ B ∈ T₁, |B|ᵥ = ∑ B ∈ T₂, |B|ᵥ := by
   sorry -- TODO: Fix after mathlib 4.26 upgrade - Box.sum_vol_eq type changed
@@ -320,7 +328,7 @@ noncomputable abbrev IsElementary.measure {d:ℕ} {E: Set (EuclideanSpace' d)} (
   := ∑ B ∈ hE.partition.choose, |B|ᵥ
 
 theorem IsElementary.measure_eq {d:ℕ} {E: Set (EuclideanSpace' d)} (hE: IsElementary E)
-  {T: Finset (Box d)} (hT: T.toSet.PairwiseDisjoint Box.toSet)
+  {T: Finset (Box d)} (hT: (T : Set (Box d)).PairwiseDisjoint Box.toSet)
   (heq : E = ⋃ B ∈ T, B.toSet):
   hE.measure = ∑ B ∈ T, |B|ᵥ := by
   apply Box.measure_uniq hE.partition.choose_spec.1 hT _
@@ -330,8 +338,8 @@ theorem IsElementary.measure_eq {d:ℕ} {E: Set (EuclideanSpace' d)} (hE: IsElem
 the two partitions `T₁`, `T₂` admit a mutual refinement into boxes arising from
 taking Cartesian products of elements from finite collections of disjoint intervals. -/
 theorem Box.measure_uniq' {d:ℕ} {T₁ T₂: Finset (Box d)}
- (hT₁: T₁.toSet.PairwiseDisjoint Box.toSet)
- (hT₂: T₂.toSet.PairwiseDisjoint Box.toSet)
+ (hT₁: (T₁ : Set (Box d)).PairwiseDisjoint Box.toSet)
+ (hT₂: (T₂ : Set (Box d)).PairwiseDisjoint Box.toSet)
  (heq: ⋃ B ∈ T₁, B.toSet = ⋃ B ∈ T₂, B.toSet) :
  ∑ B ∈ T₁, |B|ᵥ = ∑ B ∈ T₂, |B|ᵥ := by
  sorry
@@ -363,7 +371,8 @@ lemma IsElementary.measure_of_disjUnion {d:ℕ} {E F: Set (EuclideanSpace' d)}
   sorry
 
 lemma IsElementary.measure_of_disjUnion' {d:ℕ} {S: Finset (Set (EuclideanSpace' d))}
-(hE: ∀ E ∈ S, IsElementary E) (hdisj: S.toSet.PairwiseDisjoint id):
+(hE: ∀ E ∈ S, IsElementary E)
+(hdisj: (S : Set (Set (EuclideanSpace' d))).PairwiseDisjoint id):
   (IsElementary.union' hE).measure = ∑ E:S, (hE E.val E.property).measure := by
   sorry
 

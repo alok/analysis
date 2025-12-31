@@ -59,8 +59,8 @@ structure PiecewiseConstantFunction (I: BoundedInterval) where
   f : ℝ → ℝ
   T : Finset BoundedInterval
   c : T → ℝ
-  disjoint: T.toSet.PairwiseDisjoint BoundedInterval.toSet
-  cover : I.toSet = ⋃ J ∈ T, J.toSet
+  disjoint: (T : Set BoundedInterval).PairwiseDisjoint BoundedInterval.toSet
+  cover : I.toSet = ⋃ J ∈ (T : Set BoundedInterval), J.toSet
   const : ∀ J:T, ∀ x ∈ J.val, f x = c J
 
 abbrev PiecewiseConstantFunction.agreesWith {I: BoundedInterval} (F: PiecewiseConstantFunction I) (f: ℝ → ℝ) : Prop := I.toSet.EqOn f F.f
@@ -127,8 +127,8 @@ lemma riemann_integral_eq_darboux_integral {f:ℝ → ℝ} {I: BoundedInterval} 
 lemma RiemannIntegrableOn.continuous {f:ℝ → ℝ} {I: BoundedInterval} (hI: I = Icc I.a I.b) (hcont: ContinuousOn f I.toSet) : RiemannIntegrableOn f I := by sorry
 
 lemma RiemannIntegrableOn.piecewise_continuous {f:ℝ → ℝ} {I: BoundedInterval} (hI: I = Icc I.a I.b)
- (T: Finset BoundedInterval)  (hdisjoint: T.toSet.PairwiseDisjoint BoundedInterval.toSet)
- (hcover : I.toSet = ⋃ J ∈ T, J.toSet) (hcont: ∀ J ∈ T, ContinuousOn f J.toSet) : RiemannIntegrableOn f I := by sorry
+ (T: Finset BoundedInterval)  (hdisjoint: (T : Set BoundedInterval).PairwiseDisjoint BoundedInterval.toSet)
+ (hcover : I.toSet = ⋃ J ∈ (T : Set BoundedInterval), J.toSet) (hcont: ∀ J ∈ T, ContinuousOn f J.toSet) : RiemannIntegrableOn f I := by sorry
 
 /-- Exercise 1.1.24 (a) (Linearity of the piecewise constant integral) -/
 theorem RiemannIntegrableOn.smul {I: BoundedInterval} (c:ℝ) {f: ℝ → ℝ} (h: RiemannIntegrableOn f I) : RiemannIntegrableOn (c • f) I := by sorry

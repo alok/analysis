@@ -116,7 +116,8 @@ theorem JordanMeasurable.mes_of_disjUnion {d:ℕ} {E F : Set (EuclideanSpace' d)
 
 /-- Exercise 1.1.6 (iii) (finite additivity) -/
 lemma JordanMeasurable.measure_of_disjUnion' {d:ℕ} {S: Finset (Set (EuclideanSpace' d))}
-(hE: ∀ E ∈ S, JordanMeasurable E) (hdisj: S.toSet.PairwiseDisjoint id):
+(hE: ∀ E ∈ S, JordanMeasurable E)
+(hdisj: (S : Set (Set (EuclideanSpace' d))).PairwiseDisjoint id):
   (JordanMeasurable.union' hE).measure = ∑ E:S, (hE E.val E.property).measure := by
   sorry
 
@@ -176,7 +177,7 @@ lemma JordanMeasurable.measure_triangle (T: Affine.Triangle ℝ (EuclideanSpace'
 /-- Exercise 1.1.9 -/
 
 abbrev IsPolytope {d:ℕ} (P: Set (EuclideanSpace' d)) : Prop :=
-  ∃ (V: Finset (EuclideanSpace' d)), P = convexHull ℝ (V.toSet)
+  ∃ (V: Finset (EuclideanSpace' d)), P = convexHull ℝ (V : Set (EuclideanSpace' d))
 
 lemma JordanMeasurable.polytope {d:ℕ} {P: Set (EuclideanSpace' d)} (hP: IsPolytope P) : JordanMeasurable P := by
   sorry
