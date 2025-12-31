@@ -1,0 +1,49 @@
+diff --git i/Mathlib/Tactic/Linter/DirectoryDependency.lean w/Mathlib/Tactic/Linter/DirectoryDependency.lean
+index 434bc19371..7fc27807f0 100644
+--- i/Mathlib/Tactic/Linter/DirectoryDependency.lean
++++ w/Mathlib/Tactic/Linter/DirectoryDependency.lean
+@@ -7,6 +7,7 @@ module
+ 
+ public meta import Lean.Elab.Command
+ public meta import Lean.Elab.ParseImportsFast
++public meta import Lean.Elab.AssertExists
+ public meta import Lean.Linter.Basic
+ -- This file is imported by the Header linter, hence has no mathlib imports.
+ 
+@@ -57,23 +58,7 @@ def Lean.Name.collectPrefixes (ns : Array Name) : NameSet :=
+ def Lean.Name.prefixToName (p : Name) (ns : Array Name) : Option Name :=
+   ns.find? p.isPrefixOf
+ 
+-/-- Find the dependency chain, starting at a module that imports `imported`, and ends with the
+-current module.
+-
+-The path only contains the intermediate steps: it excludes `imported` and the current module.
+--/
+-public
+-def Lean.Environment.importPath (env : Environment) (imported : Name) : Array Name := Id.run do
+-  let mut result := #[]
+-  let modData := env.header.moduleData
+-  let modNames := env.header.moduleNames
+-  if let some idx := env.getModuleIdx? imported then
+-    let mut target := imported
+-    for i in [idx.toNat + 1 : modData.size] do
+-      if modData[i]!.imports.any (·.module == target) then
+-        target := modNames[i]!
+-        result := result.push modNames[i]!
+-  return result
++-- `Lean.Environment.importPath` is now provided by `Lean.Elab.AssertExists`.
+ 
+ namespace Mathlib.Linter
+ 
+diff --git i/Mathlib/Util/AssertExists.lean w/Mathlib/Util/AssertExists.lean
+index 6caa0a283b..710c62c295 100644
+--- i/Mathlib/Util/AssertExists.lean
++++ w/Mathlib/Util/AssertExists.lean
+@@ -7,6 +7,7 @@ module
+ 
+ public import Mathlib.Init
+ public meta import Lean.Elab.Command
++public meta import Lean.Elab.AssertExists
+ public meta import Mathlib.Util.AssertExistsExt
+ 
+ /-!

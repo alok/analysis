@@ -1,0 +1,20 @@
+diff --git i/Aesop/Util/Basic.lean w/Aesop/Util/Basic.lean
+index 5eff52f..64a52dc 100644
+--- i/Aesop/Util/Basic.lean
++++ w/Aesop/Util/Basic.lean
+@@ -352,6 +352,7 @@ def withTransparencySeqSyntax (md : TransparencyMode)
+     (k : TSyntax ``tacticSeq) : TSyntax ``tacticSeq := Unhygienic.run do
+   match md with
+   | .default => return k
++  | .none => return k
+   | .all => `(tacticSeq| with_unfolding_all $k)
+   | .reducible => `(tacticSeq| with_reducible $k)
+   | .instances => `(tacticSeq| with_reducible_and_instances $k)
+@@ -366,6 +367,7 @@ def withTransparencySyntax (md : TransparencyMode) (k : TSyntax `tactic) :
+     TSyntax `tactic := Unhygienic.run do
+   match md with
+   | .default   => return k
++  | .none      => return k
+   | .all       => `(tactic| with_unfolding_all $k:tactic)
+   | .reducible => `(tactic| with_reducible $k:tactic)
+   | .instances => `(tactic| with_reducible_and_instances $k:tactic)

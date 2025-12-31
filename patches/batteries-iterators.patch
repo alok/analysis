@@ -1,0 +1,77 @@
+diff --git i/Batteries/Data/Array/Match.lean w/Batteries/Data/Array/Match.lean
+index 4b309096..8e4a25e0 100644
+--- i/Batteries/Data/Array/Match.lean
++++ w/Batteries/Data/Array/Match.lean
+@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
+ Authors: F. G. Dorais
+ -/
+ module
++import Init.Data.Iterators
+ 
+ @[expose] public section
+ 
+ namespace Array
++open Std
+ 
+ /-- Prefix table for the Knuth-Morris-Pratt matching algorithm
+ 
+@@ -108,14 +110,14 @@ namespace Matcher
+ open Std.Iterators
+ 
+ /-- Iterator transformer for KMP matcher. -/
+-protected structure Iterator (σ n α) [BEq α] (m : Matcher α) [Iterator σ n α] where
++protected structure Iterator (σ n α) [BEq α] (m : Matcher α) [Std.Iterator σ n α] where
+   /-- Inner iterator. -/
+   inner : IterM (α := σ) n α
+   /-- Matcher state. -/
+   state : Fin (m.table.size + 1) := 0
+ 
+ /-- Implementation datail for `Matcher.Iterator`. -/
+-def modifyStep [BEq α] (m : Matcher α) [Iterator σ n α]
++def modifyStep [BEq α] (m : Matcher α) [Std.Iterator σ n α]
+     (it : IterM (α := m.Iterator σ n α) n σ) :
+     it.internalState.inner.Step (α := σ) → IterStep (IterM (α := m.Iterator σ n α) n σ) σ
+   | .done _ => .done
+@@ -127,16 +129,16 @@ def modifyStep [BEq α] (m : Matcher α) [Iterator σ n α]
+     else
+       .skip ⟨{inner := it', state := state}⟩
+ 
+-instance [Monad n] [BEq α] (m : Matcher α) [Iterator σ n α] :
++instance [Monad n] [BEq α] (m : Matcher α) [Std.Iterator σ n α] :
+     Iterator (m.Iterator σ n α) n σ where
+   IsPlausibleStep it step := ∃ step', m.modifyStep it step' = step
+   step it := it.internalState.inner.step >>=
+     fun step => pure (.deflate ⟨m.modifyStep _ _, step.inflate, rfl⟩)
+ 
+-private def finitenessRelation [Monad n] [BEq α] (m : Matcher α) [Iterator σ n α] [Finite σ n] :
++private def finitenessRelation [Monad n] [BEq α] (m : Matcher α) [Std.Iterator σ n α] [Std.Iterators.Finite σ n] :
+     FinitenessRelation (m.Iterator σ n α) n where
+-  rel := InvImage IterM.IsPlausibleSuccessorOf fun it => it.internalState.inner
+-  wf := InvImage.wf _ Finite.wf
++  Rel := InvImage IterM.IsPlausibleSuccessorOf fun it => it.internalState.inner
++  wf := InvImage.wf _ Std.Iterators.Finite.wf
+   subrelation {it it'} h := by
+     obtain ⟨_, hsucc, step, rfl⟩ := h
+     simp only [IterM.Step] at step
+@@ -163,7 +165,7 @@ private def finitenessRelation [Monad n] [BEq α] (m : Matcher α) [Iterator σ
+           assumption
+       · contradiction
+ 
+-instance [Monad n] [BEq α] (m : Matcher α) [Iterator σ n α] [inst : Finite σ n] :
++instance [Monad n] [BEq α] (m : Matcher α) [Std.Iterator σ n α] [inst : Std.Iterators.Finite σ n] :
+     Finite (m.Iterator σ n α) n (β := σ) := .of_finitenessRelation m.finitenessRelation
+ 
+ end Matcher
+diff --git i/Batteries/Data/Range/Lemmas.lean w/Batteries/Data/Range/Lemmas.lean
+index 115a3a03..264b069a 100644
+--- i/Batteries/Data/Range/Lemmas.lean
++++ w/Batteries/Data/Range/Lemmas.lean
+@@ -10,7 +10,7 @@ public import Batteries.Tactic.Alias
+ 
+ @[expose] public section
+ 
+-namespace Std.Range
++namespace Std.Legacy.Range
+ 
+ theorem size_stop_le_start : ∀ r : Range, r.stop ≤ r.start → r.size = 0
+   | ⟨start, stop, step, _⟩, h => by
