@@ -105,7 +105,7 @@ theorem QInt.toInt_add (x y : QInt) :
   intro x y hₕ
   exact Lean.Grind.ToInt.toInt_inj (α:=QInt) (range:=.ii) x y hₕ
 
--- With `.ii` support patched into `grind`, `by grind` closes these goals directly.
+-- If `grind` learns `ToInt` support for `.ii`, `by grind` should close these goals directly.
 theorem QInt.addAssoc (a b c : QInt) : a + (b + c) = a + b + c := by
   apply QInt.eq_of_toInt_eq
   simp [QInt.toInt_add]
