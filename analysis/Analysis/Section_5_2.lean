@@ -32,7 +32,7 @@ abbrev Rat.EventuallyClose (ε: ℚ) (a b: Chapter5.Sequence) : Prop :=
 
 namespace Chapter5
 
-/-- Definition 5.2.1 ($ε$-close sequences) -/
+/-- Definition 5.2.1 (``ε``-close sequences) -/
 lemma Rat.closeSeq_def (ε: ℚ) (a b: Sequence) :
     ε.CloseSeq a b ↔ ∀ n, n ≥ a.n₀ → n ≥ b.n₀ → ε.Close (a n) (b n) := by rfl
 

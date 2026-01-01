@@ -8,7 +8,7 @@ namespace ConvolutedProofs
 
 /-! Lemmas for the convoluted proof of irrationality of √2 -/
 
-/-- $3$ is a unit in {lit}``ZMod 8``. -/
+/-- ``3`` is a unit in {lit}``ZMod 8``. -/
 theorem three_unit_mod_eight : IsUnit (3 : ZMod 8) := by
   decide
 
