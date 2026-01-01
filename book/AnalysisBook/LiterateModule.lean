@@ -40,7 +40,6 @@ def loadModuleContent (mod : String) (leanProject : System.FilePath := "../analy
   let lakefile' := projectDir / "lakefile.toml"
   if !(← lakefile.pathExists <||> lakefile'.pathExists) then
     throw <| .userError s!"Neither {lakefile} nor {lakefile'} exist, couldn't load project"
-  let lakeConfig := if (← lakefile.pathExists) then lakefile else lakefile'
   let toolchain ← match overrideToolchain with
     | none =>
       let toolchainfile := projectDir / "lean-toolchain"
@@ -60,33 +59,34 @@ def loadModuleContent (mod : String) (leanProject : System.FilePath := "../analy
       "ELAN_TOOLCHAIN", "DYLD_LIBRARY_PATH", "LD_LIBRARY_PATH"]
   let env := lakeVars.map (·, none) |>.push ("LAKE_ARTIFACT_CACHE", some "false")
 
-  let f ← IO.FS.Handle.mk lakeConfig .read
-  f.lock (exclusive := true)
-  let jsonFile ←
-    try
+  -- Avoid holding a Lake config lock while invoking `lake` to prevent lock contention.
+  let jsonFile ← do
+    let cmd := "elan"
+    let args := #["run", "--install", toolchain, "lake", "build", s!"+{mod}:literate"]
 
-      let cmd := "elan"
-      let args := #["run", "--install", toolchain, "lake", "build", s!"+{mod}:literate"]
-
-      let res ← IO.Process.output {
-        cmd, args, cwd := projectDir
-        -- Unset Lake's environment variables
-        env := env
+    let child ← IO.Process.spawn {
+      cmd, args, cwd := projectDir
+      -- Unset Lake's environment variables
+      env := env
+      stdout := .inherit
+      stderr := .inherit
+    }
+    let exitCode ← child.wait
+    if exitCode != 0 then
+      reportFail projectDir cmd args {
+        exitCode := exitCode, stdout := "", stderr := ""
       }
-      if res.exitCode != 0 then
-        reportFail projectDir cmd args res
 
-      let args := #["run", "--install", toolchain, "lake", "query", s!"+{mod}:literate"]
+    let args := #["run", "--install", toolchain, "lake", "query", s!"+{mod}:literate"]
 
-      let res ← IO.Process.output {
-        cmd, args, cwd := projectDir
-        -- Unset Lake's environment variables
-        env := env
-      }
-      if res.exitCode != 0 then
-        reportFail projectDir cmd args res
-      IO.FS.readFile (res.stdout.trimAscii.toString)
-    finally f.unlock
+    let res ← IO.Process.output {
+      cmd, args, cwd := projectDir
+      -- Unset Lake's environment variables
+      env := env
+    }
+    if res.exitCode != 0 then
+      reportFail projectDir cmd args res
+    IO.FS.readFile (res.stdout.trimAscii.toString)
 
   let .ok (.arr json) := Json.parse jsonFile
     | throw <| IO.userError s!"Expected JSON array"
