@@ -130,7 +130,7 @@ theorem Nat.induction (P : Nat → Prop) (hbase : P 0) (hind : ∀ n, P n → P 
   | succ n ih => exact hind _ ih
 
 /--
-  Recursion. Analogous to the built-in Mathlib method `Nat.rec` associated to
+  Recursion. Analogous to the built-in Mathlib method {name}``Nat.rec`` associated to
   the Mathlib natural numbers.
 -/
 abbrev Nat.recurse (f: Nat → Nat → Nat) (c: Nat) : Nat → Nat := fun n ↦ match n with

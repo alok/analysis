@@ -188,7 +188,7 @@ example (x: Object) : {x} = SetTheory.singleton x := rfl
 
 /--
   Axiom 3.3(a) (singleton).
-  Note: in some applications one may have to explicitly cast {a} to Set due to Mathlib's
+  Note: in some applications one may have to explicitly cast {lit}``{a}`` to {name}``Set`` due to Mathlib's
   existing set theory notation.
 -/
 @[simp]
@@ -213,12 +213,12 @@ instance SetTheory.Set.instInsert : Insert Object Set where
 theorem SetTheory.Set.mem_insert (a b: Object) (X: Set) : a ∈ insert b X ↔ a = b ∨ a ∈ X := by
   simp [instInsert]
 
-/-- Axiom 3.3(b) (pair). Note: in some applications one may have to cast {a,b}
-    to Set. -/
+/-- Axiom 3.3(b) (pair). Note: in some applications one may have to cast {lit}``{a,b}``
+    to {name}``Set``. -/
 theorem SetTheory.Set.pair_eq (a b:Object) : ({a,b}:Set) = {a} ∪ {b} := by rfl
 
-/-- Axiom 3.3(b) (pair). Note: in some applications one may have to cast {a,b}
-    to Set. -/
+/-- Axiom 3.3(b) (pair). Note: in some applications one may have to cast {lit}``{a,b}``
+    to {name}``Set``. -/
 @[simp]
 theorem SetTheory.Set.mem_pair (x a b:Object) : x ∈ ({a,b}:Set) ↔ (x = a ∨ x = b) := by
   simp [pair_eq, mem_union, mem_singleton]

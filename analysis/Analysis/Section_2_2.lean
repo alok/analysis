@@ -477,7 +477,7 @@ example (a b c d e:Nat) (hab: a ≤ b) (hbc: b < c) (hde: d < e) :
   order
 
 /-- Proposition 2.2.14 (Strong principle of induction) / Exercise 2.2.5
-    Compare with Mathlib's `Nat.strong_induction_on`.
+    Compare with Mathlib's {name}``Nat.strong_induction_on``.
 -/
 theorem Nat.strong_induction {m₀:Nat} {P: Nat → Prop}
   (hind: ∀ m, m ≥ m₀ → (∀ m', m₀ ≤ m' ∧ m' < m → P m') → P m) :
@@ -485,14 +485,14 @@ theorem Nat.strong_induction {m₀:Nat} {P: Nat → Prop}
   sorry
 
 /-- Exercise 2.2.6 (backwards induction)
-    Compare with Mathlib's `Nat.decreasingInduction`. -/
+    Compare with Mathlib's {name}``Nat.decreasingInduction``. -/
 theorem Nat.backwards_induction {n:Nat} {P: Nat → Prop}
   (hind: ∀ m, P (m++) → P m) (hn: P n) :
     ∀ m, m ≤ n → P m := by
   sorry
 
 /-- Exercise 2.2.7 (induction from a starting point)
-    Compare with Mathlib's `Nat.le_induction`. -/
+    Compare with Mathlib's {name}``Nat.le_induction``. -/
 theorem Nat.induction_from {n:Nat} {P: Nat → Prop} (hind: ∀ m, P m → P (m++)) :
     P n → ∀ m, m ≥ n → P m := by
   sorry

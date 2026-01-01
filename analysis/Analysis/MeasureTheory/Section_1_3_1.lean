@@ -149,15 +149,15 @@ lemma ComplexSimpleFunction.AbsolutelyIntegrable.smul {d:ℕ} {f: EuclideanSpace
 lemma ComplexSimpleFunction.AbsolutelyIntegrable.conj {d:ℕ} {f: EuclideanSpace' d → ℂ} {hf: ComplexSimpleFunction f} (hf_integ: hf.AbsolutelyIntegrable) :
   (hf.conj).AbsolutelyIntegrable := by sorry
 
-/-- Exercise 1.3.2 (i) (*-linearity) -/
+/-- Exercise 1.3.2 (i) ({lit}``*-linearity``) -/
 lemma ComplexSimpleFunction.integral_add {d:ℕ} {f g: EuclideanSpace' d → ℂ} {hf: ComplexSimpleFunction f} {hg: ComplexSimpleFunction g} (hf_integ: hf.AbsolutelyIntegrable) (hg_integ: hg.AbsolutelyIntegrable) : (hf.add hg).integral = hf.integral + hg.integral := by
   sorry
 
-/-- Exercise 1.3.2 (i) (*-linearity) -/
+/-- Exercise 1.3.2 (i) ({lit}``*-linearity``) -/
 lemma ComplexSimpleFunction.integral_smul {d:ℕ} {f: EuclideanSpace' d → ℂ} {hf: ComplexSimpleFunction f} (hf_integ: hf.AbsolutelyIntegrable) (a: ℂ) : (hf.smul a).integral = a * hf.integral := by
   sorry
 
-/-- Exercise 1.3.2 (i) (*-linearity) -/
+/-- Exercise 1.3.2 (i) ({lit}``*-linearity``) -/
 lemma ComplexSimpleFunction.integral_conj {d:ℕ} {f: EuclideanSpace' d → ℂ} {hf: ComplexSimpleFunction f} (hf_integ: hf.AbsolutelyIntegrable) : (hf.conj).integral = (starRingEnd ℂ) (hf.integral) := by
   sorry
 

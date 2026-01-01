@@ -223,7 +223,7 @@ lemma Sequence.ex_5_1_7_a : ¬ (0.1:ℚ).Steady ((fun n:ℕ ↦ (n+1:ℚ)⁻¹ )
   intro h; rw [Rat.Steady.coe] at h; specialize h 0 2; simp [Rat.Close] at h; norm_num at h
 
 /--
-Example 5.1.7: The sequence a_10, a_11, a_12, ... is 0.1-steady
+Example 5.1.7: The sequence {lit}``a_10, a_11, a_12``, ... is 0.1-steady
 -/
 lemma Sequence.ex_5_1_7_b : (0.1:ℚ).Steady (((fun n:ℕ ↦ (n+1:ℚ)⁻¹ ):Sequence).from 10) := by
   rw [Rat.Steady]

@@ -5,12 +5,13 @@ import Analysis.Tools.ExistsUnique
 import Analysis.Section_3_1
 
 /-!
-# Analysis I, Chapter 3 epilogue: Connections with ZFSet
+# Analysis I, Chapter 3 epilogue: Connections with {name}``ZFSet``
 
-In this epilogue we show that the `ZFSet` type in Mathlib (derived as a quotient from the
-`PSet` type) can be used to create models of the `SetTheory' class studied in this chapter, so long as we work in a universe of level at
-least 1. The constructions here are due to Edward van de Meent; see
-https://leanprover.zulipchat.com/#narrow/channel/113489-new-members/topic/Can.20this.20proof.20related.20to.20Set.20replacement.20be.20shorter.3F/near/527305173
+In this epilogue we show that the {name}``ZFSet`` type in Mathlib (derived as a quotient from the
+{name}``PSet`` type) can be used to create models of the {name}``Chapter3.SetTheory`` class studied in
+this chapter, so long as we work in a universe of level at least 1. The constructions here are due
+to Edward van de Meent; see
+{lit}``https://leanprover.zulipchat.com/#narrow/channel/113489-new-members/topic/Can.20this.20proof.20related.20to.20Set.20replacement.20be.20shorter.3F/near/527305173``.
 -/
 
 universe u

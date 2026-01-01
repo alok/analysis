@@ -4,8 +4,8 @@ open Lake DSL
 package «Analysis» where
   -- Settings applied to both builds and interactive editing
   leanOptions := #[
-    ⟨`pp.unicode.fun, true⟩
-    -- ⟨`doc.verso, true⟩  -- Temporarily disabled to verify code compiles
+    ⟨`pp.unicode.fun, true⟩,
+    ⟨`doc.verso, true⟩
   ]
   -- Settings applied only to command line builds
   moreLeanArgs := #[]

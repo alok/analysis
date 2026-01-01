@@ -99,7 +99,7 @@ theorem Real.zpow_inj {x y:Real} {n:ℤ} (hx: x > 0) (hy : y > 0) (hn: n ≠ 0) 
 /-- Analogue of Proposition 4.3.12(d) -/
 theorem Real.zpow_abs (x:Real) (n:ℤ) : |x|^n = |x^n| := by sorry
 
-/-- Definition 5.6.2. We permit ``junk values'' when `x` is negative or `n` vanishes. -/
+/-- Definition 5.6.2. We permit {lit}``junk values`` when `x` is negative or `n` vanishes. -/
 noncomputable abbrev Real.root (x:Real) (n:ℕ) : Real := sSup { y:Real | y ≥ 0 ∧ y^n ≤ x }
 
 noncomputable abbrev Real.sqrt (x:Real) := x.root 2

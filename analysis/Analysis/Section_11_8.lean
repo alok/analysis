@@ -150,7 +150,7 @@ noncomputable abbrev α_length (α: ℝ → ℝ) (I: BoundedInterval) : ℝ := m
 | Ioc a b => if a ≤ b then (right_lim α b) - (right_lim α a) else 0
 | Ioo a b => if a < b then (left_lim α b) - (right_lim α a) else 0
 
-notation3:max α"["I"]ₗ" => α_length α I
+notation:max α"["I"]ₗ" => α_length α I
 
 theorem α_length_of_empty (α: ℝ → ℝ) {I: BoundedInterval} (hI: (I:Set ℝ) = ∅) : α[I]ₗ = 0 :=
   match I with

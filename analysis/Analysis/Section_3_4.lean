@@ -84,7 +84,7 @@ theorem SetTheory.Set.mem_preimage {X Y:Set} (f:X → Y) (U: Set) (x:X) :
     x.val ∈ preimage f U ↔ (f x).val ∈ U := by rw [specification_axiom']
 
 /--
-  A version of mem_preimage that does not require x to be of type X.
+  A version of {name}``SetTheory.Set.mem_preimage`` that does not require x to be of type X.
 -/
 theorem SetTheory.Set.mem_preimage' {X Y:Set} (f:X → Y) (U: Set) (x:Object) :
     x ∈ preimage f U ↔ ∃ x': X, x'.val = x ∧ (f x').val ∈ U := by

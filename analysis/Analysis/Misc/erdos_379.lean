@@ -4,7 +4,7 @@ import Mathlib
 
 open Nat
 
-/-- $$\binom{n}{k} \cdot k = \binom{n-1}{k-1} \cdot n$$. -/
+/-- {lit}``\binom{n}{k} \cdot k = \binom{n-1}{k-1} \cdot n``. -/
 theorem binom_eq {n k:ℕ} (hk: 1 ≤ k) : (n.choose k) * k = ((n-1).choose (k-1)) * n := by
   rcases le_or_gt k n with _ | hn
   . symm; rw [←choose_symm]; nth_rewrite 2 [←choose_symm]
@@ -12,7 +12,7 @@ theorem binom_eq {n k:ℕ} (hk: 1 ≤ k) : (n.choose k) * k = ((n-1).choose (k-1
     all_goals omega
   simp [choose_eq_zero_of_lt hn, choose_eq_zero_iff]; omega
 
-/-- $$\binom{n}{k} \cdot k \cdot (k-1) = \binom{n-2}{k-2} \cdot (n-1) \cdot n$$.-/
+/-- {lit}``\binom{n}{k} \cdot k \cdot (k-1) = \binom{n-2}{k-2} \cdot (n-1) \cdot n``. -/
 theorem binom_eq_2 {n k:ℕ} (hk: 2 ≤ k) : (n.choose k) * k * (k-1) = ((n-2).choose (k-2)) * (n-1) * n := calc
   _ = ((n-1).choose (k-1)) * n * (k-1) := by rw [binom_eq]; omega
   _ = ((n-1).choose (k-1)) * (k-1) * n := by ring
@@ -20,13 +20,13 @@ theorem binom_eq_2 {n k:ℕ} (hk: 2 ≤ k) : (n.choose k) * k * (k-1) = ((n-2).c
     rw [binom_eq]; congr 2
     all_goals omega
 
-/-- If $$p^{a+b+1} \mid n$$, then $$p^{a+1} \mid \binom{n}{k}$$ or $$p^{b+1} \mid k$$. -/
+/-- If {lit}``p^{a+b+1} \mid n``, then {lit}``p^{a+1} \mid \binom{n}{k}`` or {lit}``p^{b+1} \mid k``. -/
 theorem lemma_1 {n k p a b:ℕ} (hk: 1 ≤ k)
  (hp: p.Prime) (h1: p^(a+b+1) ∣ n) : p^(a+1) ∣ n.choose k ∨ p^(b+1) ∣ k := by
   replace h1 := h1.trans (dvd_mul_left _ ((n-1).choose (k-1)))
   rw [←binom_eq hk] at h1; contrapose! h1; apply finiteMultiplicity_mul_aux hp.prime <;> tauto
 
-/-- If $$p^r \mid n-1$$ and $$k,n-k$$ are not divisible by $$p$$, then $$p^r \mid \binom{n}{k}$$. -/
+/-- If {lit}``p^r \mid n-1`` and {lit}``k, n-k`` are not divisible by {lit}``p``, then {lit}``p^r \mid \binom{n}{k}``. -/
 theorem lemma_2 {n k p r:ℕ} (hk: 2 ≤ k) (hn: k ≤ n)
  (hp: p.Prime) (h1: p^r ∣ n-1) (hr: 0 < r) (h2: ¬p∣k) (h3: ¬ p∣n-k) : p^r ∣ n.choose k := by
   have h1' : p ∣ n-1 := (dvd_pow_self _ (by omega)).trans h1
@@ -35,7 +35,7 @@ theorem lemma_2 {n k p r:ℕ} (hk: 2 ≤ k) (hn: k ≤ n)
   replace h3 : ¬p∣k-1 := by contrapose! h3; convert dvd_sub h1' h3 using 1; omega
   exact hp.prime.pow_dvd_of_dvd_mul_right _ h2 (hp.prime.pow_dvd_of_dvd_mul_right _ h3 h1)
 
-/-- If $$n=2^{\phi(p^R)}$$ and $$p>2^{r-1}$$, then $$2^r \mid \binom{n}{k}$$ or $$p^R \mid \binom{n}{k}$$.-/
+/-- If {lit}``n = 2^{\phi(p^R)}`` and {lit}``p > 2^{r-1}``, then {lit}``2^r \mid \binom{n}{k}`` or {lit}``p^R \mid \binom{n}{k}``. -/
 theorem key_prop {k n p r R:ℕ} (hn: n = 2^((p^R).totient))
   (hk: 1 ≤ k) (hkn: k < n) (hp: p.Prime) (hpr: p > 2^(r-1))
   (hr: 1 < r) (hr' : r ≤ (p^R).totient):
@@ -71,7 +71,7 @@ theorem S_ge {n r:ℕ} (hn: 1 < n) (h: ∀ k ∈ Finset.Ico 1 n, ∃ p, p.Prime 
     all_goals grind
   aesop
 
-/-- If $$p>2^{r-1}$$, then $$S(2^{\phi(p^R)}) \ge r$$.-/
+/-- If {lit}``p > 2^{r-1}``, then {lit}``S(2^{\phi(p^R)}) \ge r``. -/
 theorem key_cor {p r:ℕ} (hp: p.Prime) (hpr: p > 2^(r-1)) (hr: 1 < r) :
   r ≤ S (2^((p^r).totient)) := by
   apply S_ge; simp; grind
