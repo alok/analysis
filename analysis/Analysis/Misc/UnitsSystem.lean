@@ -1,7 +1,7 @@
 import Mathlib.Tactic
 import Mathlib.Algebra.Group.InjSurj
 import Mathlib.Order.Defs.PartialOrder
-import Mathlib.Algebra.Order.Module.OrderedSMul
+import Mathlib.Algebra.Order.Module.Defs
 
 /-! A framework to formalize units (such as length, time, mass, velocity, etc.) in Lean.
 -/
@@ -410,10 +410,20 @@ noncomputable instance Scalar.instLinearOrder (d:Dimensions) : LinearOrder (Scal
 theorem Scalar.val_lt {d:Dimensions} (x y:Scalar d) :
   x < y ↔ x.val < y.val := by simp only [lt_iff_not_ge, val_le]
 
-noncomputable instance Scalar.instOrderedSMul (d:Dimensions) : OrderedSMul ℝ (Scalar d) :=
-  OrderedSMul.mk
-    (fun {a b c} hab hc => by simp only [val_lt] at *; exact mul_lt_mul_of_pos_left hab hc)
-    (fun {a b c} hab hc => by simp only [val_lt] at *; exact lt_of_mul_lt_mul_left hab (le_of_lt hc))
+noncomputable instance Scalar.instIsStrictOrderedModule (d:Dimensions) :
+    IsStrictOrderedModule ℝ (Scalar d) where
+  smul_lt_smul_of_pos_left {a} ha {b₁ b₂} hb := by
+    have hb' : b₁.val < b₂.val := (Scalar.val_lt b₁ b₂).1 hb
+    have h' : (a • b₁).val < (a • b₂).val := by
+      simpa [Scalar.val_smul] using (mul_lt_mul_of_pos_left hb' ha)
+    exact (Scalar.val_lt _ _).2 h'
+  smul_lt_smul_of_pos_right {b} hb {a₁ a₂} ha := by
+    have hb' : 0 < b.val := by
+      have hb'' := (Scalar.val_lt (0:Scalar d) b).1 hb
+      simpa [Scalar.val_zero] using hb''
+    have h' : (a₁ • b).val < (a₂ • b).val := by
+      simpa [Scalar.val_smul] using (mul_lt_mul_of_pos_right ha hb')
+    exact (Scalar.val_lt _ _).2 h'
 
 -- TODO: add in some `gcongr` lemmas for this order
 
