@@ -152,9 +152,9 @@ theorem finite_series_of_rearrange {n:ℕ} {X':Type*} (X: Finset X') (hcard: X.c
     . linarith
     contrapose! hlt; linarith
   set gtil : Icc (1:ℤ) n → X.erase x :=
-    fun i ↦ ⟨ (g (π i)).val, by simp [mem_erase, Subtype.val_inj, g_ne_x] ⟩
+    fun i ↦ ⟨ (g (π i)).val, by simp [mem_erase, g_ne_x] ⟩
   set htil : Icc (1:ℤ) n → X.erase x :=
-    fun i ↦ ⟨ (h' i).val, by simp [mem_erase, Subtype.val_inj, h'_ne_x] ⟩
+    fun i ↦ ⟨ (h' i).val, by simp [mem_erase, h'_ne_x] ⟩
   set ftil : X.erase x → ℝ := fun y ↦ f y.val
   have why : Function.Bijective gtil := by sorry
   have why2 : Function.Bijective htil := by sorry

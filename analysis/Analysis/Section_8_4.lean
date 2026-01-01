@@ -52,8 +52,8 @@ def CartesianProduct.equiv {I U: Type} (X : I → Set U) :
 def Function.equiv {I X:Type} : (∀ _:I, X) ≃ (I → X) := {
   toFun f := f
   invFun f := f
-  left_inv f := rfl
-  right_inv f := rfl
+  left_inv _ := rfl
+  right_inv _ := rfl
 }
 
 def product_zero_equiv {X: Fin 0 → Type} : (∀ i:Fin 0, X i) ≃ PUnit := {
