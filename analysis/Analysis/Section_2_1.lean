@@ -14,18 +14,19 @@ so.
 
 Main constructions and results of this section:
 
-- Definition of the "Chapter 2" natural numbers, `Chapter2.Nat`, abbreviated as `Nat` within the
+- Definition of the "Chapter 2" natural numbers, {lit}``Chapter2.Nat``, abbreviated as
+  {lit}``Nat`` within the
   Chapter2 namespace. (In the book, the natural numbers are treated in a purely axiomatic
   fashion, as a type that obeys the Peano axioms; but here we take advantage of Lean's native
   inductive types to explicitly construct a version of the natural numbers that obey those
   axioms. One could also proceed more axiomatically, as is done in Section 3 for set theory:
   see the epilogue to this chapter.)
-- Establishment of the Peano axioms for `Chapter2.Nat`.
-- Recursive definitions for `Chapter2.Nat`.
+- Establishment of the Peano axioms for {lit}``Chapter2.Nat``.
+- Recursive definitions for {lit}``Chapter2.Nat``.
 
-Note: at the end of this chapter, the `Chapter2.Nat` class will be deprecated in favor of the
-standard Mathlib class `_root_.Nat`, or `ℕ`. However, we will develop the properties of
-`Chapter2.Nat` "by hand" in the next few sections for pedagogical purposes.
+Note: at the end of this chapter, the {lit}``Chapter2.Nat`` class will be deprecated in favor of
+the standard Mathlib class {name}``_root_.Nat``, or {lean}``ℕ``. However, we will develop the
+properties of {lit}``Chapter2.Nat`` "by hand" in the next few sections for pedagogical purposes.
 
 -/
 
@@ -74,7 +75,7 @@ lemma Nat.two_succ : 2++ = 3 := by rfl
 
 /--
   Axiom 2.3 (0 is not the successor of any natural number).
-  Compare with Lean's `Nat.succ_ne_zero`.
+  Compare with Lean's {name}``Nat.succ_ne_zero``.
 -/
 theorem Nat.succ_ne (n:Nat) : n++ ≠ 0 := by
   by_contra h
@@ -89,14 +90,14 @@ theorem Nat.four_ne : (4:Nat) ≠ 0 := by
 
 /--
   Axiom 2.4 (Different natural numbers have different successors).
-  Compare with Mathlib's `Nat.succ_inj`.
+  Compare with Mathlib's {name}``Nat.succ_inj``.
 -/
 theorem Nat.succ_cancel {n m:Nat} (hnm: n++ = m++) : n = m := by
   injection hnm
 
 /--
   Axiom 2.4 (Different natural numbers have different successors).
-  Compare with Mathlib's `Nat.succ_ne_succ`.
+  Compare with Mathlib's {name}``Nat.succ_ne_succ``.
 -/
 theorem Nat.succ_ne_succ (n m:Nat) : n ≠ m → n++ ≠ m++ := by
   intro h
@@ -114,12 +115,13 @@ theorem Nat.six_ne_two : (6:Nat) ≠ 2 := by
   have := four_ne
   contradiction
 
-/-- One can also prove this sort of result by the `decide` tactic -/
+/-- One can also prove this sort of result by the {lit}``decide`` tactic -/
 theorem Nat.six_ne_two' : (6:Nat) ≠ 2 := by
   decide
 
 /--
-  Axiom 2.5 (Principle of mathematical induction). The `induction` (or `induction'`) tactic in
+  Axiom 2.5 (Principle of mathematical induction). The {lit}``induction`` (or {lit}``induction'``)
+  tactic in
   Mathlib serves as a substitute for this axiom.
 -/
 theorem Nat.induction (P : Nat → Prop) (hbase : P 0) (hind : ∀ n, P n → P (n++)) :
@@ -137,10 +139,10 @@ abbrev Nat.recurse (f: Nat → Nat → Nat) (c: Nat) : Nat → Nat := fun n ↦ 
 | 0 => c
 | n++ => f n (recurse f c n)
 
-/-- Proposition 2.1.16 (recursive definitions). Compare with Mathlib's `Nat.rec_zero`. -/
+/-- Proposition 2.1.16 (recursive definitions). Compare with Mathlib's {name}``Nat.rec_zero``. -/
 theorem Nat.recurse_zero (f: Nat → Nat → Nat) (c: Nat) : Nat.recurse f c 0 = c := by rfl
 
-/-- Proposition 2.1.16 (recursive definitions). Compare with Mathlib's `Nat.rec_add_one`. -/
+/-- Proposition 2.1.16 (recursive definitions). Compare with Mathlib's {name}``Nat.rec_add_one``. -/
 theorem Nat.recurse_succ (f: Nat → Nat → Nat) (c: Nat) (n: Nat) :
     recurse f c (n++) = f n (recurse f c n) := by rfl
 
