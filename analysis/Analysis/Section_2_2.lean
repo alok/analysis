@@ -258,7 +258,7 @@ example : (8:Nat) > 5 := by
 
 opaque aaa : Nat := 0
 def aa : Nat := 0
-#loogle _++
+#loogle _ ++ _
 -- /---/
 -- #guard_msgs in
 -- example : aaa = 0 := by rfl
