@@ -15,15 +15,15 @@ doing so.
 
 Main constructions and results of this section:
 
-- Definition of the "Section 4.2" rationals, `Section_4_2.Rat`, as formal differences `a // b` of
-  integers `a b:ℤ`, up to equivalence. (This is a quotient of a scaffolding type
-  `Section_4_2.PreRat`, which consists of formal differences without any equivalence imposed.)
+- Definition of the "Section 4.2" rationals, {lit}``Section_4_2.Rat``, as formal differences {lit}``a // b`` of
+  integers {lit}``a b:ℤ``, up to equivalence. (This is a quotient of a scaffolding type
+  {lit}``Section_4_2.PreRat``, which consists of formal differences without any equivalence imposed.)
 
 - Field operations and order on these rationals, as well as an embedding of ℕ and ℤ.
 
-- Equivalence with the Mathlib rationals `_root_.Rat` (or `ℚ`), which we will use going forward.
+- Equivalence with the Mathlib rationals {lit}``_root_.Rat`` (or {lit}``ℚ``), which we will use going forward.
 
-Note: here (and in the sequel) we use Mathlib's natural numbers `ℕ` and integers `ℤ` rather than
+Note: here (and in the sequel) we use Mathlib's natural numbers {lit}``ℕ`` and integers {lit}``ℤ`` rather than
 the Chapter 2 natural numbers and Section 4.1 integers.
 
 ## Tips from past users
@@ -81,9 +81,9 @@ theorem Rat.eq_diff (n:Rat) : ∃ a b, b ≠ 0 ∧ n = a // b := by
   simp [formalDiv, h]
 
 /--
-  Decidability of equality. Hint: modify the proof of `DecidableEq Int` from the previous
+  Decidability of equality. Hint: modify the proof of {lit}``DecidableEq Int`` from the previous
   section. However, because formal division handles the case of zero denominator separately, it
-  may be more convenient to avoid that operation and work directly with the `Quotient` API.
+  may be more convenient to avoid that operation and work directly with the {lit}``Quotient`` API.
 -/
 instance Rat.decidableEq : DecidableEq Rat := by
   sorry

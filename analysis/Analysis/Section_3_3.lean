@@ -13,21 +13,21 @@ doing so.
 
 Main constructions and results of this section:
 
-- A notion of function `Function X Y` between two sets `X`, `Y` in the set theory of Section 3.1
-- Various relations with the Mathlib notion of a function `X → Y` between two types `X`, `Y`.
-  (Note from Section 3.1 that every `Set` `X` can also be viewed as a subtype
-  `{x : Object // x ∈ X }` of `Object`.)
+- A notion of function {lit}``Function X Y`` between two sets {lit}``X``, {lit}``Y`` in the set theory of Section 3.1
+- Various relations with the Mathlib notion of a function {lit}``X → Y`` between two types {lit}``X``, {lit}``Y``.
+  (Note from Section 3.1 that every {lit}``Set`` {lit}``X`` can also be viewed as a subtype
+  {lit}``{x : Object // x ∈ X }`` of {lit}``Object``.)
 - Basic function properties and operations, such as composition, one-to-one and onto functions,
   and inverses.
 
 In the rest of the book we will deprecate the Chapter 3 version of a function, and work with the
 Mathlib notion of a function instead. Even within this section, we will switch to the Mathlib
-formalism for some of the examples involving number systems such as `ℤ` or `ℝ` that have not been
+formalism for some of the examples involving number systems such as {lit}``ℤ`` or {lit}``ℝ`` that have not been
 implemented in the Chapter 3 framework.
 
-We will work here with the version `Nat` of the natural numbers internal to the Chapter 3 set
+We will work here with the version {lit}``Nat`` of the natural numbers internal to the Chapter 3 set
 theory, though usually we will use coercions to then immediately translate to the Mathlib
-natural numbers `ℕ`.
+natural numbers {lit}``ℕ``.
 
 ## Tips from past users
 
@@ -45,8 +45,8 @@ export SetTheory (Set Object)
 variable [SetTheory]
 
 /--
-  Definition 3.3.1. `Function X Y` is the structure of functions from `X` to `Y`.
-  Analogous to the Mathlib type `X → Y`.
+  Definition 3.3.1. {lit}``Function X Y`` is the structure of functions from {lit}``X`` to {lit}``Y``.
+  Analogous to the Mathlib type {lit}``X → Y``.
 -/
 @[ext]
 structure Function (X Y: Set) where
@@ -56,7 +56,7 @@ structure Function (X Y: Set) where
 #check Function.mk
 
 /--
-  Converting a Chapter 3 function `f: Function X Y` to a Mathlib function `f: X → Y`.
+  Converting a Chapter 3 function {lit}``f: Function X Y`` to a Mathlib function {lit}``f: X → Y``.
   The Chapter 3 definition of a function was nonconstructive, so we have to use the
   axiom of choice here.
 -/
@@ -68,7 +68,7 @@ noncomputable instance Function.inst_coefn (X Y: Set) : CoeFun (Function X Y) (f
 
 theorem Function.to_fn_eval {X Y: Set} (f: Function X Y) (x:X) : f.to_fn x = f x := rfl
 
-/-- Converting a Mathlib function to a Chapter 3 `Function` -/
+/-- Converting a Mathlib function to a Chapter 3 {lit}``Function`` -/
 abbrev Function.mk_fn {X Y: Set} (f: X → Y) : Function X Y :=
   Function.mk (fun x y ↦ y = f x) (by simp)
 
@@ -135,7 +135,7 @@ abbrev SetTheory.Set.f_3_3_3c : Function (Nat \ {(0:Object)}: Set) Nat :=
 theorem SetTheory.Set.f_3_3_3c_eval (x: (Nat \ {(0:Object)}: Set)) (y: Nat) :
     y = f_3_3_3c x ↔ ((y+1:ℕ):Object) = x := Function.eval _ _ _
 
-/-- Create a version of a non-zero `n` inside `Nat \ {0}` for any natural number n. -/
+/-- Create a version of a non-zero {lit}``n`` inside {lit}``Nat \ {0}`` for any natural number n. -/
 abbrev SetTheory.Set.coe_nonzero (n:ℕ) (h: n ≠ 0): (Nat \ {(0:Object)}: Set) :=
   ⟨((n:ℕ):Object), by
     simp [Object.ofnat_eq',h]
@@ -155,7 +155,7 @@ theorem SetTheory.Set.f_3_3_3c_eval''' (n:ℕ) :
 /--
   Example 3.3.4 is a little tricky to replicate with the current formalism as the real numbers
   have not been constructed yet. Instead, I offer some Mathlib counterparts, using the
-  Mathlib API for `NNReal` and `ℝ`.
+  Mathlib API for {lit}``NNReal`` and {lit}``ℝ``.
 -/
 example : ¬ ∃ f: ℝ → ℝ, ∀ x y, y = f x ↔ y^2 = x := by
   by_contra h
@@ -178,7 +178,7 @@ example : ∃ f: NNReal → NNReal, ∀ x y, y = f x ↔ y^2 = x := by
   · rw [h, NNReal.sq_sqrt]
   · rw [←h, NNReal.sqrt_sq]
 
-/-- Example 3.3.5. The unused variable `_x` is underscored to avoid triggering a linter. -/
+/-- Example 3.3.5. The unused variable {lit}``_x`` is underscored to avoid triggering a linter. -/
 abbrev SetTheory.Set.P_3_3_5 : Nat → Nat → Prop := fun _x y ↦ y = 7
 
 theorem SetTheory.Set.P_3_3_5_existsUnique (x: Nat) : ∃! y: Nat, P_3_3_5 x y := by
@@ -271,8 +271,8 @@ theorem Function.one_to_one_iff {X Y: Set} (f: Function X Y) :
   peel with x hx; tauto
 
 /--
-  Compatibility with Mathlib's `Function.Injective`. You may wish to use the `unfold` tactic to
-  understand Mathlib concepts such as `Function.Injective`.
+  Compatibility with Mathlib's {lit}``Function.Injective``. You may wish to use the {lit}``unfold`` tactic to
+  understand Mathlib concepts such as {lit}``Function.Injective``.
 -/
 theorem Function.one_to_one_iff' {X Y: Set} (f: Function X Y) :
     f.one_to_one ↔ Function.Injective f.to_fn := by
@@ -386,9 +386,9 @@ theorem Function.bijective_incorrect_def :
   push_neg; use 0, 1; simp [f]
 
 /--
-  We cannot use the notation `f⁻¹` for the inverse because in Mathlib's `Inv` class, the inverse
-  of `f` must be exactly of the same type of `f`, and `Function Y X` is a different type from
-  `Function X Y`.
+  We cannot use the notation {lit}``f⁻¹`` for the inverse because in Mathlib's {lit}``Inv`` class, the inverse
+  of {lit}``f`` must be exactly of the same type of {lit}``f``, and {lit}``Function Y X`` is a different type from
+  {lit}``Function X Y``.
 -/
 abbrev Function.inverse {X Y: Set} (f: Function X Y) (h: f.bijective) :
     Function Y X :=
@@ -414,7 +414,7 @@ theorem Function.inverse_eq {X Y: Set} [Nonempty X] {f: Function X Y} (h: f.bije
 
 /--
   Exercise 3.3.1. Although a proof operating directly on functions would be shorter,
-  the spirit of the exercise is to show these using the `Function.eq_iff` definition.
+  the spirit of the exercise is to show these using the {lit}``Function.eq_iff`` definition.
 -/
 theorem Function.refl {X Y:Set} (f: Function X Y) : f = f := by sorry
 

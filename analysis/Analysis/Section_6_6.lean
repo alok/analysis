@@ -68,8 +68,8 @@ def Sequence.exist_subseq_of_subseq :
     sorry
 
 /--
-  Exercise 6.6.3. You may find the API around Mathlib's `Nat.find` to be useful
-  (and `open Classical` to avoid any decidability issues)
+  Exercise 6.6.3. You may find the API around Mathlib's {lit}``Nat.find`` to be useful
+  (and {lit}``open Classical`` to avoid any decidability issues)
 -/
 theorem Sequence.subseq_of_unbounded {a:ℕ → ℝ} (ha: ¬ (a:Sequence).IsBounded) :
     ∃ b:ℕ → ℝ, Sequence.subseq a b ∧ (b:Sequence)⁻¹.TendsTo 0 := by

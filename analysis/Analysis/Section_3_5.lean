@@ -17,7 +17,7 @@ Main constructions and results of this section:
 - Ordered pairs and n-tuples.
 - Cartesian products and n-fold products.
 - Finite choice.
-- Connections with Mathlib counterparts such as `Set.pi` and `Set.prod`.
+- Connections with Mathlib counterparts such as {lit}``Set.pi`` and {lit}``Set.prod``.
 
 ## Tips from past users
 
@@ -35,8 +35,8 @@ variable [SetTheory]
 
 open SetTheory.Set
 
-/-- Definition 3.5.1 (Ordered pair). One could also have used `Object × Object` to
-define `OrderedPair` here. -/
+/-- Definition 3.5.1 (Ordered pair). One could also have used {lit}``Object × Object`` to
+define {lit}``OrderedPair`` here. -/
 @[ext]
 structure OrderedPair where
   fst: Object
@@ -63,7 +63,7 @@ instance OrderedPair.inst_coeObject : Coe OrderedPair Object where
   coe := toObject
 
 /--
-  A technical operation, turning a object `x` and a set `Y` to a set `{x} × Y`, needed to define
+  A technical operation, turning a object {lit}``x`` and a set {lit}``Y`` to a set {lit}``{x} × Y``, needed to define
   the full Cartesian product
 -/
 abbrev SetTheory.Set.slice (x:Object) (Y:Set) : Set :=
@@ -105,7 +105,7 @@ theorem SetTheory.Set.pair_eq_fst_snd {X Y:Set} (z:X ×ˢ Y) :
   obtain ⟨ x, hx: z.val = (⟨ x, snd z ⟩:OrderedPair)⟩ := (exists_comm.mp this).choose_spec
   simp_all [EmbeddingLike.apply_eq_iff_eq]
 
-/-- This equips an `OrderedPair` with proofs that `x ∈ X` and `y ∈ Y`. -/
+/-- This equips an {lit}``OrderedPair`` with proofs that {lit}``x ∈ X`` and {lit}``y ∈ Y``. -/
 def SetTheory.Set.mk_cartesian {X Y:Set} (x:X) (y:Y) : X ×ˢ Y :=
   ⟨(⟨ x, y ⟩:OrderedPair), by simp⟩
 
@@ -129,9 +129,9 @@ theorem SetTheory.Set.mk_cartesian_fst_snd_eq {X Y: Set} (z: X ×ˢ Y) :
   rw [mk_cartesian, Subtype.mk.injEq, pair_eq_fst_snd]
 
 /--
-  Connections with the Mathlib set product, which consists of Lean pairs like `(x, y)`
-  equipped with a proof that `x` is in the left set, and `y` is in the right set.
-  Lean pairs like `(x, y)` are similar to our `OrderedPair`, but more general.
+  Connections with the Mathlib set product, which consists of Lean pairs like {lit}``(x, y)``
+  equipped with a proof that {lit}``x`` is in the left set, and {lit}``y`` is in the right set.
+  Lean pairs like {lit}``(x, y)`` are similar to our {lit}``OrderedPair``, but more general.
 -/
 noncomputable abbrev SetTheory.Set.prod_equiv_prod (X Y:Set) :
     ((X ×ˢ Y):_root_.Set Object) ≃ (X:_root_.Set Object) ×ˢ (Y:_root_.Set Object) where
@@ -150,7 +150,7 @@ example : ({1, 2}: Set) ×ˢ ({3, 4, 5}: Set) = ({
   ((mk_cartesian (2: Nat) (5: Nat)): Object)
 }: Set) := by ext; aesop
 
-/-- Example 3.5.5 / Exercise 3.6.5. There is a bijection between `X ×ˢ Y` and `Y ×ˢ X`. -/
+/-- Example 3.5.5 / Exercise 3.6.5. There is a bijection between {lit}``X ×ˢ Y`` and {lit}``Y ×ˢ X``. -/
 noncomputable abbrev SetTheory.Set.prod_commutator (X Y:Set) : X ×ˢ Y ≃ Y ×ˢ X where
   toFun := sorry
   invFun := sorry
@@ -164,7 +164,7 @@ noncomputable abbrev SetTheory.Set.curry_equiv {X Y Z:Set} : (X → Y → Z) ≃
   left_inv _ := by simp
   right_inv _ := by simp [←pair_eq_fst_snd]
 
-/-- Definition 3.5.6. The indexing set `I` plays the role of `{ i : 1 ≤ i ≤ n }` in the text.
+/-- Definition 3.5.6. The indexing set {lit}``I`` plays the role of {lit}``{ i : 1 ≤ i ≤ n }`` in the text.
     See Exercise 3.5.10 below for some connections betweeen this concept and the preceding notion
     of Cartesian product and ordered pair. -/
 abbrev SetTheory.Set.tuple {I:Set} {X: I → Set} (x: ∀ i, X i) : Object :=
@@ -190,7 +190,7 @@ theorem SetTheory.Set.tuple_mem_iProd {I: Set} {X: I → Set} (x: ∀ i, X i) :
 theorem SetTheory.Set.tuple_inj {I:Set} {X: I → Set} (x y: ∀ i, X i) :
     tuple x = tuple y ↔ x = y := by sorry
 
-/-- Example 3.5.8. There is a bijection between `(X ×ˢ Y) ×ˢ Z` and `X ×ˢ (Y ×ˢ Z)`. -/
+/-- Example 3.5.8. There is a bijection between {lit}``(X ×ˢ Y) ×ˢ Z`` and {lit}``X ×ˢ (Y ×ˢ Z)``. -/
 noncomputable abbrev SetTheory.Set.prod_associator (X Y Z:Set) : (X ×ˢ Y) ×ˢ Z ≃ X ×ˢ (Y ×ˢ Z) where
   toFun p := mk_cartesian (fst (fst p)) (mk_cartesian (snd (fst p)) (snd p))
   invFun p := mk_cartesian (mk_cartesian (fst p) (fst (snd p))) (snd (snd p))
@@ -239,7 +239,7 @@ noncomputable abbrev SetTheory.Set.iProd_equiv_prod_triple (X: ({0,1,2}:Set) →
   left_inv := sorry
   right_inv := sorry
 
-/-- Connections with Mathlib's `Set.pi` -/
+/-- Connections with Mathlib's {lit}``Set.pi`` -/
 noncomputable abbrev SetTheory.Set.iProd_equiv_pi (I:Set) (X: I → Set) :
     iProd X ≃ Set.pi .univ (fun i:I ↦ ((X i):_root_.Set Object)) where
   toFun t := ⟨fun i ↦ ((mem_iProd _).mp t.property).choose i, by simp⟩
@@ -258,7 +258,7 @@ into the field of higher order category theory, which we will not pursue here.
 -/
 
 /--
-  Here we set up an analogue of Mathlib `Fin n` types within the Chapter 3 Set Theory,
+  Here we set up an analogue of Mathlib {lit}``Fin n`` types within the Chapter 3 Set Theory,
   with rudimentary API.
 -/
 abbrev SetTheory.Set.Fin (n:ℕ) : Set := nat.specify (fun m ↦ (m:ℕ) < n)
@@ -328,7 +328,7 @@ abbrev SetTheory.Set.Fin_embed (n N:ℕ) (h: n ≤ N) (i: Fin n) : Fin N := ⟨ 
   have := i.property; rw [mem_Fin] at *; grind
 ⟩
 
-/-- Connections with Mathlib's `Fin n` -/
+/-- Connections with Mathlib's {lit}``Fin n`` -/
 noncomputable abbrev SetTheory.Set.Fin.Fin_equiv_Fin (n:ℕ) : Fin n ≃ _root_.Fin n where
   toFun m := _root_.Fin.mk m (toNat_lt m)
   invFun m := Fin_mk n m.val m.isLt
@@ -375,8 +375,8 @@ structure SetTheory.Set.Tuple (n:ℕ) where
 
 /--
   Custom extensionality lemma for Exercise 3.5.2.
-  Placing `@[ext]` on the structure would generate a lemma requiring proof of `t.x = t'.x`,
-  but these functions have different types when `t.X ≠ t'.X`. This lemma handles that part.
+  Placing {lit}``@[ext]`` on the structure would generate a lemma requiring proof of {lit}``t.x = t'.x``,
+  but these functions have different types when {lit}``t.X ≠ t'.X``. This lemma handles that part.
 -/
 @[ext]
 lemma SetTheory.Set.Tuple.ext {n:ℕ} {t t':Tuple n}
@@ -398,7 +398,7 @@ noncomputable abbrev SetTheory.Set.iProd_equiv_tuples (n:ℕ) (X: Fin n → Set)
 
 /--
   Exercise 3.5.3. The spirit here is to avoid direct rewrites (which make all of these claims
-  trivial), and instead use `OrderedPair.eq` or `SetTheory.Set.tuple_inj`
+  trivial), and instead use {lit}``OrderedPair.eq`` or {lit}``SetTheory.Set.tuple_inj``
 -/
 theorem OrderedPair.refl (p: OrderedPair) : p = p := by sorry
 
@@ -487,8 +487,8 @@ theorem SetTheory.Set.is_graph {X Y G:Set} (hG: G ⊆ X ×ˢ Y)
     ∃! f: X → Y, G = graph f := by sorry
 
 /--
-  Exercise 3.5.11. This trivially follows from `SetTheory.Set.powerset_axiom`, but the
-  exercise is to derive it from `SetTheory.Set.exists_powerset` instead.
+  Exercise 3.5.11. This trivially follows from {lit}``SetTheory.Set.powerset_axiom``, but the
+  exercise is to derive it from {lit}``SetTheory.Set.exists_powerset`` instead.
 -/
 theorem SetTheory.Set.powerset_axiom' (X Y:Set) :
     ∃! S:Set, ∀(F:Object), F ∈ S ↔ ∃ f: Y → X, f = F := sorry

@@ -12,13 +12,13 @@ doing so.
 
 Main constructions and results of this section:
 
-- Definition of the "Section 4.1" integers, `Section_4_1.Int`, as formal differences `a —— b` of
-  natural numbers `a b:ℕ`, up to equivalence. (This is a quotient of a scaffolding type
-  `Section_4_1.PreInt`, which consists of formal differences without any equivalence imposed.)
+- Definition of the "Section 4.1" integers, {lit}``Section_4_1.Int``, as formal differences {lit}``a —— b`` of
+  natural numbers {lit}``a b:ℕ``, up to equivalence. (This is a quotient of a scaffolding type
+  {lit}``Section_4_1.PreInt``, which consists of formal differences without any equivalence imposed.)
 
 - ring operations and order these integers, as well as an embedding of ℕ.
 
-- Equivalence with the Mathlib integers `_root_.Int` (or `ℤ`), which we will use going forward.
+- Equivalence with the Mathlib integers {lit}``_root_.Int`` (or {lit}``ℤ``), which we will use going forward.
 
 ## Tips from past users
 

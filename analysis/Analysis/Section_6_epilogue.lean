@@ -5,7 +5,7 @@ import Analysis.Section_6_7
 # Analysis I, Chapter 6 epilogue: Connections with Mathlib limits
 
 In this (technical) epilogue, we show that various operations and properties we have defined for
-"Chapter 6" sequences `Chapter6.Sequence` are equivalent to Mathlib operations. Note however
+"Chapter 6" sequences {lit}``Chapter6.Sequence`` are equivalent to Mathlib operations. Note however
 that Mathlib's operations are defined in far greater generality than the setting of real-valued
 sequences, in particular using the language of filters.
 
@@ -31,7 +31,7 @@ theorem Chapter6.Sequence.Cauchy_iff_CauchySeq (a: ℕ → ℝ) :
   rw [isCauchy_iff_isCauSeq]
   convert isCauSeq_iff_cauchySeq
 
-/-- Identification with `Filter.Tendsto` -/
+/-- Identification with {lit}``Filter.Tendsto`` -/
 theorem Chapter6.Sequence.tendsto_iff_Tendsto (a: ℕ → ℝ) (L:ℝ) :
     (a:Sequence).TendsTo L ↔ atTop.Tendsto a (nhds L) := by
   rw [Metric.tendsto_atTop, tendsTo_iff]
@@ -56,10 +56,10 @@ theorem Chapter6.Sequence.converges_iff_Tendsto (a: ℕ → ℝ) :
 theorem Chapter6.Sequence.converges_iff_Tendsto' (a: Sequence) :
     a.Convergent ↔ ∃ L, atTop.Tendsto a.seq (nhds L) := by simp_rw [←tendsto_iff_Tendsto']
 
-/-- A technicality: `CauSeq.IsComplete ℝ` was established for `_root_.abs` but not for `norm`. -/
+/-- A technicality: {lit}``CauSeq.IsComplete ℝ`` was established for {lit}``_root_.abs`` but not for {lit}``norm``. -/
 instance inst_real_complete : CauSeq.IsComplete ℝ norm := by convert Real.instIsCompleteAbs
 
-/-- Identification with `CauSeq.lim` -/
+/-- Identification with {lit}``CauSeq.lim`` -/
 theorem Chapter6.Sequence.lim_eq_CauSeq_lim (a:ℕ → ℝ) (ha: (a:Sequence).IsCauchy) :
     Chapter6.lim (a:Sequence) = CauSeq.lim  ⟨ a, (isCauchy_iff_isCauSeq a).mp ha⟩ := by
   have h1 := CauSeq.tendsto_limit ⟨ a, (isCauchy_iff_isCauSeq a).mp ha⟩
@@ -67,12 +67,12 @@ theorem Chapter6.Sequence.lim_eq_CauSeq_lim (a:ℕ → ℝ) (ha: (a:Sequence).Is
   rw [←tendsto_iff_Tendsto] at h1
   by_contra! h; apply (a:Sequence).tendsTo_unique at h; tauto
 
-/-- Identification with `limUnder` -/
+/-- Identification with {lit}``limUnder`` -/
 theorem Chapter6.Sequence.lim_eq_limUnder (a:ℕ → ℝ) (ha: (a:Sequence).Convergent) :
     Chapter6.lim (a:Sequence) = limUnder Filter.atTop a := by
     sorry
 
-/-- Identification with `Bornology.IsBounded` -/
+/-- Identification with {lit}``Bornology.IsBounded`` -/
 theorem Chapter6.Sequence.isBounded_iff_isBounded_range (a:ℕ → ℝ):
     (a:Sequence).IsBounded ↔ Bornology.IsBounded (Set.range a) := by
   simp [isBounded_def, boundedBy_def, Metric.isBounded_iff]
@@ -108,7 +108,7 @@ theorem Chapter6.Sequence.Monotone_iff (a:ℕ → ℝ): (a:Sequence).IsMonotone 
 
 theorem Chapter6.Sequence.Antitone_iff (a:ℕ → ℝ): (a:Sequence).IsAntitone ↔ Antitone a := by sorry
 
-/-- Identification with `MapClusterPt` -/
+/-- Identification with {lit}``MapClusterPt`` -/
 theorem Chapter6.Sequence.limit_point_iff (a:ℕ → ℝ) (L:ℝ) :
     (a:Sequence).LimitPoint L ↔ MapClusterPt L .atTop a := by
   simp_rw [limit_point_def, mapClusterPt_iff_frequently, frequently_atTop, Metric.mem_nhds_iff]
@@ -124,18 +124,18 @@ theorem Chapter6.Sequence.limit_point_iff (a:ℕ → ℝ) (L:ℝ) :
   refine ⟨ n, by rwa [ge_iff_le, ←Int.toNat_le], ?_ ⟩
   simp [Real.dist_eq, hn] at *; linarith
 
-/-- Identification with `Filter.limsup` -/
+/-- Identification with {lit}``Filter.limsup`` -/
 theorem Chapter6.Sequence.limsup_eq (a:ℕ → ℝ) :
     (a:Sequence).limsup = atTop.limsup (fun n ↦ (a n:EReal)) := by
   simp_rw [Filter.limsup_eq, eventually_atTop]
   sorry
 
-/-- Identification with `Filter.liminf` -/
+/-- Identification with {lit}``Filter.liminf`` -/
 theorem Chapter6.Sequence.liminf_eq (a:ℕ → ℝ) :
     (a:Sequence).liminf = atTop.liminf (fun n ↦ (a n:EReal)) := by
   simp_rw [Filter.liminf_eq, eventually_atTop]
   sorry
 
-/-- Identification of `rpow` and Mathlib exponentiation -/
+/-- Identification of {lit}``rpow`` and Mathlib exponentiation -/
 theorem Chapter6.Real.rpow_eq_rpow (x:ℝ) (α:ℝ) : rpow x α = x^α := by
   sorry

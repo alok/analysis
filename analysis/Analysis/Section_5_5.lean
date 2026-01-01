@@ -25,7 +25,7 @@ Users of the companion who have completed the exercises in this section are welc
 
 namespace Chapter5
 
-/-- Definition 5.5.1 (upper bounds). Here we use the `upperBounds` set defined in Mathlib. -/
+/-- Definition 5.5.1 (upper bounds). Here we use the {lit}``upperBounds`` set defined in Mathlib. -/
 theorem Real.upperBound_def (E: Set Real) (M: Real) : M ∈ upperBounds E ↔ ∀ x ∈ E, x ≤ M :=
   mem_upperBounds
 
@@ -53,7 +53,7 @@ example : ∀ M, M ∈ upperBounds (∅ : Set Real) := by sorry
 theorem Real.upperBound_upper {M M': Real} (h: M ≤ M') {E: Set Real} (hb: M ∈ upperBounds E) :
     M' ∈ upperBounds E := by sorry
 
-/-- Definition 5.5.5 (least upper bound). Here we use the `isLUB` predicate defined in Mathlib. -/
+/-- Definition 5.5.5 (least upper bound). Here we use the {lit}``isLUB`` predicate defined in Mathlib. -/
 theorem Real.isLUB_def (E: Set Real) (M: Real) :
     IsLUB E M ↔ M ∈ upperBounds E ∧ ∀ M' ∈ upperBounds E, M' ≥ M := by rfl
 
@@ -339,7 +339,7 @@ theorem Real.irrat_between {x y:Real} (hxy: x < y) :
 noncomputable instance Real.inst_SupSet : SupSet Real where
   sSup E := ((ExtendedReal.sup E):Real)
 
-/-- Use the `sSup` operation to build a conditionally complete lattice structure on `Real`-/
+/-- Use the {lit}``sSup`` operation to build a conditionally complete lattice structure on {lit}``Real``-/
 noncomputable instance Real.inst_conditionallyCompleteLattice :
     ConditionallyCompleteLattice Real :=
   conditionallyCompleteLatticeOfLatticeOfsSup Real

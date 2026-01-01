@@ -4,16 +4,16 @@ import Analysis.Section_5_6
 /-!
 # Analysis I, Chapter 5 epilogue: Isomorphism with the Mathlib real numbers
 
-In this (technical) epilogue, we show that the "Chapter 5" real numbers `Chapter5.Real` are
-isomorphic in various standard senses to the standard real numbers `ℝ`. This we do by matching
-both structures with Dedekind cuts of the (Mathlib) rational numbers `ℚ`.
+In this (technical) epilogue, we show that the "Chapter 5" real numbers {lit}``Chapter5.Real`` are
+isomorphic in various standard senses to the standard real numbers {lit}``ℝ``. This we do by matching
+both structures with Dedekind cuts of the (Mathlib) rational numbers {lit}``ℚ``.
 
-From this point onwards, `Chapter5.Real` will be deprecated, and we will use the standard real
-numbers `ℝ` instead. In particular, one should use the full Mathlib API for `ℝ` for all
-subsequent chapters, in lieu of the `Chapter5.Real` API.
+From this point onwards, {lit}``Chapter5.Real`` will be deprecated, and we will use the standard real
+numbers {lit}``ℝ`` instead. In particular, one should use the full Mathlib API for {lit}``ℝ`` for all
+subsequent chapters, in lieu of the {lit}``Chapter5.Real`` API.
 
 Filling the sorries here requires both the Chapter5.Real API and the Mathlib API for the standard
-natural numbers `ℝ`. As such, they are excellent exercises to prepare you for the aforementioned
+natural numbers {lit}``ℝ``. As such, they are excellent exercises to prepare you for the aforementioned
 transition.
 
 ## Tips from past users

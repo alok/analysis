@@ -13,7 +13,7 @@ doing so.
 Main constructions and results of this section:
 
 - Notion of a sequence of rationals
-- Notions of `ε`-steadiness, eventual `ε`-steadiness, and Cauchy sequences
+- Notions of {lit}``ε``-steadiness, eventual {lit}``ε``-steadiness, and Cauchy sequences
 
 ## Tips from past users
 
@@ -27,7 +27,7 @@ namespace Chapter5
 
 /--
   Definition 5.1.1 (Sequence). To avoid some technicalities involving dependent types, we extend
-  sequences by zero to the left of the starting point `n₀`.
+  sequences by zero to the left of the starting point {lit}``n₀``.
 -/
 @[ext]
 structure Sequence where
@@ -40,9 +40,9 @@ instance Sequence.instCoeFun : CoeFun Sequence (fun _ ↦ ℤ → ℚ) where
   coe := fun a ↦ a.seq
 
 /--
-Functions from ℕ to ℚ can be thought of as sequences starting from 0; `ofNatFun` performs this conversion.
+Functions from ℕ to ℚ can be thought of as sequences starting from 0; {lit}``ofNatFun`` performs this conversion.
 
-The `coe` attribute allows the delaborator to print `Sequence.ofNatFun f` as `↑f`, which is more concise; you may safely remove this if you prefer the more explicit notation.
+The {lit}``coe`` attribute allows the delaborator to print {lit}``Sequence.ofNatFun f`` as {lit}``↑f``, which is more concise; you may safely remove this if you prefer the more explicit notation.
 -/
 @[coe]
 def Sequence.ofNatFun (a : ℕ → ℚ) : Sequence where
@@ -54,7 +54,7 @@ def Sequence.ofNatFun (a : ℕ → ℚ) : Sequence where
 #check Sequence.ofNatFun (· ^ 2)
 
 /--
-If `a : ℕ → ℚ` is used in a context where a `Sequence` is expected, automatically coerce `a` to `Sequence.ofNatFun a` (which will be pretty-printed as `↑a`)
+If {lit}``a : ℕ → ℚ`` is used in a context where a {lit}``Sequence`` is expected, automatically coerce {lit}``a`` to {lit}``Sequence.ofNatFun a`` (which will be pretty-printed as {lit}``↑a``)
 -/
 instance : Coe (ℕ → ℚ) Sequence where
   coe := Sequence.ofNatFun
@@ -124,20 +124,20 @@ lemma Rat.Steady.coe (ε : ℚ) (a:ℕ → ℚ) :
 
 /--
 Not in textbook: the sequence 3, 3 ... is 1-steady
-Intended as a demonstration of `Rat.Steady.coe`
+Intended as a demonstration of {lit}``Rat.Steady.coe``
 -/
 example : (1:ℚ).Steady ((fun _:ℕ ↦ (3:ℚ)):Sequence) := by
   simp [Rat.Steady.coe, Rat.Close]
 
 /--
-Compare: if you need to work with `Rat.Steady` on the coercion directly, there will be side
-conditions `hn : n ≥ 0` and `hm : m ≥ 0` that you will need to deal with.
+Compare: if you need to work with {lit}``Rat.Steady`` on the coercion directly, there will be side
+conditions {lit}``hn : n ≥ 0`` and {lit}``hm : m ≥ 0`` that you will need to deal with.
 -/
 example : (1:ℚ).Steady ((fun _:ℕ ↦ (3:ℚ)):Sequence) := by
   intro n _ m _; simp_all [Sequence.n0_coe, Sequence.eval_coe_at_int, Rat.Close]
 
 /--
-Example 5.1.5: The sequence `1, 0, 1, 0, ...` is 1-steady.
+Example 5.1.5: The sequence {lit}``1, 0, 1, 0, ...`` is 1-steady.
 -/
 example : (1:ℚ).Steady ((fun n:ℕ ↦ if Even n then (1:ℚ) else (0:ℚ)):Sequence) := by
   rw [Rat.Steady.coe]
@@ -147,7 +147,7 @@ example : (1:ℚ).Steady ((fun n:ℕ ↦ if Even n then (1:ℚ) else (0:ℚ)):Se
   split_ifs <;> simp [Rat.Close]
 
 /--
-Example 5.1.5: The sequence `1, 0, 1, 0, ...` is not ½-steady.
+Example 5.1.5: The sequence {lit}``1, 0, 1, 0, ...`` is not ½-steady.
 -/
 example : ¬ (0.5:ℚ).Steady ((fun n:ℕ ↦ if Even n then (1:ℚ) else (0:ℚ)):Sequence) := by
   rw [Rat.Steady.coe]
@@ -197,8 +197,8 @@ example (ε:ℚ) (hε:ε<10):  ¬ ε.Steady ((fun n:ℕ ↦ if n = 0 then (10:�
   contrapose! hε; rw [Rat.Steady.coe] at hε; specialize hε 0 1; simpa [Rat.Close] using hε
 
 /--
-  a.from n₁ starts `a:Sequence` from `n₁`. It is intended for use when `n₁ ≥ n₀`, but returns
-  the "junk" value of the original sequence `a` otherwise.
+  a.from n₁ starts {lit}``a:Sequence`` from {lit}``n₁``. It is intended for use when {lit}``n₁ ≥ n₀``, but returns
+  the "junk" value of the original sequence {lit}``a`` otherwise.
 -/
 abbrev Sequence.from (a:Sequence) (n₁:ℤ) : Sequence :=
   mk' (max a.n₀ n₁) (fun n ↦ a (n:ℤ))

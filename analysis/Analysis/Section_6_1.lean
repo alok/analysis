@@ -71,8 +71,8 @@ lemma Sequence.eval_mk {n m:ℤ} (a: { n // n ≥ m } → ℝ) (h: n ≥ m) :
 lemma Sequence.eval_coe (n:ℕ) (a: ℕ → ℝ) : (a:Sequence) n = a n := by simp
 
 /--
-  a.from n₁ starts `a:Sequence` from `n₁`. It is intended for use when `n₁ ≥ n₀`, but returns
-  the "junk" value of the original sequence `a` otherwise.
+  a.from n₁ starts {lit}``a:Sequence`` from {lit}``n₁``. It is intended for use when {lit}``n₁ ≥ n₀``, but returns
+  the "junk" value of the original sequence {lit}``a`` otherwise.
 -/
 abbrev Sequence.from (a:Sequence) (m₁:ℤ) : Sequence := mk' (max a.m m₁) (a ↑·)
 
@@ -394,7 +394,7 @@ theorem Sequence.add_coe (a b: ℕ → ℝ) : (a:Sequence) + (b:Sequence) = (fun
   ext n; rfl
   by_cases h:n ≥ 0 <;> simp [h]
 
-/-- Theorem 6.1.19(a) (limit laws). The `tendsTo` version is more usable than the `lim` version
+/-- Theorem 6.1.19(a) (limit laws). The {lit}``tendsTo`` version is more usable than the {lit}``lim`` version
     in applications. -/
 theorem Sequence.tendsTo_add {a b:Sequence} {L M:ℝ} (ha: a.TendsTo L) (hb: b.TendsTo M) :
   (a+b).TendsTo (L+M) := by
@@ -418,7 +418,7 @@ theorem Sequence.mul_coe (a b: ℕ → ℝ) : (a:Sequence) * (b:Sequence) = (fun
   ext n; rfl
   by_cases h:n ≥ 0 <;> simp [h]
 
-/-- Theorem 6.1.19(b) (limit laws). The `tendsTo` version is more usable than the `lim` version
+/-- Theorem 6.1.19(b) (limit laws). The {lit}``tendsTo`` version is more usable than the {lit}``lim`` version
     in applications. -/
 theorem Sequence.tendsTo_mul {a b:Sequence} {L M:ℝ} (ha: a.TendsTo L) (hb: b.TendsTo M) :
     (a * b).TendsTo (L * M) := by
@@ -443,7 +443,7 @@ theorem Sequence.smul_coe (c:ℝ) (a:ℕ → ℝ) : (c • (a:Sequence)) = (fun 
   ext n; rfl
   by_cases h:n ≥ 0 <;> simp [h, HSMul.hSMul, SMul.smul]
 
-/-- Theorem 6.1.19(c) (limit laws). The `tendsTo` version is more usable than the `lim` version
+/-- Theorem 6.1.19(c) (limit laws). The {lit}``tendsTo`` version is more usable than the {lit}``lim`` version
     in applications. -/
 theorem Sequence.tendsTo_smul (c:ℝ) {a:Sequence} {L:ℝ} (ha: a.TendsTo L) :
     (c • a).TendsTo (c * L) := by
@@ -467,7 +467,7 @@ theorem Sequence.sub_coe (a b: ℕ → ℝ) : (a:Sequence) - (b:Sequence) = (fun
   ext n; rfl
   by_cases h:n ≥ 0 <;> simp [h]
 
-/-- Theorem 6.1.19(d) (limit laws). The `tendsTo` version is more usable than the `lim` version
+/-- Theorem 6.1.19(d) (limit laws). The {lit}``tendsTo`` version is more usable than the {lit}``lim`` version
     in applications. -/
 theorem Sequence.tendsTo_sub {a b:Sequence} {L M:ℝ} (ha: a.TendsTo L) (hb: b.TendsTo M) :
     (a - b).TendsTo (L - M) := by
@@ -491,7 +491,7 @@ theorem Sequence.inv_coe (a: ℕ → ℝ) : (a:Sequence)⁻¹ = (fun n ↦ (a n)
   ext n; rfl
   by_cases h:n ≥ 0 <;> simp [h]
 
-/-- Theorem 6.1.19(e) (limit laws). The `tendsTo` version is more usable than the `lim` version
+/-- Theorem 6.1.19(e) (limit laws). The {lit}``tendsTo`` version is more usable than the {lit}``lim`` version
     in applications. -/
 theorem Sequence.tendsTo_inv {a:Sequence} {L:ℝ} (ha: a.TendsTo L) (hnon: L ≠ 0) :
     (a⁻¹).TendsTo (L⁻¹) := by
@@ -515,7 +515,7 @@ theorem Sequence.div_coe (a b: ℕ → ℝ) : (a:Sequence) / (b:Sequence) = (fun
   ext n; rfl
   by_cases h:n ≥ 0 <;> simp [h]
 
-/-- Theorem 6.1.19(f) (limit laws). The `tendsTo` version is more usable than the `lim` version
+/-- Theorem 6.1.19(f) (limit laws). The {lit}``tendsTo`` version is more usable than the {lit}``lim`` version
     in applications. -/
 theorem Sequence.tendsTo_div {a b:Sequence} {L M:ℝ} (ha: a.TendsTo L) (hb: b.TendsTo M) (hnon: M ≠ 0) :
     (a / b).TendsTo (L / M) := by
@@ -539,7 +539,7 @@ theorem Sequence.max_coe (a b: ℕ → ℝ) : (a:Sequence) ⊔ (b:Sequence) = (f
   ext n; rfl
   by_cases h:n ≥ 0 <;> simp [h]
 
-/-- Theorem 6.1.19(g) (limit laws). The `tendsTo` version is more usable than the `lim` version
+/-- Theorem 6.1.19(g) (limit laws). The {lit}``tendsTo`` version is more usable than the {lit}``lim`` version
     in applications. -/
 theorem Sequence.tendsTo_max {a b:Sequence} {L M:ℝ} (ha: a.TendsTo L) (hb: b.TendsTo M) :
     (max a b).TendsTo (max L M) := by

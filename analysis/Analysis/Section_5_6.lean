@@ -28,7 +28,7 @@ Users of the companion who have completed the exercises in this section are welc
 namespace Chapter5
 
 /-- Definition 5.6.1 (Exponentiating a real by a natural number). Here we use the
-    Mathlib definition coming from `Monoid`. -/
+    Mathlib definition coming from {lit}``Monoid``. -/
 
 lemma Real.pow_zero (x: Real) : x ^ 0 = 1 := rfl
 
@@ -67,7 +67,7 @@ theorem Real.pow_gt_pow (x y:Real) (n:ℕ) (hxy: x > y) (hy: y ≥ 0) (hn: n > 0
 /-- Analogue of Proposition 4.3.10(d) -/
 theorem Real.pow_abs (x:Real) (n:ℕ) : |x|^n = |x^n| := by sorry
 
-/-- Definition 5.6.2 (Exponentiating a real by an integer). Here we use the Mathlib definition coming from `DivInvMonoid`. -/
+/-- Definition 5.6.2 (Exponentiating a real by an integer). Here we use the Mathlib definition coming from {lit}``DivInvMonoid``. -/
 lemma Real.pow_eq_pow (x: Real) (n:ℕ): x ^ (n:ℤ) = x ^ n := by rfl
 
 @[simp]
@@ -99,7 +99,7 @@ theorem Real.zpow_inj {x y:Real} {n:ℤ} (hx: x > 0) (hy : y > 0) (hn: n ≠ 0) 
 /-- Analogue of Proposition 4.3.12(d) -/
 theorem Real.zpow_abs (x:Real) (n:ℤ) : |x|^n = |x^n| := by sorry
 
-/-- Definition 5.6.2. We permit {lit}``junk values`` when `x` is negative or `n` vanishes. -/
+/-- Definition 5.6.2. We permit {lit}``junk values`` when {lit}``x`` is negative or {lit}``n`` vanishes. -/
 noncomputable abbrev Real.root (x:Real) (n:ℕ) : Real := sSup { y:Real | y ≥ 0 ∧ y^n ≤ x }
 
 noncomputable abbrev Real.sqrt (x:Real) := x.root 2

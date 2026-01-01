@@ -16,7 +16,7 @@ to Edward van de Meent; see
 
 universe u
 
-/-- A preliminary lemma about `PSet`: their natural numbers are ordered by membership. -/
+/-- A preliminary lemma about {lit}``PSet``: their natural numbers are ordered by membership. -/
 lemma PSet.ofNat_mem_ofNat_of_lt (m n : ℕ) : n < m → ofNat n ∈ ofNat m := by
   intro h
   induction h with
@@ -29,7 +29,7 @@ lemma PSet.mem_ofNat_iff (n m : ℕ) : ofNat n ∈ ofNat m ↔ n < m := by
   · exact mem_asymm (ofNat_mem_ofNat_of_lt _ _ h)
   apply mem_irrefl
 
-/-- Another preliminary lemma: Natural numbers in `PSet` can only be equivalent
+/-- Another preliminary lemma: Natural numbers in {lit}``PSet`` can only be equivalent
 if they are equal. -/
 lemma PSet.eq_of_ofNat_equiv_ofNat (n m : ℕ): (ofNat.{u} n).Equiv (ofNat.{u} m) → n = m := by
   wlog hmn : m ≤ n generalizing n m
@@ -39,7 +39,7 @@ lemma PSet.eq_of_ofNat_equiv_ofNat (n m : ℕ): (ofNat.{u} n).Equiv (ofNat.{u} m
   order
 
 open PSet in
-/-- Using the above lemmas, we can create a bijection between `ZFSet.omega` and
+/-- Using the above lemmas, we can create a bijection between {lit}``ZFSet.omega`` and
 the natural numbers. -/
 noncomputable def ZFSet.nat_equiv : ℕ ≃ omega.{u} := Equiv.ofBijective (fun n => ⟨mk (ofNat.{u} n),mk_mem_iff.mpr (Mem.mk _ (ULift.up n))⟩) (by
   constructor
@@ -49,9 +49,9 @@ noncomputable def ZFSet.nat_equiv : ℕ ≃ omega.{u} := Equiv.ofBijective (fun 
   )
 
 open Classical in
-/-- Show that ZFSet obeys the `Chapter3.SetTheory` axioms. Most of these axioms were
+/-- Show that ZFSet obeys the {lit}``Chapter3.SetTheory`` axioms. Most of these axioms were
 essentially already established in Mathlib and are relatively routine to transfer over;
-the equivalence of `ZF.omega` and `Nat` being the trickiest one in content (and the
+the equivalence of {lit}``ZF.omega`` and {lit}``Nat`` being the trickiest one in content (and the
 power set axiom also requiring some technical manipulation). -/
 noncomputable instance ZFSet.inst_SetTheory : Chapter3.SetTheory.{u + 1,u + 1} where
   Set := ZFSet

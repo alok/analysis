@@ -336,7 +336,7 @@ example (X Y: Set) : X ⊆ Y ↔ ∀ x, x ∈ X → x ∈ Y := by rfl
 
 /--
   Definition 3.1.14.
-  Note that the strict subset operation in Mathlib is denoted `⊂` rather than `⊊`.
+  Note that the strict subset operation in Mathlib is denoted {lit}``⊂`` rather than {lit}``⊊``.
 -/
 instance SetTheory.Set.instSSubset : HasSSubset Set where
   SSubset X Y := X ⊆ Y ∧ X ≠ Y
@@ -349,7 +349,7 @@ theorem SetTheory.Set.subset_def (X Y:Set) : X ⊆ Y ↔ ∀ x, x ∈ X → x �
 
 /--
   Definition 3.1.14.
-  Note that the strict subset operation in Mathlib is denoted `⊂` rather than `⊊`.
+  Note that the strict subset operation in Mathlib is denoted {lit}``⊂`` rather than {lit}``⊊``.
 -/
 theorem SetTheory.Set.ssubset_def (X Y:Set) : X ⊂ Y ↔ (X ⊆ Y ∧ X ≠ Y) := by rfl
 

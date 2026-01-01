@@ -15,7 +15,7 @@ doing so.
 Main constructions and results of this section:
 
 - Notion of a formal limit of a Cauchy sequence.
-- Construction of a real number type `Chapter5.Real`.
+- Construction of a real number type {lit}``Chapter5.Real``.
 - Basic arithmetic operations and properties.
 
 ## Tips from past users
@@ -88,7 +88,7 @@ abbrev Real := Quotient CauchySequence.instSetoid
 
 open Classical in
 /--
-  It is convenient in Lean to assign the "dummy" value of 0 to `LIM a` when `a` is not Cauchy.
+  It is convenient in Lean to assign the "dummy" value of 0 to {lit}``LIM a`` when {lit}``a`` is not Cauchy.
   This requires Classical logic, because the property of being Cauchy is not computable or
   decidable.
 -/
@@ -456,7 +456,7 @@ theorem Real.IsBounded.equiv {a b:ℕ → ℚ} (ha: (a:Sequence).IsBounded) (hab
     (b:Sequence).IsBounded := by sorry
 
 /--
-  Same as `Sequence.IsCauchy.harmonic` but reindexing the sequence as a₀ = 1, a₁ = 1/2, ...
+  Same as {lit}``Sequence.IsCauchy.harmonic`` but reindexing the sequence as a₀ = 1, a₁ = 1/2, ...
   This form is more convenient for the upcoming proof of Theorem 5.5.9.
 -/
 theorem Sequence.IsCauchy.harmonic' : ((fun n ↦ 1/((n:ℚ)+1): ℕ → ℚ):Sequence).IsCauchy := by

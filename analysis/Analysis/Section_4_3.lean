@@ -12,7 +12,7 @@ doing so.
 Main constructions and results of this section:
 
 - Basic properties of absolute value and exponentiation on the rational numbers (here we use the
-  Mathlib rational numbers `ℚ` rather than the Section 4.2 rational numbers).
+  Mathlib rational numbers {lit}``ℚ`` rather than the Section 4.2 rational numbers).
 
 Note: to avoid notational conflict, we are using the standard Mathlib definitions of absolute
 value and exponentiation. As such, it is possible to solve several of the exercises here rather

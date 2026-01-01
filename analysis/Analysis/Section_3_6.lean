@@ -208,7 +208,7 @@ theorem SetTheory.Set.nat_infinite : infinite nat := by
   apply_fun nat_equiv.symm at hi; simp_all
 
 open Classical in
-/-- It is convenient for Lean purposes to give infinite sets the ``junk`` cardinality of zero. -/
+/-- It is convenient for Lean purposes to give infinite sets the {lit}``junk`` cardinality of zero. -/
 noncomputable def SetTheory.Set.card (X:Set) : ℕ := if h:X.finite then h.choose else 0
 
 theorem SetTheory.Set.has_card_card {X:Set} (hX: X.finite) : X.has_card (SetTheory.Set.card X) := by
@@ -311,14 +311,14 @@ lemma SetTheory.Set.pow_fun_eq_iff {A B : Set} (x y : ↑(A ^ B)) : x = y ↔ po
 theorem SetTheory.Set.card_pow {X Y:Set} (hY: Y.finite) (hX: X.finite) :
     (Y ^ X).finite ∧ (Y ^ X).card = Y.card ^ X.card := by sorry
 
-/-- Exercise 3.6.5. You might find `SetTheory.Set.prod_commutator` useful. -/
+/-- Exercise 3.6.5. You might find {lit}``SetTheory.Set.prod_commutator`` useful. -/
 theorem SetTheory.Set.prod_EqualCard_prod (A B:Set) :
     EqualCard (A ×ˢ B) (B ×ˢ A) := by sorry
 
 noncomputable abbrev SetTheory.Set.pow_fun_equiv' (A B : Set) : ↑(A ^ B) ≃ (B → A) :=
   pow_fun_equiv (A:=A) (B:=B)
 
-/-- Exercise 3.6.6. You may find `SetTheory.Set.curry_equiv` useful. -/
+/-- Exercise 3.6.6. You may find {lit}``SetTheory.Set.curry_equiv`` useful. -/
 theorem SetTheory.Set.pow_pow_EqualCard_pow_prod (A B C:Set) :
     EqualCard ((A ^ B) ^ C) (A ^ (B ×ˢ C)) := by sorry
 
@@ -369,7 +369,7 @@ theorem SetTheory.Set.Permutations_bijective {n: ℕ} (p: Permutations n) :
 theorem SetTheory.Set.Permutations_inj {n: ℕ} (p1 p2: Permutations n) :
     Permutations_toFun p1 = Permutations_toFun p2 ↔ p1 = p2 := by sorry
 
-/-- This connects our concept of a permutation with Mathlib's `Equiv` between `Fin n` and `Fin n`. -/
+/-- This connects our concept of a permutation with Mathlib's {lit}``Equiv`` between {lit}``Fin n`` and {lit}``Fin n``. -/
 noncomputable def SetTheory.Set.perm_equiv_equiv {n : ℕ} : Permutations n ≃ (Fin n ≃ Fin n) := {
   toFun := fun p => Equiv.ofBijective (Permutations_toFun p) (Permutations_bijective p)
   invFun := sorry
@@ -379,7 +379,7 @@ noncomputable def SetTheory.Set.perm_equiv_equiv {n : ℕ} : Permutations n ≃ 
 
 /- Exercise 3.6.12 involves a lot of moving between `Fin n` and `Fin (n + 1)` so let's add some conveniences. -/
 
-/-- Any `Fin n` can be cast to `Fin (n + 1)`. Compare to Mathlib `Fin.castSucc`. -/
+/-- Any {lit}``Fin n`` can be cast to {lit}``Fin (n + 1)``. Compare to Mathlib {lit}``Fin.castSucc``. -/
 def SetTheory.Set.Fin.castSucc {n} (x : Fin n) : Fin (n + 1) :=
   Fin_embed _ _ (by omega) x
 
@@ -389,7 +389,7 @@ lemma SetTheory.Set.Fin.castSucc_inj {n} {x y : Fin n} : castSucc x = castSucc y
 @[simp]
 theorem SetTheory.Set.Fin.castSucc_ne {n} (x : Fin n) : castSucc x ≠ n := by sorry
 
-/-- Any `Fin (n + 1)` except `n` can be cast to `Fin n`. Compare to Mathlib `Fin.castPred`. -/
+/-- Any {lit}``Fin (n + 1)`` except {lit}``n`` can be cast to {lit}``Fin n``. Compare to Mathlib {lit}``Fin.castPred``. -/
 noncomputable def SetTheory.Set.Fin.castPred {n} (x : Fin (n + 1)) (h : (x : ℕ) ≠ n) : Fin n :=
   Fin_mk _ (x : ℕ) (by have := Fin.toNat_lt x; omega)
 
@@ -401,7 +401,7 @@ theorem SetTheory.Set.Fin.castSucc_castPred {n} (x : Fin (n + 1)) (h : (x : ℕ)
 theorem SetTheory.Set.Fin.castPred_castSucc {n} (x : Fin n) (h : ((castSucc x : Fin (n + 1)) : ℕ) ≠ n) :
     castPred (castSucc x) h = x := by sorry
 
-/-- Any natural `n` can be cast to `Fin (n + 1)`. Compare to Mathlib `Fin.last`. -/
+/-- Any natural {lit}``n`` can be cast to {lit}``Fin (n + 1)``. Compare to Mathlib {lit}``Fin.last``. -/
 def SetTheory.Set.Fin.last (n : ℕ) : Fin (n + 1) := Fin_mk _ n (by omega)
 
 /-- Now is a good time to prove this result, which will be useful for completing Exercise 3.6.12 (i). -/
@@ -413,8 +413,8 @@ theorem SetTheory.Set.card_iUnion_card_disjoint {n m: ℕ} {S : Fin n → Set}
 /- Finally, we'll set up a way to shrink `Fin (n + 1)` into `Fin n` (or expand the latter) by making a hole. -/
 
 /--
-  If some `x : Fin (n+1)` is never equal to `i`, we can shrink it into `Fin n` by shifting all `x > i` down by one.
-  Compare to Mathlib `Fin.predAbove`.
+  If some {lit}``x : Fin (n+1)`` is never equal to {lit}``i``, we can shrink it into {lit}``Fin n`` by shifting all {lit}``x > i`` down by one.
+  Compare to Mathlib {lit}``Fin.predAbove``.
 -/
 noncomputable def SetTheory.Set.Fin.predAbove {n} (i : Fin (n + 1)) (x : Fin (n + 1)) (h : x ≠ i) : Fin n :=
   if hx : (x:ℕ) < i then
@@ -423,9 +423,9 @@ noncomputable def SetTheory.Set.Fin.predAbove {n} (i : Fin (n + 1)) (x : Fin (n 
     Fin_mk _ ((x:ℕ) - 1) (by sorry)
 
 /--
-  We can expand `x : Fin n` into `Fin (n + 1)` by shifting all `x ≥ i` up by one.
-  The output is never `i`, so it forms an inverse to the shrinking done by `predAbove`.
-  Compare to Mathlib `Fin.succAbove`.
+  We can expand {lit}``x : Fin n`` into {lit}``Fin (n + 1)`` by shifting all {lit}``x ≥ i`` up by one.
+  The output is never {lit}``i``, so it forms an inverse to the shrinking done by {lit}``predAbove``.
+  Compare to Mathlib {lit}``Fin.succAbove``.
 -/
 noncomputable def SetTheory.Set.Fin.succAbove {n} (i : Fin (n + 1)) (x : Fin n) : Fin (n + 1) :=
   if (x:ℕ) < i then
@@ -462,7 +462,7 @@ theorem SetTheory.Set.Permutations_ih (n: ℕ):
 theorem SetTheory.Set.Permutations_card (n: ℕ):
     (Permutations n).card = n.factorial := by sorry
 
-/-- Connections with Mathlib's `Finite` -/
+/-- Connections with Mathlib's {lit}``Finite`` -/
 theorem SetTheory.Set.finite_iff_finite {X:Set} : X.finite ↔ Finite X := by
   rw [finite_iff_exists_equiv_fin, finite]
   constructor
@@ -476,13 +476,13 @@ theorem SetTheory.Set.finite_iff_finite {X:Set} : X.finite ↔ Finite X := by
   have eq := hn.some.trans (Fin.Fin_equiv_Fin n).symm
   exact ⟨eq, eq.bijective⟩
 
-/-- Connections with Mathlib's `Set.Finite` -/
+/-- Connections with Mathlib's {lit}``Set.Finite`` -/
 theorem SetTheory.Set.finite_iff_set_finite {X:Set} :
     X.finite ↔ (X :_root_.Set Object).Finite := by
   rw [finite_iff_finite]
   rfl
 
-/-- Connections with Mathlib's `Nat.card` -/
+/-- Connections with Mathlib's {lit}``Nat.card`` -/
 theorem SetTheory.Set.card_eq_nat_card {X:Set} : X.card = Nat.card X := by
   by_cases hf : X.finite
   · by_cases hz : X.card = 0
@@ -500,7 +500,7 @@ theorem SetTheory.Set.card_eq_nat_card {X:Set} : X.card = Nat.card X := by
   right
   rwa [finite_iff_set_finite] at hf
 
-/-- Connections with Mathlib's `Set.ncard` -/
+/-- Connections with Mathlib's {lit}``Set.ncard`` -/
 theorem SetTheory.Set.card_eq_ncard {X:Set} : X.card = (X: _root_.Set Object).ncard := by
   rw [card_eq_nat_card]
   rfl

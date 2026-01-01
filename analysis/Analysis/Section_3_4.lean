@@ -14,7 +14,7 @@ Main constructions and results of this section:
 
 - Images and inverse images of (Mathlib) functions, within the framework of Section 3.1 set
   theory. (The Section 3.3 functions are now deprecated and will not be used further.)
-- Connection with Mathlib's image `f '' S` and preimage `f ⁻¹' S` notions.
+- Connection with Mathlib's image {lit}``f '' S`` and preimage {lit}``f ⁻¹' S`` notions.
 
 ## Tips from past users
 
@@ -44,7 +44,7 @@ theorem SetTheory.Set.image_eq_specify {X Y:Set} (f:X → Y) (S: Set) :
     image f S = Y.specify (fun y ↦ ∃ x:X, x.val ∈ S ∧ f x = y) := by sorry
 
 /--
-  Connection with Mathlib's notion of image. Note the need to utilize the `Subtype.val` coercion
+  Connection with Mathlib's notion of image. Note the need to utilize the {lit}``Subtype.val`` coercion
   to make everything type consistent.
 -/
 theorem SetTheory.Set.image_eq_image {X Y:Set} (f:X → Y) (S: Set):
@@ -126,9 +126,9 @@ instance SetTheory.Set.inst_pow : Pow Set Set where
 @[coe]
 def SetTheory.Set.coe_of_fun {X Y:Set} (f: X → Y) : Object := function_to_object X Y f
 
-/-- This coercion has to be a `CoeOut` rather than a
-`Coe` because the input type `X → Y` contains
-parameters not present in the output type `Output` -/
+/-- This coercion has to be a {lit}``CoeOut`` rather than a
+{lit}``Coe`` because the input type {lit}``X → Y`` contains
+parameters not present in the output type {lit}``Output`` -/
 instance SetTheory.Set.inst_coe_of_fun {X Y:Set} : CoeOut (X → Y) Object where
   coe := coe_of_fun
 
@@ -335,7 +335,7 @@ theorem SetTheory.Set.partial_functions {X Y:Set} :
 
 /--
   Exercise 3.4.8. The point of this exercise is to prove it without using the
-  pairwise union operation `∪`.
+  pairwise union operation {lit}``∪``.
 -/
 theorem SetTheory.Set.union_pair_exists (X Y:Set) : ∃ Z:Set, ∀ x, x ∈ Z ↔ (x ∈ X ∨ x ∈ Y) := by
   sorry

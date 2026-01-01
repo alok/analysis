@@ -13,8 +13,8 @@ doing so.
 
 Main constructions and results of this section:
 
-- Some API for Mathlib's extended reals `EReal`, particularly with regard to the supremum
-  operation `sSup` and infimum operation `sInf`.
+- Some API for Mathlib's extended reals {lit}``EReal``, particularly with regard to the supremum
+  operation {lit}``sSup`` and infimum operation {lit}``sInf``.
 
 -/
 
