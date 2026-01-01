@@ -413,7 +413,7 @@ theorem Real.inv_def {a:ℕ → ℚ} (h: BoundedAwayZero a) (hc: (a:Sequence).Is
   observe hx : LIM a ≠ 0
   set x := LIM a
   have ⟨ h1, h2, h3 ⟩ := (boundedAwayZero_of_nonzero hx).choose_spec
-  simp [instInv, hx, -Quotient.eq]
+  simp [instInv, hx]
   exact inv_of_equiv h2 h1 h hc h3.symm
 
 @[simp]
