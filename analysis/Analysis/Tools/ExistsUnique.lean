@@ -1,9 +1,9 @@
 import Mathlib.Tactic
 
 /-!
-# API for ExistsUnique
+# API for {lit}``ExistsUnique``
 
-Here we review some of the API provided for `ExistsUnique` in Mathlib, and provide some additional tools. (Some of these might be suitable for upstreaming to Mathlib.)
+Here we review some of the API provided for {lit}``ExistsUnique`` in Mathlib, and provide some additional tools. (Some of these might be suitable for upstreaming to Mathlib.)
 
 -/
 
@@ -35,7 +35,7 @@ noncomputable def Subsingleton.choose {α: Sort*} [Subsingleton α] [hn: Nonempt
 
 theorem Subsingleton.choose_spec {α: Sort*} [hs: Subsingleton α] [Nonempty α] (x:α) : x = hs.choose := Subsingleton.elim _ _
 
-/-- The equivalence between `ExistsUnique` and `[Subsingleton] [Nonempty]` does not require choice. -/
+/-- The equivalence between {lit}``ExistsUnique`` and {lit}``[Subsingleton] [Nonempty]`` does not require choice. -/
 theorem ExistsUnique.iff_subsingleton_nonempty  {α: Sort*} {p: α → Prop} :
   (∃! x, p x) ↔ (Subsingleton {x // p x} ∧ Nonempty {x // p x}) := by
   constructor
