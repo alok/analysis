@@ -4,20 +4,20 @@ import Analysis.Section_2_3
 /-!
 # Analysis I, Chapter 2 epilogue: Isomorphism with the Mathlib natural numbers
 
-In this (technical) epilogue, we show that the "Chapter 2" natural numbers `Chapter2.Nat` are
-isomorphic in various senses to the standard natural numbers `ℕ`.
+In this (technical) epilogue, we show that the "Chapter 2" natural numbers {lit}``Chapter2.Nat`` are
+isomorphic in various senses to the standard natural numbers {lit}``ℕ``.
 
-After this epilogue, `Chapter2.Nat` will be deprecated, and we will instead use the standard
-natural numbers `ℕ` throughout. In particular, one should use the full Mathlib API for `ℕ` for
-all subsequent chapters, in lieu of the `Chapter2.Nat` API.
+After this epilogue, {lit}``Chapter2.Nat`` will be deprecated, and we will instead use the standard
+natural numbers {lit}``ℕ`` throughout. In particular, one should use the full Mathlib API for {lit}``ℕ`` for
+all subsequent chapters, in lieu of the {lit}``Chapter2.Nat`` API.
 
 Filling the sorries here requires both the Chapter2.Nat API and the Mathlib API for the standard
-natural numbers `ℕ`. As such, they are excellent exercises to prepare you for the aforementioned
+natural numbers {lit}``ℕ``. As such, they are excellent exercises to prepare you for the aforementioned
 transition.
 
 In second half of this section we also give a fully axiomatic treatment of the natural numbers
 via the Peano axioms. The treatment in the preceding three sections was only partially axiomatic,
-because we used a specific construction `Chapter2.Nat` of the natural numbers that was an inductive
+because we used a specific construction {lit}``Chapter2.Nat`` of the natural numbers that was an inductive
 type, and used that inductive type to construct a recursor. Here, we give some exercises to show
 how one can accomplish the same tasks directly from the Peano axioms, without knowing the specific
 implementation of the natural numbers.
@@ -81,7 +81,7 @@ lemma Chapter2.Nat.pow_eq_pow (n m : Chapter2.Nat) :
   sorry
 
 
-/-- The Peano axioms for an abstract type `Nat` -/
+/-- The Peano axioms for an abstract type {lit}``Nat`` -/
 @[ext]
 structure PeanoAxioms where
   Nat : Type
@@ -117,37 +117,37 @@ abbrev natCast (P : PeanoAxioms) : ℕ → P.Nat := fun n ↦ match n with
   | Nat.zero => P.zero
   | Nat.succ n => P.succ (natCast P n)
 
-/-- One can start the proof here with `unfold Function.Injective`, although it is not strictly necessary. -/
+/-- One can start the proof here with {lit}``unfold Function.Injective``, although it is not strictly necessary. -/
 theorem natCast_injective (P : PeanoAxioms) : Function.Injective P.natCast  := by
   sorry
 
-/-- One can start the proof here with `unfold Function.Surjective`, although it is not strictly necessary. -/
+/-- One can start the proof here with {lit}``unfold Function.Surjective``, although it is not strictly necessary. -/
 theorem natCast_surjective (P : PeanoAxioms) : Function.Surjective P.natCast := by
   sorry
 
 /-- The notion of an equivalence between two structures obeying the Peano axioms.
-    The symbol `≃` is an alias for Mathlib's `Equiv` class; for instance `P.Nat ≃ Q.Nat` is
-    an alias for `_root_.Equiv P.Nat Q.Nat`. -/
+    The symbol {lit}``≃`` is an alias for Mathlib's {lit}``Equiv`` class; for instance {lit}``P.Nat ≃ Q.Nat`` is
+    an alias for {lit}``_root_.Equiv P.Nat Q.Nat``. -/
 class Equiv (P Q : PeanoAxioms) where
   equiv : P.Nat ≃ Q.Nat
   equiv_zero : equiv P.zero = Q.zero
   equiv_succ : ∀ n : P.Nat, equiv (P.succ n) = Q.succ (equiv n)
 
-/-- This exercise will require application of Mathlib's API for the `Equiv` class.
-    Some of this API can be invoked automatically via the `simp` tactic. -/
+/-- This exercise will require application of Mathlib's API for the {lit}``Equiv`` class.
+    Some of this API can be invoked automatically via the {lit}``simp`` tactic. -/
 abbrev Equiv.symm {P Q: PeanoAxioms} (equiv : Equiv P Q) : Equiv Q P where
   equiv := equiv.equiv.symm
   equiv_zero := by sorry
   equiv_succ n := by sorry
 
-/-- This exercise will require application of Mathlib's API for the `Equiv` class.
-    Some of this API can be invoked automatically via the `simp` tactic. -/
+/-- This exercise will require application of Mathlib's API for the {lit}``Equiv`` class.
+    Some of this API can be invoked automatically via the {lit}``simp`` tactic. -/
 abbrev Equiv.trans {P Q R: PeanoAxioms} (equiv1 : Equiv P Q) (equiv2 : Equiv Q R) : Equiv P R where
   equiv := equiv1.equiv.trans equiv2.equiv
   equiv_zero := by sorry
   equiv_succ n := by sorry
 
-/-- Useful Mathlib tools for inverting bijections include `Function.surjInv` and `Function.invFun`. -/
+/-- Useful Mathlib tools for inverting bijections include {lit}``Function.surjInv`` and {lit}``Function.invFun``. -/
 noncomputable abbrev Equiv.fromNat (P : PeanoAxioms) : Equiv Mathlib_Nat P where
   equiv := {
     toFun := P.natCast

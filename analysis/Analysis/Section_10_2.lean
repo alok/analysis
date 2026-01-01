@@ -20,7 +20,7 @@ Main constructions and results of this section:
 open Chapter9
 namespace Chapter10
 
-/-- Definition 10.2.1 (Local maxima and minima). Here we use Mathlib's `IsLocalMaxOn` type. -/
+/-- Definition 10.2.1 (Local maxima and minima). Here we use Mathlib's {lit}``IsLocalMaxOn`` type. -/
 theorem IsLocalMaxOn.iff (X:Set ℝ) (f:ℝ → ℝ) (x₀:ℝ) :
   IsLocalMaxOn f X x₀ ↔
   ∃ δ > 0, IsMaxOn f (X ∩ .Ioo (x₀ - δ) (x₀ + δ)) x₀ := by

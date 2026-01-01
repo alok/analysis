@@ -19,7 +19,7 @@ Main constructions and results of this section:
 
 namespace Chapter9
 
-/-- Definition 9.4.1. Here we use the Mathlib definition of continuity. The hypothesis `x ∈ X` is not needed! -/
+/-- Definition 9.4.1. Here we use the Mathlib definition of continuity. The hypothesis {lit}``x ∈ X`` is not needed! -/
 theorem ContinuousWithinAt.iff (X:Set ℝ) (f: ℝ → ℝ)  (x₀:ℝ) :
   ContinuousWithinAt f X x₀ ↔ Convergesto X f (f x₀) x₀ := by
   rw [ContinuousWithinAt.eq_1, Convergesto.iff, nhdsWithin.eq_1]
@@ -57,7 +57,7 @@ example : ¬ ContinuousAt f_9_4_6 0 := by sorry
 
 example : ContinuousWithinAt f_9_4_6 (.Ici 0) 0 := by sorry
 
-/-- Proposition 9.4.7 / Exercise 9.4.1. It is possible that the hypothesis `x₀ ∈ X` is unnecessary. -/
+/-- Proposition 9.4.7 / Exercise 9.4.1. It is possible that the hypothesis {lit}``x₀ ∈ X`` is unnecessary. -/
 theorem ContinuousWithinAt.tfae (X:Set ℝ) (f: ℝ → ℝ) {x₀:ℝ} (h : x₀ ∈ X) :
   [
     ContinuousWithinAt f X x₀,

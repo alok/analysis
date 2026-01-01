@@ -12,7 +12,7 @@ doing so.
 Main constructions and results of this section:
 
 - Custom notions for "equal cardinality", "countable", and "at most countable". Note that Mathlib's
-`Countable` typeclass corresponds to what we call "at most countable" in this text.
+{lit}``Countable`` typeclass corresponds to what we call "at most countable" in this text.
 - Countability of the integers and rationals.
 
 Note that as the Chapter 3 set theory has been deprecated, we will not re-use relevant constructions from that theory here, replacing them with Mathlib counterparts instead.
@@ -22,17 +22,17 @@ Note that as the Chapter 3 set theory has been deprecated, we will not re-use re
 namespace Chapter8
 
 /-- The definition of equal cardinality. For simplicity we restrict attention to the Type 0 universe.
-This is analogous to `Chapter3.SetTheory.Set.EqualCard`, but we are not using the latter since
+This is analogous to {lit}``Chapter3.SetTheory.Set.EqualCard``, but we are not using the latter since
 the Chapter 3 set theory is deprecated. -/
 abbrev EqualCard (X Y : Type) : Prop := ∃ f : X → Y, Function.Bijective f
 
-/-- Relation with Mathlib's `Equiv` concept -/
+/-- Relation with Mathlib's {lit}``Equiv`` concept -/
 theorem EqualCard.iff {X Y : Type} : EqualCard X Y ↔ Nonempty (X ≃ Y) := by
   simp [EqualCard]; constructor
   . intro ⟨ f, hf ⟩; exact ⟨ .ofBijective f hf ⟩
   intro ⟨ e ⟩; exact ⟨ e.toFun, e.bijective ⟩
 
-/-- Equivalence with Mathlib's `Cardinal.mk` concept -/
+/-- Equivalence with Mathlib's {lit}``Cardinal.mk`` concept -/
 theorem EqualCard.iff' {X Y : Type} : EqualCard X Y ↔ Cardinal.mk X = Cardinal.mk Y := by
   simp [Cardinal.eq, iff]
 
@@ -64,13 +64,13 @@ theorem AtMostCountable.equiv {X Y: Type} (hXY : EqualCard X Y) :
   AtMostCountable X ↔ AtMostCountable Y := by
   simp [AtMostCountable, CountablyInfinite.equiv hXY, Finite.equiv hXY]
 
-/-- Equivalence with Mathlib's `Denumerable` concept (cf. Remark 8.1.2) -/
+/-- Equivalence with Mathlib's {lit}``Denumerable`` concept (cf. Remark 8.1.2) -/
 theorem CountablyInfinite.iff (X : Type) : CountablyInfinite X ↔ Nonempty (Denumerable X) := by
   simp [CountablyInfinite, EqualCard.iff]; constructor
   . intro ⟨ e ⟩; exact ⟨ Denumerable.mk' e ⟩
   intro ⟨ h ⟩; exact ⟨ h.eqv X ⟩
 
-/-- Equivalence with Mathlib's `Countable` typeclass -/
+/-- Equivalence with Mathlib's {lit}``Countable`` typeclass -/
 theorem CountablyInfinite.iff' (X : Type) : CountablyInfinite X ↔ Countable X ∧ Infinite X := by
   rw [iff, nonempty_denumerable_iff]
 
@@ -141,7 +141,7 @@ theorem Nat.min_eq_sInf {X : Set ℕ} (hX : X.Nonempty) : min X = sInf X := by
   sorry
 
 open Classical in
-/-- Equivalence with Mathlib's `Nat.find` method -/
+/-- Equivalence with Mathlib's {lit}``Nat.find`` method -/
 theorem Nat.min_eq_find {X : Set ℕ} (hX : X.Nonempty) : min X = Nat.find hX := by
   symm; rw [Nat.find_eq_iff]; have := min_spec hX; grind
 
@@ -321,7 +321,7 @@ example (A: Type) : AtMostCountable A ↔ ∃ f : A → ℕ, Function.Injective 
 example {I X:Type} (hI: AtMostCountable I) (A: I → Set X) (hA: ∀ i, AtMostCountable (A i)) :
   AtMostCountable (⋃ i, A i) := by sorry
 
-/-- Exercise 8.1.10. Note the lack of the `noncomputable` keyword in the `abbrev`. -/
+/-- Exercise 8.1.10. Note the lack of the {lit}``noncomputable`` keyword in the {lit}``abbrev``. -/
 abbrev explicit_bijection : ℕ → ℚ := sorry
 
 theorem explicit_bijection_spec : Function.Bijective explicit_bijection := by sorry

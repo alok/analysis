@@ -20,8 +20,8 @@ instance SI_dimensions.instZero : Zero SI_dimensions where
 
 theorem SI_dimensions.zero_eq : (0:SI_dimensions) = ⟨ 0,0,0,0,0,0,0⟩ := rfl
 
-/-- The addition structure here is simple enough that one gets a lot of definitional equalities, e.g., between `d₁+d₂` and `d₂+d₁` for explicit choices of `d₁` and `d₂`,
-which is convenient as it means we do not need to utilize the `cast` operator much. -/
+/-- The addition structure here is simple enough that one gets a lot of definitional equalities, e.g., between {lit}``d₁+d₂`` and {lit}``d₂+d₁`` for explicit choices of {lit}``d₁`` and {lit}``d₂``,
+which is convenient as it means we do not need to utilize the {lit}``cast`` operator much. -/
 instance SI_dimensions.instAdd : Add SI_dimensions where
   add d₁ d₂ := ⟨d₁.units_length + d₂.units_length,
                 d₁.units_mass + d₂.units_mass,

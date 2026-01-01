@@ -335,7 +335,7 @@ theorem IsElementary.measure_eq {d:ℕ} {E: Set (EuclideanSpace' d)} (hE: IsElem
   rw [←heq, ←hE.partition.choose_spec.2]
 
 /-- Exercise 1.1.2: give an alternate proof of this proposition by showing that
-the two partitions `T₁`, `T₂` admit a mutual refinement into boxes arising from
+the two partitions {lit}``T₁``, {lit}``T₂`` admit a mutual refinement into boxes arising from
 taking Cartesian products of elements from finite collections of disjoint intervals. -/
 theorem Box.measure_uniq' {d:ℕ} {T₁ T₂: Finset (Box d)}
  (hT₁: (T₁ : Set (Box d)).PairwiseDisjoint Box.toSet)

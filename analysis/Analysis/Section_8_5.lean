@@ -12,7 +12,7 @@ doing so.
 
 Main constructions and results of this section:
 
-- Review of `PartialOrder`, `LinearOrder`, and `WellFoundedLT`, with some API.
+- Review of {lit}``PartialOrder``, {lit}``LinearOrder``, and {lit}``WellFoundedLT``, with some API.
 - Strong induction.
 - Zorn's lemma.
 
@@ -20,7 +20,7 @@ Main constructions and results of this section:
 
 namespace Chapter8
 
-/-- Definition 8.5.1 - Here we just review the Mathlib `PartialOrder` class. -/
+/-- Definition 8.5.1 - Here we just review the Mathlib {lit}``PartialOrder`` class. -/
 
 example {X:Type} [PartialOrder X] (x:X) : x ≤ x := le_refl x
 example {X:Type} [PartialOrder X] {x y:X} (h₁: x ≤ y) (h₂: y ≤ x) : x = y := antisymm h₁ h₂
@@ -41,7 +41,7 @@ def PartialOrder.mk {X:Type} [LE X]
 example {X:Type} : PartialOrder (Set X) := by infer_instance
 example {X:Type} (A B: Set X) : A ≤ B ↔ A ⊆ B := by rfl
 
-/-- Definition 8.5.3. Here we just review the Mathlib `LinearOrder` class. -/
+/-- Definition 8.5.3. Here we just review the Mathlib {lit}``LinearOrder`` class. -/
 example {X:Type} [LinearOrder X] : PartialOrder X := by infer_instance
 def IsTotal (X:Type) [PartialOrder X] : Prop := ∀ x y:X, x ≤ y ∨ y ≤ x
 example {X:Type} [LinearOrder X] : IsTotal X := le_total
@@ -77,7 +77,7 @@ theorem IsTotal.subset {X:Type} [PartialOrder X] {A B: Set X} (hA: IsTotal A) (h
 abbrev X_8_5_4 : Set (Set ℕ) := { {1,2}, {2}, {2,3}, {2,3,4}, {5} }
 example : ¬ IsTotal X_8_5_4 := by sorry
 
-/-- Definition 8.5.5 (Maximal and minimal elements). Here we use Mathlib's `IsMax` and `IsMin`. -/
+/-- Definition 8.5.5 (Maximal and minimal elements). Here we use Mathlib's {lit}``IsMax`` and {lit}``IsMin``. -/
 theorem IsMax.iff {X:Type} [PartialOrder X] (x:X) :
   IsMax x ↔ ¬ ∃ y, x < y := by rw [isMax_iff_forall_not_lt]; grind
 
@@ -96,7 +96,7 @@ example : IsMin (0:ℕ) := by sorry
 example (n:ℕ) : ¬ IsMax n := by sorry
 example (n:ℤ): ¬ IsMin n ∧ ¬ IsMax n := by sorry
 
-/-- Definition 8.5.8. We use `[LinearOrder X] [WellFoundedLT X]` to describe well-ordered sets. -/
+/-- Definition 8.5.8. We use {lit}``[LinearOrder X] [WellFoundedLT X]`` to describe well-ordered sets. -/
 theorem WellFoundedLT.iff (X:Type) [LinearOrder X] :
   WellFoundedLT X ↔ ∀ A:Set X, A.Nonempty → ∃ x:A, IsMin x := by
   unfold WellFoundedLT IsMin
@@ -148,7 +148,7 @@ theorem WellFoundedLT.strong_induction {X:Type} [LinearOrder X] [WellFoundedLT X
 abbrev IsUpperBound {X:Type} [PartialOrder X] (A:Set X) (x:X) : Prop :=
   ∀ y ∈ A, y ≤ x
 
-/-- Connection with Mathlib's `upperBounds` -/
+/-- Connection with Mathlib's {lit}``upperBounds`` -/
 theorem IsUpperBound.iff {X:Type} [PartialOrder X] (A:Set X) (x:X) :
   IsUpperBound A x ↔ x ∈ upperBounds A := by simp [IsUpperBound, upperBounds]
 
@@ -168,7 +168,7 @@ example : ¬ IsStrictUpperBound (.Icc 1 2: Set ℝ) 2 := by sorry
 
 example : IsStrictUpperBound (.Icc 1 2: Set ℝ) 3 := by sorry
 
-/-- A convenient way to simplify the notion of having `x₀` as a minimal element.-/
+/-- A convenient way to simplify the notion of having {lit}``x₀`` as a minimal element.-/
 theorem IsMin.iff_lowerbound {X:Type} [PartialOrder X] {Y: Set X} (hY: IsTotal Y) (x₀ : X) : (∃ hx₀ : x₀ ∈ Y, IsMin (⟨ x₀, hx₀ ⟩:Y)) ↔ x₀ ∈ Y ∧ ∀ x ∈ Y, x₀ ≤ x := by
   constructor
   . rintro ⟨ hx₀, hmin ⟩; simp [IsMin, hx₀] at *
@@ -338,8 +338,8 @@ example {Y:Type} [PartialOrder Y] {x y:Y} (hx: IsMax x) (hy: IsMax y) : x = y :=
 example {X:Type} [LinearOrder X] (hmin: ∀ Y: Set X, Y.Nonempty → ∃ x:Y, IsMin x) (hmax: ∀ Y: Set X, Y.Nonempty → ∃ x:Y, IsMax x) : Finite X := by sorry
 
 
-/-- Exercise 8.5.12. Here we make a copy of Mathlib's `Lex` wrapper for lexicographical orderings. This wrapper is needed
-because products `X × Y` of ordered sets are given the default instance of the product partial order instead of
+/-- Exercise 8.5.12. Here we make a copy of Mathlib's {lit}``Lex`` wrapper for lexicographical orderings. This wrapper is needed
+because products {lit}``X × Y`` of ordered sets are given the default instance of the product partial order instead of
 the lexicographical one. -/
 def Lex' (α : Type) := α
 

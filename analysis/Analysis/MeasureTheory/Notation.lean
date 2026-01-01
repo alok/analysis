@@ -5,12 +5,12 @@ import Mathlib.Tactic
 
 A companion to Chapter 0 of the book "An introduction to Measure Theory".
 
-We use existing Mathlib constructions, such as `Set.indicator`, `EuclideanSpace`, `ENNReal`,
-and `tsum` to describe the concepts defined in Chapter 0.
+We use existing Mathlib constructions, such as {lit}``Set.indicator``, {lit}``EuclideanSpace``, {lit}``ENNReal``,
+and {lit}``tsum`` to describe the concepts defined in Chapter 0.
 
 -/
 
-/-- A version of `Set.indicator` suitable for this text. -/
+/-- A version of {lit}``Set.indicator`` suitable for this text. -/
 noncomputable abbrev Set.indicator' {X: Type*} (E: Set X) := indicator E (fun _ ↦ (1:ℝ))
 
 theorem Set.indicator'_apply {X: Type*} (E: Set X) (x: X) [Decidable (x ∈ E)] : indicator' E x = if x ∈ E then 1 else 0 := indicator_apply _ _ _
@@ -21,7 +21,7 @@ theorem Set.indicator'_of_mem {X: Type*} {E:Set X} {x:X} (h: x ∈ E) : indicato
 theorem Set.indicator'_of_notMem {X: Type*} {E:Set X} {x:X} (h: x ∉ E) : indicator' E x = 0 := by
   convert indicator_of_notMem h (fun _ ↦ (1:ℝ))
 
-/-- A version of `EuclideanSpace` suitable for this text. -/
+/-- A version of {lit}``EuclideanSpace`` suitable for this text. -/
 noncomputable abbrev EuclideanSpace' (n: ℕ) := EuclideanSpace ℝ (Fin n)
 
 noncomputable abbrev EuclideanSpace'.equiv_Real : EuclideanSpace' 1 ≃ ℝ :=

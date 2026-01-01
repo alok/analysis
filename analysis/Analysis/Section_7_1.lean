@@ -20,11 +20,11 @@ Main constructions and results of this section:
 open BigOperators
 
 /-!
-- API for summation over finite sets (encoded using Mathlib's `Finset` type), using the
-  `Finset.sum` method and the `∑ n ∈ A, f n` notation.
+- API for summation over finite sets (encoded using Mathlib's {lit}``Finset`` type), using the
+  {lit}``Finset.sum`` method and the {lit}``∑ n ∈ A, f n`` notation.
 - Fubini's theorem for finite series
 
-We do not attempt to replicate the full API for `Finset.sum` here, but in subsequent sections we
+We do not attempt to replicate the full API for {lit}``Finset.sum`` here, but in subsequent sections we
 shall make liberal use of this API.
 
 -/
@@ -43,7 +43,7 @@ theorem sum_of_empty {n m:ℤ} (h: n < m) (a: ℤ → ℝ) : ∑ i ∈ Icc m n, 
   rw [sum_eq_zero]; intro _; rw [mem_Icc]; grind
 
 /--
-  Definition 7.1.1. This is similar to Mathlib's `Finset.sum_Icc_succ_top` except that the
+  Definition 7.1.1. This is similar to Mathlib's {lit}``Finset.sum_Icc_succ_top`` except that the
   latter involves summation over the natural numbers rather than integers.
 -/
 theorem sum_of_nonempty {n m:ℤ} (h: n ≥ m-1) (a: ℤ → ℝ) :
@@ -168,7 +168,7 @@ theorem finite_series_of_rearrange {n:ℕ} {X':Type*} (X: Finset X') (hcard: X.c
 
 /--
   This fact ensures that Definition 7.1.6 would be well-defined even if we did not appeal to the
-  existing `Finset.sum` method.
+  existing {lit}``Finset.sum`` method.
 -/
 theorem exist_bijection {n:ℕ} {Y:Type*} (X: Finset Y) (hcard: X.card = n) :
     ∃ g: Icc (1:ℤ) n → X, Function.Bijective g := by
@@ -195,7 +195,7 @@ theorem finite_series_of_singleton {X':Type*} (f: X' → ℝ) (x₀:X') : ∑ i 
 
 /--
   A technical lemma relating a sum over a finset with a sum over a fintype. Combines well with
-  tools such as `map_finite_series` below.
+  tools such as {lit}``map_finite_series`` below.
 -/
 theorem finite_series_of_fintype {X':Type*} (f: X' → ℝ) (X: Finset X') :
     ∑ x ∈ X, f x = ∑ x:X, f x.val := (sum_coe_sort X f).symm
@@ -293,7 +293,7 @@ theorem finite_series_comm {XX YY:Type*} (X: Finset XX) (Y: Finset YY) (f: XX ×
 
 /--
   Exercise 7.1.4. Note: there may be some technicalities passing back and forth between natural
-  numbers and integers. Look into the tactics `zify`, `norm_cast`, and `omega`
+  numbers and integers. Look into the tactics {lit}``zify``, {lit}``norm_cast``, and {lit}``omega``
 -/
 theorem binomial_theorem (x y:ℝ) (n:ℕ) :
     (x + y)^n

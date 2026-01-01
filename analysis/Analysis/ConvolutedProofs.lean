@@ -8,7 +8,7 @@ namespace ConvolutedProofs
 
 /-! Lemmas for the convoluted proof of irrationality of √2 -/
 
-/-- $3$ is a unit in `ZMod 8`. -/
+/-- $3$ is a unit in {lit}``ZMod 8``. -/
 theorem three_unit_mod_eight : IsUnit (3 : ZMod 8) := by
   decide
 
@@ -44,7 +44,7 @@ lemma two_not_square_mod_prime_three_mod_eight (p : ℕ)
     rw [this] at h
     norm_num at h
 
-/-! Given an infinite set, we can always find an element larger than any given bound with `Set.Infinite.exists_gt`. -/
+/-! Given an infinite set, we can always find an element larger than any given bound with {lit}``Set.Infinite.exists_gt``. -/
 
 
 /-- Extract the coprime numerator and denominator from a rational number. -/
@@ -94,7 +94,7 @@ lemma prime_three_mod_eight_ne_two {p : ℕ} (hp : p ∈ primes_three_mod_eight)
 /-- Type representing the index set for our ultraproduct: primes ≡ 3 (mod 8). -/
 abbrev PrimeIndex := primes_three_mod_eight
 
-/-- These should be the same, but we still declare `PrimeIndex`. -/
+/-- These should be the same, but we still declare {lit}``PrimeIndex``. -/
 example : @PrimeIndex  = @primes_three_mod_eight := by simp
 
 

@@ -208,7 +208,7 @@ theorem Series.absConverges_of_subseries {a:ℕ → ℝ} (ha: (a:Series).absConv
   (fun n ↦ a (f n):Series).absConverges := by sorry
 
 /-- Exercise 7.4.2 : reprove Proposition 7.4.3 using Proposition 7.41, Proposition 7.2.14,
-    and expressing `a n` as the difference of `a n + |a n|` and `|a n|`. -/
+    and expressing {lit}``a n`` as the difference of {lit}``a n + |a n|`` and {lit}``|a n|``. -/
 theorem Series.absConverges_of_permute' {a:ℕ → ℝ} (ha : (a:Series).absConverges)
   {f: ℕ → ℕ} (hf: Function.Bijective f) :
     (fun n ↦ a (f n):Series).absConverges  ∧ (a:Series).sum = (fun n ↦ a (f n):Series).sum := by sorry

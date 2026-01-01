@@ -62,7 +62,7 @@ theorem key_prop {k n p r R:ℕ} (hn: n = 2^((p^R).totient))
 
 noncomputable abbrev S (n:ℕ) : ℕ := sSup { r | ∀ k ∈ Finset.Ico 1 n, ∃ p, p.Prime ∧ p^r ∣ (n.choose k) }
 
-/-- The condition `1<n` is necessary to avoid the range of `k` being vacuous. -/
+/-- The condition {lit}``1<n`` is necessary to avoid the range of {lit}``k`` being vacuous. -/
 theorem S_ge {n r:ℕ} (hn: 1 < n) (h: ∀ k ∈ Finset.Ico 1 n, ∃ p, p.Prime ∧ p^r ∣ n.choose k) : r ≤ S n := by
   apply le_csSup
   . rw [bddAbove_def]; use n; simp; intro r h

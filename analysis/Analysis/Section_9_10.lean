@@ -15,7 +15,7 @@ Main constructions and results of this section:
 
 namespace Chapter9
 
-/-- Definition 9.10.1 (Infinite adherent point). We use `¬ BddAbove X` as our notation for `+∞` being an adherent point -/
+/-- Definition 9.10.1 (Infinite adherent point). We use {lit}``¬ BddAbove X`` as our notation for {lit}``+∞`` being an adherent point -/
 theorem BddAbove.unbounded_iff (X:Set ℝ) : ¬ BddAbove X ↔ ∀ M, ∃ x ∈ X, x > M := by
   simp [bddAbove_def]
 

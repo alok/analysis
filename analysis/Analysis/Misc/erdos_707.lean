@@ -35,11 +35,11 @@ lemma diff_uniq {a b c d:B} (ha: a ≠ b) (hsub: a.val-b.val = c.val-d.val) : a=
   replace : (⟨ a, b ⟩: B × B) = ⟨ c, d ⟩ := by apply this.unique <;> grind
   grind
 
-/-- Given a perfect difference set `B` and an element `a` not in `B`, the function `f_a` maps each `b ∈ B` to the unique `c ∈ B` such that `a-b=c-d` for some `d ∈ B`. -/
+/-- Given a perfect difference set {lit}``B`` and an element {lit}``a`` not in {lit}``B``, the function {lit}``f_a`` maps each {lit}``b ∈ B`` to the unique {lit}``c ∈ B`` such that {lit}``a-b=c-d`` for some {lit}``d ∈ B``. -/
 noncomputable def f {a:ZMod N} (ha: a ∉ B) (b:B): B :=
     (hdiff (a-b.val) (by grind)).choose.1
 
-/-- Though not defined in Theorem 8, it is convenient to also introduce the companion function `g_a`, defined to be the `d` element. -/
+/-- Though not defined in Theorem 8, it is convenient to also introduce the companion function {lit}``g_a``, defined to be the {lit}``d`` element. -/
 noncomputable def g {a:ZMod N} (ha: a ∉ B) (b:B): B :=
     (hdiff (a-b.val) (by grind)).choose.2
 
@@ -56,7 +56,7 @@ lemma f_def' {a:ZMod N} (ha: a ∉ B) (b c d:B) : a - b = c - d ↔ c = f ha b �
   rintro ⟨ rfl, rfl ⟩
   exact f_def ha b
 
-/-- `f_a` is an involution. -/
+/-- {lit}``f_a`` is an involution. -/
 lemma f_inv {a:ZMod N} (ha: a ∉ B) : Function.Involutive (f ha) := by
   intro b
   have h1 := f_def ha b
@@ -64,7 +64,7 @@ lemma f_inv {a:ZMod N} (ha: a ∉ B) : Function.Involutive (f ha) := by
   rw [f_def' ha] at h1
   rw [←h1.1]
 
-/-- Fixed points of `f_a` satisfy `2f_a(b) = a + g_a(b)`. -/
+/-- Fixed points of {lit}``f_a`` satisfy {lit}``2f_a(b) = a + g_a(b)``. -/
 lemma f_fixed {a:ZMod N} {ha: a ∉ B} {b:B} (hb: f ha b = b): 2 * b.val = a + (g ha b).val := by
   have := f_def ha b
   grind

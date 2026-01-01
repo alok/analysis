@@ -57,7 +57,7 @@ example {a b: EReal} (h: a ≥ b) : Set.Ioo a b = ∅ := by
 example {a b: EReal} (h: a = b) : Set.Icc a a = {a} := by
   sorry
 
-/-- Definition 9.1.5. Note that a slightly different `Real.adherent` was defined in Chapter 6.4 -/
+/-- Definition 9.1.5. Note that a slightly different {lit}``Real.adherent`` was defined in Chapter 6.4 -/
 abbrev Real.adherent' (ε:ℝ) (x:ℝ) (X: Set ℝ) := ∃ y ∈ X, |x - y| ≤ ε
 
 /-- Example 9.1.7 -/
@@ -86,7 +86,7 @@ theorem closure_def (X:Set ℝ) : closure X = { x | AdherentPt x X } := by
 theorem closure_def' (X:Set ℝ) (x :ℝ) : x ∈ closure X ↔ AdherentPt x X := by
   simp [closure_def]
 
-/-- identification of `AdherentPt` with Mathlib's `ClusterPt` -/
+/-- identification of {lit}``AdherentPt`` with Mathlib's {lit}``ClusterPt`` -/
 theorem AdherentPt_def (x:ℝ) (X:Set ℝ) : AdherentPt x X = ClusterPt x (.principal X) := by
   rw [←closure_def', mem_closure_iff_clusterPt]
 
@@ -224,7 +224,7 @@ theorem isClosed_iff_limits_mem (X: Set ℝ) :
 /-- Definition 9.1.18 (Limit points) -/
 abbrev LimitPt (x:ℝ) (X: Set ℝ) := AdherentPt x (X \ {x})
 
-/-- Identification with Mathlib's `AccPt`-/
+/-- Identification with Mathlib's {lit}``AccPt``-/
 theorem LimitPt.iff_AccPt (x:ℝ) (X: Set ℝ) : LimitPt x X ↔ AccPt x (.principal X) := by
   rw [accPt_principal_iff_clusterPt,←AdherentPt_def]
 
@@ -288,7 +288,7 @@ theorem mem_Iio_isLimit {a x:ℝ} (hx: x ∈ Set.Iio a) : LimitPt x (.Iio a) := 
 theorem mem_R_isLimit {x:ℝ} : LimitPt x (.univ) := by
   sorry
 
-/-- Definition 9.1.22. We use here Mathlib's `Bornology.IsBounded`-/
+/-- Definition 9.1.22. We use here Mathlib's {lit}``Bornology.IsBounded``-/
 
 theorem isBounded_def (X: Set ℝ) : Bornology.IsBounded X ↔ ∃ M > 0, X ⊆ .Icc (-M) M := by
   simp [isBounded_iff_forall_norm_le]
@@ -363,7 +363,7 @@ example {X:Set ℝ} (hX: X ≠ ∅) : Bornology.IsBounded X ↔
 example {X:Set ℝ} (hX: Bornology.IsBounded X) : Bornology.IsBounded (closure X) := by
   sorry
 
-/-- Exercise 9.1.12. As a followup: prove or disprove this exercise with `[Fintype I]` removed. -/
+/-- Exercise 9.1.12. As a followup: prove or disprove this exercise with {lit}``[Fintype I]`` removed. -/
 example {I:Type} [Fintype I] (X: I → Set ℝ) (hX: ∀ i, Bornology.IsBounded (X i)) :
   Bornology.IsBounded (⋃ i, X i) := by
   sorry

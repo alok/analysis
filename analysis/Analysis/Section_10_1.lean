@@ -11,12 +11,12 @@ the Lean code could be "golfed" to be more elegant and idiomatic, but I have con
 doing so.
 
 Main constructions and results of this section:
-- API for Mathlib's `HasDerivWithinAt`, `derivWithin`, and `DifferentiableWithinAt`.
+- API for Mathlib's {lit}``HasDerivWithinAt``, {lit}``derivWithin``, and {lit}``DifferentiableWithinAt``.
 
 Note that the Mathlib conventions differ slightly from that in the text, in that
 differentiability is defined even at points that are not limit points of the domain;
-derivatives in such cases may not be unique, but `derivWithin` still selects one such
-derivative in such cases (or `0`, if no derivative exists).
+derivatives in such cases may not be unique, but {lit}``derivWithin`` still selects one such
+derivative in such cases (or {lit}``0``, if no derivative exists).
 
 -/
 
@@ -24,8 +24,8 @@ namespace Chapter10
 
 variable (x₀ : ℝ)
 
-/-- Definition 10.1.1 (Differentiability at a point). For the Mathlib notion `HasDerivWithinAt`, the
-hypothesis that `x₀` is a limit point is not needed. -/
+/-- Definition 10.1.1 (Differentiability at a point). For the Mathlib notion {lit}``HasDerivWithinAt``, the
+hypothesis that {lit}``x₀`` is a limit point is not needed. -/
 theorem _root_.HasDerivWithinAt.iff (X: Set ℝ) (x₀ : ℝ) (f: ℝ → ℝ)
   (L:ℝ) :
   HasDerivWithinAt f L X x₀ ↔ (nhdsWithin x₀ (X \ {x₀})).Tendsto (fun x ↦ (f x - f x₀) / (x - x₀))

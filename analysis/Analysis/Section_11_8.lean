@@ -22,8 +22,8 @@ Technical notes:
   not intended to be applied. For the definition of α-length, the definition is intended to be
   applied in contexts where left and right limits exist, and the function is extended by
   constants to the left and right of its intended domain of definition; for instance, if a
-  function `f` is defined on `Icc 0 1`, then it is intended that `f x = f 1` for all `x ≥ 1`
-  and `f x = f 0` for all `x ≤ 0`; in particular, at a right endpoint, the value of a function
+  function {lit}``f`` is defined on {lit}``Icc 0 1``, then it is intended that {lit}``f x = f 1`` for all {lit}``x ≥ 1``
+  and {lit}``f x = f 0`` for all {lit}``x ≤ 0``; in particular, at a right endpoint, the value of a function
   is intended to agree with its right limit, and similarly for the left endpoint, although we
   do not enforce this in our definition of α-length. (For functions defined on open intervals,
   the extension is immaterial.)

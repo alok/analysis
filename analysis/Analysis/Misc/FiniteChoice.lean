@@ -32,7 +32,7 @@ lemma sec_ex {α β:Type*} [Fintype β] [DecidableEq β] (f : α → β) (h : �
   ext b; specialize hg (e b)
   simpa only [Function.comp_apply, id_eq, Fin.val_inj, EmbeddingLike.apply_eq_iff_eq, F] using hg
 
-/-- Variants of the above that use `Trunc` in place of `∃`. Roughly speaking, this means that if the hypotheses are constructive, we can guarantee that the conclusion is constructive -/
+/-- Variants of the above that use {lit}``Trunc`` in place of {lit}``∃``. Roughly speaking, this means that if the hypotheses are constructive, we can guarantee that the conclusion is constructive -/
 
 def finite_choice_trunc {X:Type*} {f:X → ℕ} {N:ℕ} (h: ∀ n < N, Trunc {x // f x = n}) :
   Trunc {g: Fin N → X // ∀ n, f (g n) = n} := by

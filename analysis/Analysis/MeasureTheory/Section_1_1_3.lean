@@ -9,7 +9,7 @@ A companion to Section 1.1.3 of the book "An introduction to Measure Theory".
 
 open BoundedInterval
 
-/-- Definition 1.1.5. (Riemann integrability) The interval `I` should be closed, though we will not enforce this. We also permit the length to be 0. We index the tags and deltas starting from 0 rather than 1
+/-- Definition 1.1.5. (Riemann integrability) The interval {lit}``I`` should be closed, though we will not enforce this. We also permit the length to be 0. We index the tags and deltas starting from 0 rather than 1
 in the text as this is slightly more convenient in Lean. -/
 @[ext]
 structure TaggedPartition (I: BoundedInterval) (n:ℕ) where
@@ -28,12 +28,12 @@ noncomputable def TaggedPartition.norm {I: BoundedInterval} {n:ℕ} (P: TaggedPa
 def TaggedPartition.RiemannSum {I: BoundedInterval} {n:ℕ} (f: ℝ → ℝ) (P: TaggedPartition I n) : ℝ :=
   ∑ i, f (P.x_tag i) * P.delta i
 
-/-- `Sigma (TaggedPartition I)` is the type of all partitions of `I` with an unspecified number `n` of components. Here we define what it means to converge to zero in this type. -/
+/-- {lit}``Sigma (TaggedPartition I)`` is the type of all partitions of {lit}``I`` with an unspecified number {lit}``n`` of components. Here we define what it means to converge to zero in this type. -/
 instance TaggedPartition.nhds_zero (I: BoundedInterval) : Filter (Sigma (TaggedPartition I)) := Filter.comap (fun P ↦ P.snd.norm) (nhds 0)
 
 def riemann_integrable_eq (f: ℝ → ℝ) (I: BoundedInterval) (R: ℝ) : Prop := (TaggedPartition.nhds_zero I).Tendsto (fun P ↦ TaggedPartition.RiemannSum f P.snd) (nhds R)
 
-/-- We enforce `I` to be closed for the definition of Riemann integrability. -/
+/-- We enforce {lit}``I`` to be closed for the definition of Riemann integrability. -/
 abbrev RiemannIntegrableOn (f: ℝ → ℝ) (I: BoundedInterval) : Prop := I = Icc I.a I.b ∧ ∃ R, riemann_integrable_eq f I R
 
 open Classical in
