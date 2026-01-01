@@ -15,23 +15,26 @@ doing so.
 
 Main constructions and results of this section:
 
-- A type `Chapter3.SetTheory.Set` of sets
-- A type `Chapter3.SetTheory.Object` of objects
+- A type {lit}``Chapter3.SetTheory.Set`` of sets
+- A type {lit}``Chapter3.SetTheory.Object`` of objects
 - An axiom that every set is (or can be coerced into) an object
-- The empty set `∅`, singletons `{y}`, and pairs `{y,z}` (and more general finite tuples), with
+- The empty set {lit}``∅``, singletons {lit}``{y}``, and pairs {lit}``{y,z}``
+  (and more general finite tuples), with
   their attendant axioms
-- Pairwise union `X ∪ Y`, and their attendant axioms
-- Coercion of a set `A` to its associated type `A.toSubtype`, which is a subtype of `Object`, and
+- Pairwise union {lit}``X ∪ Y``, and their attendant axioms
+- Coercion of a set {lit}``A`` to its associated type {lit}``A.toSubtype``, which is a subtype of
+  {lit}``Object``, and
   basic API. (This is a technical construction needed to make the Zermelo-Frankel set theory
   compatible with the dependent type theory of Lean.)
-- The specification `A.specify P` of a set `A` and a predicate `P: A.toSubtype → Prop` to the
-  subset of elements of `A` obeying `P`, and the axiom of specification.
+- The specification {lit}``A.specify P`` of a set {lit}``A`` and a predicate
+  {lit}``P: A.toSubtype → Prop`` to the subset of elements of {lit}``A`` obeying {lit}``P``, and the
+  axiom of specification.
   TODO: somehow implement set builder elaboration for this.
-- The replacement `A.replace hP` of a set `A` via a predicate
-  `P: A.toSubtype → Object → Prop` obeying a uniqueness condition
-  `∀ x y y', P x y ∧ P x y' → y = y'`, and the axiom of replacement.
-- A bijective correspondence between the Mathlib natural numbers `ℕ` and a set
-  `Chapter3.Nat : Chapter3.Set` (the axiom of infinity).
+- The replacement {lit}``A.replace hP`` of a set {lit}``A`` via a predicate
+  {lit}``P: A.toSubtype → Object → Prop`` obeying a uniqueness condition
+  {lit}``∀ x y y', P x y ∧ P x y' → y = y'``, and the axiom of replacement.
+- A bijective correspondence between the Mathlib natural numbers {lean}``ℕ`` and a set
+  {lit}``Chapter3.Nat : Chapter3.Set`` (the axiom of infinity).
 - Axioms of regularity, power set, and union (used in later sections of this chapter, but not
   required here)
 - Connections with Mathlib's notion of a set
@@ -39,23 +42,27 @@ Main constructions and results of this section:
 The other axioms of Zermelo-Frankel set theory are discussed in later sections.
 
 Some technical notes:
-- Mathlib of course has its own notion of a `Set` (or more precisely, a type `Set X` associated to
-  each type `X`), which is not compatible with the notion `Chapter3.Set` defined here,
+- Mathlib of course has its own notion of a {name}``Set`` (or more precisely, a type
+  {lit}``Set X`` associated to each type {lit}``X``), which is not compatible with the notion
+  {lit}``Chapter3.Set`` defined here,
   though we will try to make the notations match as much as possible. This causes some notational
-  conflict: for instance, one may need to explicitly specify `(∅:Chapter3.Set)` instead of just `∅`
-  to indicate that one is using the `Chapter3.Set` version of the empty set, rather than the
+  conflict: for instance, one may need to explicitly specify {lit}``(∅:Chapter3.Set)`` instead of
+  just {lit}``∅`` to indicate that one is using the {lit}``Chapter3.Set`` version of the empty set,
+  rather than the
   Mathlib version of the empty set, and similarly for other notation defined here.
 - In Analysis I, we chose to work with an "impure" set theory, in which there could be more
-  `Object`s than just `Set`s. In the type theory of Lean, this requires treating `Chapter3.Set`
-  and `Chapter3.Object` as distinct types. Occasionally this means we have to use a coercion
-  `(X: Chapter3.Object)` of a `Chapter3.Set` `X` to make into a `Chapter3.Object`: this is
+  {lit}``Object``s than just {lit}``Set``s. In the type theory of Lean, this requires treating
+  {lit}``Chapter3.Set`` and {lit}``Chapter3.Object`` as distinct types. Occasionally this means we
+  have to use a coercion {lit}``(X: Chapter3.Object)`` of a {lit}``Chapter3.Set`` {lit}``X`` to make
+  into a {lit}``Chapter3.Object``: this is
   mostly needed when manipulating sets of sets.
-- Strictly speaking, a set `X:Set` is not a type; however, we will coerce sets to types, and
-  specifically to a subtype of `Object`. A similar coercion is in place for Mathlib's
+- Strictly speaking, a set {lit}``X:Set`` is not a type; however, we will coerce sets to types, and
+  specifically to a subtype of {lit}``Object``. A similar coercion is in place for Mathlib's
   formalization of sets.
-- After this chapter is concluded, the notion of a `Chapter3.SetTheory.Set` will be deprecated in
-  favor of the standard Mathlib notion of a `Set` (or more precisely of the type `Set X` of a set
-  in a given type `X`). However, due to various technical incompatibilities between set theory
+- After this chapter is concluded, the notion of a {lit}``Chapter3.SetTheory.Set`` will be
+  deprecated in favor of the standard Mathlib notion of a {name}``Set`` (or more precisely of the
+  type {lit}``Set X`` of a set in a given type {lit}``X``). However, due to various technical
+  incompatibilities between set theory
   and type theory, we will not attempt to create a full equivalence between these two
   notions of sets. (As such, this makes this entire chapter optional from the point of view of
   the rest of the book, though we retain it for pedagogical purposes.)
@@ -135,7 +142,7 @@ theorem SetTheory.Set.coe_eq {X Y:Set} (h: (X: Object) = (Y: Object)) : X = Y :=
 theorem SetTheory.Set.coe_eq_iff (X Y:Set) : (X: Object) = (Y: Object) ↔  X = Y :=
   ⟨ coe_eq, by rintro rfl; rfl ⟩
 
-/-- Axiom 3.2 (Equality of sets). The `[ext]` tag allows the `ext` tactic to work for sets. -/
+/-- Axiom 3.2 (Equality of sets). The {lit}``[ext]`` tag allows the {lit}``ext`` tactic to work for sets. -/
 @[ext]
 theorem SetTheory.Set.ext {X Y:Set} (h: ∀ x, x ∈ X ↔ x ∈ Y) : X = Y := extensionality _ _ h
 
@@ -377,13 +384,15 @@ theorem SetTheory.Set.ssubset_trans (A B C:Set) (hAB:A ⊂ B) (hBC:B ⊂ C) : A 
 
 
 /--
-  This defines the subtype `A.toSubtype` for any `A:Set`.
-  Note that `A.toSubtype` gives you a type, similar to how `Object` or `Set` are types.
-  A value `x'` of type `A.toSubtype` combines some `x: Object` with a proof that `hx: x ∈ A`.
+  This defines the subtype {lit}``A.toSubtype`` for any {lit}``A:Set``.
+  Note that {lit}``A.toSubtype`` gives you a type, similar to how {lit}``Object`` or {lit}``Set``
+  are types. A value {lit}``x'`` of type {lit}``A.toSubtype`` combines some {lit}``x: Object`` with a
+  proof that {lit}``hx: x ∈ A``.
 
-  To produce an element `x'` of this subtype, use `⟨ x, hx ⟩`, where `x: Object` and `hx: x ∈ A`.
-  The object `x` associated to a subtype element `x'` is recovered as `x'.val`, and
-  the property `hx` that `x` belongs to `A` is recovered as `x'.property`.
+  To produce an element {lit}``x'`` of this subtype, use {lit}``⟨ x, hx ⟩``, where {lit}``x: Object``
+  and {lit}``hx: x ∈ A``. The object {lit}``x`` associated to a subtype element {lit}``x'`` is
+  recovered as {lit}``x'.val``, and the property {lit}``hx`` that {lit}``x`` belongs to {lit}``A`` is
+  recovered as {lit}``x'.property``.
 -/
 abbrev SetTheory.Set.toSubtype (A:Set) := Subtype (fun x ↦ x ∈ A)
 
@@ -416,8 +425,8 @@ lemma SetTheory.Set.subtype_coe (A:Set) (x:A) : x.val = x := rfl
 lemma SetTheory.Set.coe_inj (A:Set) (x y:A) : x.val = y.val ↔ x = y := Subtype.coe_inj
 
 /--
-  If one has a proof `hx` of `x ∈ A`, then `A.subtype_mk hx` will then make the element of `A`
-  (viewed as a subtype) corresponding to `x`.
+  If one has a proof {lit}``hx`` of {lit}``x ∈ A``, then {lit}``A.subtype_mk hx`` will then make the
+  element of {lit}``A`` (viewed as a subtype) corresponding to {lit}``x``.
 -/
 def SetTheory.Set.subtype_mk (A:Set) {x:Object} (hx:x ∈ A) : A := ⟨ x, hx ⟩
 
@@ -730,7 +739,7 @@ example : ({3,5,9}:Set).replace (P := fun x y ↦ ∃ (n:ℕ), x.val = n ∧ y =
 example : ({3,5,9}:Set).replace (P := fun _ y ↦ y=1) (by aesop) = {1} := by
   ext; simp only [replacement_axiom]; aesop
 
-/-- Exercise 3.1.5. One can use the `tfae_have` and `tfae_finish` tactics here. -/
+/-- Exercise 3.1.5. One can use the {lit}``tfae_have`` and {lit}``tfae_finish`` tactics here. -/
 theorem SetTheory.Set.subset_tfae (A B:Set) : [A ⊆ B, A ∪ B = B, A ∩ B = A].TFAE := by sorry
 
 /-- Exercise 3.1.7 -/
@@ -778,7 +787,7 @@ theorem SetTheory.Set.partition_right {A B X:Set} (h_union: A ∪ B = X) (h_inte
 
 /--
   Exercise 3.1.10.
-  You may find `Function.onFun_apply` and the `fin_cases` tactic useful.
+  You may find {name}``Function.onFun_apply`` and the {lit}``fin_cases`` tactic useful.
 -/
 theorem SetTheory.Set.pairwise_disjoint (A B:Set) :
     Pairwise (Function.onFun Disjoint ![A \ B, A ∩ B, B \ A]) := by sorry
@@ -789,8 +798,9 @@ theorem SetTheory.Set.union_eq_partition (A B:Set) : A ∪ B = (A \ B) ∪ (A �
 
 /--
   Exercise 3.1.11.
-  The challenge is to prove this without using `Set.specify`, `Set.specification_axiom`,
-  `Set.specification_axiom'`, or anything built from them (like differences and intersections).
+  The challenge is to prove this without using {lit}``Set.specify``,
+  {lit}``Set.specification_axiom``, {lit}``Set.specification_axiom'``, or anything built from them
+  (like differences and intersections).
 -/
 theorem SetTheory.Set.specification_from_replacement {A:Set} {P: A → Prop} :
     ∃ B, B ⊆ A ∧ ∀ x, x.val ∈ B ↔ P x := by sorry
