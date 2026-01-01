@@ -102,16 +102,15 @@ theorem QInt.toInt_add (x y : QInt) :
     Lean.Grind.ToInt.toInt (x + y) = Lean.Grind.ToInt.toInt x + Lean.Grind.ToInt.toInt y := by
   simpa using (Lean.Grind.ToInt.Add.toInt_add (α:=QInt) (I:=.ii) x y)
 
+-- NOTE: On Lean >= 4.28, marking `QInt.eq_iff_toInt_eq` and `QInt.toInt_add` with
+-- `@[grind norm]` lets `by grind` close `addAssoc`/`addComm` directly.
 
--- Reduce to an `Int` goal, then let `grind` solve it.
 theorem QInt.addAssoc (a b c : QInt) : a + (b + c) = a + b + c := by
   apply QInt.eq_of_toInt_eq
-  simp
-  grind
+  simp [QInt.toInt_add, add_assoc]
 
 theorem QInt.addComm (a b : QInt) : a + b = b + a := by
   apply QInt.eq_of_toInt_eq
-  simp
-  grind
+  simp [QInt.toInt_add, add_comm]
 
 end Section_4_1
