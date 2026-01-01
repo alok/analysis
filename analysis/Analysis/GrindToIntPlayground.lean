@@ -86,21 +86,22 @@ instance : Lean.Grind.ToInt.Add QInt .ii where
     grind
 
 theorem QInt.eq_of_toInt_eq (x y : QInt) :
-    QInt.toInt x = QInt.toInt y → x = y := by
-  simpa [QInt.toInt] using (Lean.Grind.ToInt.toInt_inj (α:=QInt) (range:=.ii) x y)
+    Lean.Grind.ToInt.toInt x = Lean.Grind.ToInt.toInt y → x = y := by
+  simpa using (Lean.Grind.ToInt.toInt_inj (α:=QInt) (range:=.ii) x y)
 
 @[simp]
 theorem QInt.eq_iff_toInt_eq (x y : QInt) :
-    x = y ↔ QInt.toInt x = QInt.toInt y := by
+    x = y ↔ Lean.Grind.ToInt.toInt x = Lean.Grind.ToInt.toInt y := by
   constructor
   · intro hₕ
-    simpa using congrArg QInt.toInt hₕ
+    simpa using congrArg (Lean.Grind.ToInt.toInt) hₕ
   · exact QInt.eq_of_toInt_eq x y
 
 @[simp]
 theorem QInt.toInt_add (x y : QInt) :
-    QInt.toInt (x + y) = QInt.toInt x + QInt.toInt y := by
-  simpa [QInt.toInt] using (Lean.Grind.ToInt.Add.toInt_add (α:=QInt) (I:=.ii) x y)
+    Lean.Grind.ToInt.toInt (x + y) = Lean.Grind.ToInt.toInt x + Lean.Grind.ToInt.toInt y := by
+  simpa using (Lean.Grind.ToInt.Add.toInt_add (α:=QInt) (I:=.ii) x y)
+
 
 -- Reduce to an `Int` goal, then let `grind` solve it.
 theorem QInt.addAssoc (a b c : QInt) : a + (b + c) = a + b + c := by
