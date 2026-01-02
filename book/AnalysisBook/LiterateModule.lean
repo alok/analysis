@@ -393,14 +393,14 @@ best-effort conversion from a large subset of Markdown to Verso documents. Inlin
 elaborated as terms after the module itself; if they succeed, then they are highlighted as well. If
 not, they become ordinary Markdown code.
 
-Specifically, `def_literate_page PAGE from MOD in DIR as TITLE` defines a page `PAGE` by elaborating
-the module `MOD` in the project directory `DIR` with title `TITLE`.
+Specifically, {lit}``def_literate_page PAGE from MOD in DIR as TITLE`` defines a page {lit}``PAGE`` by elaborating
+the module {lit}``MOD`` in the project directory {lit}``DIR`` with title {lit}``TITLE``.
 
-The literate Lean module does not need to use the same toolchain as Verso. `DIR` should be a project
-directory that contains a toolchain file and a Lake configuration (`lakefile.toml` or
-`lakefile.lean`), which should depend on the same version of SubVerso that Verso is using.
+The literate Lean module does not need to use the same toolchain as Verso. {lit}``DIR`` should be a project
+directory that contains a toolchain file and a Lake configuration ({lit}``lakefile.toml`` or
+{lit}``lakefile.lean``), which should depend on the same version of SubVerso that Verso is using.
 
-Set the option `verso.literateMarkdown.logInlines` to `true` to see the error messages that
+Set the option {lit}``verso.literateMarkdown.logInlines`` to {lean}``true`` to see the error messages that
 prevented elaboration of inline elements.
 -/
 syntax "analysis_page " ident optConfig " from " ident "  as " str (" with " term)? (rewrites)? : command

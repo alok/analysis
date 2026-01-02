@@ -13,15 +13,15 @@ lean_lib «AnalysisBook» where
 lean_exe "analysis-book" where
   root := `AnalysisBook
 
-/-- The root of the `analysis` project (used for HTML generation here) -/
+/-- The root of the {lit}``analysis`` project (used for HTML generation here) -/
 def analysisRoot : System.FilePath := "../analysis"
 
 /--
 A mapping from module names in the Lean code to the titles to be used for their sections.
 
 A module is generated for each, containing the literate page. Its name is the module name from
-`analysis` with `Book` prepended, so `Analysis.Section_2_1`'s literate page can be found by
-importing `Book.Analysis.Section_2_1`. The page itself is named identically to its module.
+{lit}``analysis`` with {lit}``Book`` prepended, so {lit}``Analysis.Section_2_1``'s literate page can be found by
+importing {lit}``Book.Analysis.Section_2_1``. The page itself is named identically to its module.
 -/
 def sections := #[
   (`Analysis.Section_2_1, "The Peano Axioms"),
