@@ -99,8 +99,8 @@ example (n:ℤ) (hn: n ≥ 3) : Sequence.squares_from_three n = n^2 := Sequence.
 end Chapter5
 
 /--
-A slight generalization of Definition 5.1.3 - definition of ε-steadiness for a sequence with an
-arbitrary starting point n₀
+A slight generalization of Definition 5.1.3 - definition of {lit}``ε``-steadiness for a sequence with an
+arbitrary starting point {lit}``n₀``
 -/
 abbrev Rat.Steady (ε: ℚ) (a: Chapter5.Sequence) : Prop :=
   ∀ n ≥ a.n₀, ∀ m ≥ a.n₀, ε.Close (a n) (a m)
@@ -111,7 +111,7 @@ lemma Rat.steady_def (ε: ℚ) (a: Chapter5.Sequence) :
 namespace Chapter5
 
 /--
-Definition 5.1.3 - definition of ε-steadiness for a sequence starting at 0
+Definition 5.1.3 - definition of {lit}``ε``-steadiness for a sequence starting at 0
 -/
 lemma Rat.Steady.coe (ε : ℚ) (a:ℕ → ℚ) :
     ε.Steady a ↔ ∀ n m : ℕ, ε.Close (a n) (a m) := by
@@ -173,12 +173,10 @@ Example 5.1.5: The sequence 0.1, 0.01, 0.001, ... is not 0.01-steady. Left as an
 -/
 example : ¬(0.01:ℚ).Steady ((fun n:ℕ ↦ (10:ℚ) ^ (-(n:ℤ)-1) ):Sequence) := by sorry
 
-/-- Example 5.1.5: The sequence 1, 2, 4, 8, ... is not ε-steady for any ε. Left as an exercise.
--/
+/-- Example 5.1.5: The sequence 1, 2, 4, 8, ... is not {lit}``ε``-steady for any {lit}``ε``. Left as an exercise. -/
 example (ε:ℚ) : ¬ ε.Steady ((fun n:ℕ ↦ (2 ^ (n+1):ℚ) ):Sequence) := by sorry
 
-/-- Example 5.1.5: The sequence 2, 2, 2, ... is ε-steady for any ε > 0.
--/
+/-- Example 5.1.5: The sequence 2, 2, 2, ... is {lit}``ε``-steady for any {lit}``ε`` > 0. -/
 example (ε:ℚ) (hε: ε>0) : ε.Steady ((fun _:ℕ ↦ (2:ℚ) ):Sequence) := by
   rw [Rat.Steady.coe]; simp [Rat.Close]; positivity
 
@@ -191,7 +189,7 @@ example : (10:ℚ).Steady ((fun n:ℕ ↦ if n = 0 then (10:ℚ) else (0:ℚ)):S
   split_ifs <;> simp [Rat.Close]
 
 /--
-The sequence 10, 0, 0, ... is not ε-steady for any smaller value of ε.
+The sequence 10, 0, 0, ... is not {lit}``ε``-steady for any smaller value of {lit}``ε``.
 -/
 example (ε:ℚ) (hε:ε<10):  ¬ ε.Steady ((fun n:ℕ ↦ if n = 0 then (10:ℚ) else (0:ℚ)):Sequence) := by
   contrapose! hε; rw [Rat.Steady.coe] at hε; specialize hε 0 1; simpa [Rat.Close] using hε
@@ -208,7 +206,7 @@ lemma Sequence.from_eval (a:Sequence) {n₁ n:ℤ} (hn: n ≥ n₁) :
 
 end Chapter5
 
-/-- Definition 5.1.6 (Eventually ε-steady) -/
+/-- Definition 5.1.6 (Eventually {lit}``ε``-steady) -/
 abbrev Rat.EventuallySteady (ε: ℚ) (a: Chapter5.Sequence) : Prop := ∃ N ≥ a.n₀, ε.Steady (a.from N)
 
 lemma Rat.eventuallySteady_def (ε: ℚ) (a: Chapter5.Sequence) :
@@ -250,7 +248,7 @@ lemma Sequence.ex_5_1_7_c : (0.1:ℚ).EventuallySteady ((fun n:ℕ ↦ (n+1:ℚ)
 /--
 Example 5.1.7
 
-The sequence 10, 0, 0, ... is eventually ε-steady for every ε > 0. Left as an exercise.
+The sequence 10, 0, 0, ... is eventually {lit}``ε``-steady for every {lit}``ε`` > 0. Left as an exercise.
 -/
 lemma Sequence.ex_5_1_7_d {ε:ℚ} (hε:ε>0) :
     ε.EventuallySteady ((fun n:ℕ ↦ if n=0 then (10:ℚ) else (0:ℚ) ):Sequence) := by sorry
