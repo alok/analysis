@@ -107,7 +107,12 @@ unsafe def go (suppressedNamespaces : List Name) (mod : String) (out : IO.FS.Str
     let env ← Compat.importModules imports {}
     let pctx : Context := {inputCtx := ictx}
 
-    let scopes := [{header := "", opts := maxHeartbeats.set {} 10000000 }]
+    let opts := maxHeartbeats.set
+      (({} : Options)
+        |>.setBool `doc.verso true
+        |>.setBool `doc.verso.suggestions false)
+      10000000
+    let scopes := [{header := "", opts }]
     let commandState := { env, maxRecDepth := defaultMaxRecDepth, messages := msgs, scopes }
     let cmdPos := parserState.pos
     let cmdSt ← IO.mkRef {commandState, parserState, cmdPos}

@@ -3,6 +3,9 @@ import Analysis.Section_5_1
 import Analysis.Section_5_3
 import Analysis.Section_5_epilogue
 
+set_option doc.verso true
+set_option doc.verso.suggestions false
+
 /-!
 # Analysis I, Section 6.1: Convergence and limit laws
 

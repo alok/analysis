@@ -5,7 +5,8 @@ package «Analysis» where
   -- Settings applied to both builds and interactive editing
   leanOptions := #[
     ⟨`pp.unicode.fun, true⟩,
-    ⟨`doc.verso, true⟩
+    ⟨`doc.verso, true⟩,
+    ⟨`doc.verso.suggestions, false⟩
   ]
   -- Settings applied only to command line builds
   moreLeanArgs := #[]

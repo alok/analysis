@@ -1,6 +1,8 @@
 import Mathlib.Tactic
 import Analysis.Section_5_1
 
+set_option doc.verso true
+set_option doc.verso.suggestions false
 
 /-!
 # Analysis I, Section 5.2: Equivalent Cauchy sequences
