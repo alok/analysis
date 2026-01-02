@@ -22,8 +22,8 @@ namespace Chapter7
 open BigOperators
 
 /--
-  Definition 7.2.1 (Formal infinite series). This is similar to Chapter 6 sequence, but is
-  manipulated differently. As with Chapter 5, we will start series from 0 by default.
+  Definition 7.2.1 (Formal infinite series). This is similar to the Chapter 6 {lit}``Sequence``,
+  but is manipulated differently. As with Chapter 5, we will start series from 0 by default.
 -/
 @[ext]
 structure Series where
