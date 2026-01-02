@@ -13,7 +13,7 @@ the Lean code could be "golfed" to be more elegant and idiomatic, but I have con
 doing so.
 
 Main constructions and results of this section:
-- API for Mathlib's {lit}``UniformContinuousOn``.
+- API for Mathlib's {name}``UniformContinuousOn``.
 - Continuous functions on compact intervals are uniformly continuous.
 
 -/
@@ -64,7 +64,7 @@ example (x₀ x : ℝ) :
   extract_lets g ε δ
   sorry
 
-/-- Definition 9.9.2. Here we use the Mathlib term {lit}``UniformContinuousOn`` -/
+/-- Definition 9.9.2. Here we use the Mathlib term {name}``UniformContinuousOn`` -/
 theorem UniformContinuousOn.iff (f: ℝ → ℝ) (X:Set ℝ) : UniformContinuousOn f X  ↔
   ∀ ε > (0:ℝ), ∃ δ > (0:ℝ), ∀ x₀ ∈ X, ∀ x ∈ X, δ.Close x x₀ → ε.Close (f x) (f x₀) := by
   simp_rw [Metric.uniformContinuousOn_iff_le, Real.Close]

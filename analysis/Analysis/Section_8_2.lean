@@ -16,13 +16,13 @@ doing so.
 Main constructions and results of this section:
 
 - Absolute convergence and summation on countably infinite or general sets.
-- Connections with Mathlib's {lit}``Summable`` and {lit}``tsum``.
+- Connections with Mathlib's {name}``Summable`` and {name}``tsum``.
 - The Riemann rearrangement theorem.
 
 Some non-trivial API is provided beyond what is given in the textbook in order connect these
 notions with existing summation notions.
 
-After this section, the summation notation developed here will be deprecated in favor of Mathlib's API for {lit}``Summable`` and {lit}``tsum``.
+After this section, the summation notation developed here will be deprecated in favor of Mathlib's API for {name}``Summable`` and {name}``tsum``.
 
 -/
 
@@ -38,7 +38,7 @@ theorem AbsConvergent.mk {X: Type} {f:X → ℝ} {g:ℕ → X} (h: Bijective g) 
 
 open Classical in
 /-- The definition has been chosen to give a sensible value when {lit}``X`` is finite, even though
-{lit}``AbsConvergent`` is by definition false in this context. -/
+{name}``AbsConvergent`` is by definition false in this context. -/
 noncomputable abbrev Sum {X:Type} (f: X → ℝ) : ℝ := if h: AbsConvergent f then (f ∘ h.choose:Series).sum else
   if _hX: Finite X then (∑ x ∈ @univ X (Fintype.ofFinite X), f x) else 0
 
@@ -240,14 +240,14 @@ theorem AbsConvergent'.countable_supp {X:Type} {f:X → ℝ} (hf: AbsConvergent'
   AtMostCountable { x | f x ≠ 0 } := by
     sorry
 
-/-- Compare with Mathlib's {lit}``Summable.subtype``-/
+/-- Compare with Mathlib's {name}``Summable.subtype``-/
 theorem AbsConvergent'.subtype {X:Type} {f:X → ℝ} (hf: AbsConvergent' f) (A: Set X) :
   AbsConvergent' (fun x:A ↦ f x) := by
   apply BddAbove.mono _ hf
   intro z hz; simp at *; choose A hA using hz
   use A.map (Embedding.subtype _); simp [hA]
 
-/-- A generalized sum. Note that this will give junk values if {lit}``f`` is not {lit}``AbsConvergent'``. -/
+/-- A generalized sum. Note that this will give junk values if {lit}``f`` is not {name}``AbsConvergent'``. -/
 noncomputable abbrev Sum' {X:Type} (f: X → ℝ) : ℝ := Sum (fun x : { x | f x ≠ 0 } ↦ f x)
 
 /-- Not in textbook, but should have been included (the series laws are significantly harder
@@ -337,7 +337,7 @@ theorem Sum'.of_countable_supp {X:Type} {f:X → ℝ} {A: Set X} (hA: CountablyI
     _ = ∑ n, f (ι n) := sum_congr rfl (by grind)
     _ = _ := hι.sum_comp (g := fun x ↦ f x)
 
-/-- Connection with Mathlib's {lit}``Summable`` property. Some version of this might be suitable
+/-- Connection with Mathlib's {name}``Summable`` property. Some version of this might be suitable
     for Mathlib? -/
 theorem AbsConvergent'.iff_Summable {X:Type} (f:X → ℝ) : AbsConvergent' f ↔ Summable f := by
   simp [←summable_abs_iff, AbsConvergent']
@@ -382,7 +382,7 @@ atTop.Tendsto f l ↔ atTop.Tendsto (f ∘ Nat.cast) l := by
   convert Eventually.int_natCast_atTop _
 
 
-/-- Connection with Mathlib's {lit}``tsum`` (or {lit}``Σ'``) operation -/
+/-- Connection with Mathlib's {name}``tsum`` (or {lit}``Σ'``) operation -/
 theorem Sum'.eq_tsum {X:Type} (f:X → ℝ) (h: AbsConvergent' f) :
   Sum' f = ∑' x, f x := by
   set E := {x | f x ≠ 0}
@@ -430,12 +430,12 @@ theorem Sum'.sub {X:Type} {f g:X → ℝ} (hf: AbsConvergent' f) (hg: AbsConverg
   rw [(smul hg (-1)).2]; ring
 
 /-- Proposition 8.2.6 (c) (Absolutely convergent series laws) / Exercise 8.2.3. The first
-    part of this proposition has been moved to {lit}``AbsConvergent'.subtype``. -/
+    part of this proposition has been moved to {name}``AbsConvergent'.subtype``. -/
 theorem Sum'.of_disjoint_union {X:Type} {f:X → ℝ} (hf: AbsConvergent' f) {X₁ X₂ : Set X} (hdisj: Disjoint X₁ X₂):
   Sum' (fun x: (X₁ ∪ X₂: Set X) ↦ f x) = Sum' (fun x : X₁ ↦ f x) + Sum' (fun x : X₂ ↦ f x) := by
   sorry
 
-/-- This technical claim, the analogue of {lit}``tsum_univ``, is required due to the way Mathlib handles
+/-- This technical claim, the analogue of {name}``tsum_univ``, is required due to the way Mathlib handles
     sets.-/
 theorem Sum'.of_univ {X:Type} {f:X → ℝ} (hf: AbsConvergent' f) :
   Sum' (fun x: (.univ : Set X) ↦ f x) = Sum' f := by

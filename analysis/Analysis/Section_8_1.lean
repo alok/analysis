@@ -12,7 +12,7 @@ doing so.
 Main constructions and results of this section:
 
 - Custom notions for "equal cardinality", "countable", and "at most countable". Note that Mathlib's
-{lit}``Countable`` typeclass corresponds to what we call "at most countable" in this text.
+{name}``Countable`` typeclass corresponds to what we call "at most countable" in this text.
 - Countability of the integers and rationals.
 
 Note that as the Chapter 3 set theory has been deprecated, we will not re-use relevant constructions from that theory here, replacing them with Mathlib counterparts instead.
@@ -26,13 +26,13 @@ This is analogous to {lit}``Chapter3.SetTheory.Set.EqualCard``, but we are not u
 the Chapter 3 set theory is deprecated. -/
 abbrev EqualCard (X Y : Type) : Prop := ∃ f : X → Y, Function.Bijective f
 
-/-- Relation with Mathlib's {lit}``Equiv`` concept -/
+/-- Relation with Mathlib's {name}``Equiv`` concept -/
 theorem EqualCard.iff {X Y : Type} : EqualCard X Y ↔ Nonempty (X ≃ Y) := by
   simp [EqualCard]; constructor
   . intro ⟨ f, hf ⟩; exact ⟨ .ofBijective f hf ⟩
   intro ⟨ e ⟩; exact ⟨ e.toFun, e.bijective ⟩
 
-/-- Equivalence with Mathlib's {lit}``Cardinal.mk`` concept -/
+/-- Equivalence with Mathlib's {name}``Cardinal.mk`` concept -/
 theorem EqualCard.iff' {X Y : Type} : EqualCard X Y ↔ Cardinal.mk X = Cardinal.mk Y := by
   simp [Cardinal.eq, iff]
 
@@ -64,13 +64,13 @@ theorem AtMostCountable.equiv {X Y: Type} (hXY : EqualCard X Y) :
   AtMostCountable X ↔ AtMostCountable Y := by
   simp [AtMostCountable, CountablyInfinite.equiv hXY, Finite.equiv hXY]
 
-/-- Equivalence with Mathlib's {lit}``Denumerable`` concept (cf. Remark 8.1.2) -/
+/-- Equivalence with Mathlib's {name}``Denumerable`` concept (cf. Remark 8.1.2) -/
 theorem CountablyInfinite.iff (X : Type) : CountablyInfinite X ↔ Nonempty (Denumerable X) := by
   simp [CountablyInfinite, EqualCard.iff]; constructor
   . intro ⟨ e ⟩; exact ⟨ Denumerable.mk' e ⟩
   intro ⟨ h ⟩; exact ⟨ h.eqv X ⟩
 
-/-- Equivalence with Mathlib's {lit}``Countable`` typeclass -/
+/-- Equivalence with Mathlib's {name}``Countable`` typeclass -/
 theorem CountablyInfinite.iff' (X : Type) : CountablyInfinite X ↔ Countable X ∧ Infinite X := by
   rw [iff, nonempty_denumerable_iff]
 
@@ -141,7 +141,7 @@ theorem Nat.min_eq_sInf {X : Set ℕ} (hX : X.Nonempty) : min X = sInf X := by
   sorry
 
 open Classical in
-/-- Equivalence with Mathlib's {lit}``Nat.find`` method -/
+/-- Equivalence with Mathlib's {name}``Nat.find`` method -/
 theorem Nat.min_eq_find {X : Set ℕ} (hX : X.Nonempty) : min X = Nat.find hX := by
   symm; rw [Nat.find_eq_iff]; have := min_spec hX; grind
 
