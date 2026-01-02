@@ -96,7 +96,7 @@ example : IsMin (0:ℕ) := by sorry
 example (n:ℕ) : ¬ IsMax n := by sorry
 example (n:ℤ): ¬ IsMin n ∧ ¬ IsMax n := by sorry
 
-/-- Definition 8.5.8. We use {lean}``[LinearOrder X] [WellFoundedLT X]`` to describe well-ordered sets. -/
+/-- Definition 8.5.8. We use {lit}``[LinearOrder X] [WellFoundedLT X]`` to describe well-ordered sets. -/
 theorem WellFoundedLT.iff (X:Type) [LinearOrder X] :
   WellFoundedLT X ↔ ∀ A:Set X, A.Nonempty → ∃ x:A, IsMin x := by
   unfold WellFoundedLT IsMin
@@ -339,7 +339,7 @@ example {X:Type} [LinearOrder X] (hmin: ∀ Y: Set X, Y.Nonempty → ∃ x:Y, Is
 
 
 /-- Exercise 8.5.12. Here we make a copy of Mathlib's {name}``Lex`` wrapper for lexicographical orderings. This wrapper is needed
-because products {lean}``X × Y`` of ordered sets are given the default instance of the product partial order instead of
+because products {lit}``X × Y`` of ordered sets are given the default instance of the product partial order instead of
 the lexicographical one. -/
 def Lex' (α : Type) := α
 
