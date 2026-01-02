@@ -5,6 +5,10 @@ require verso from git "https://github.com/leanprover/verso.git"@"v4.27.0-rc1"
 
 package "analysis-book" where
   version := v!"0.1.0"
+  leanOptions := #[
+    ⟨`doc.verso, true⟩,
+    ⟨`doc.verso.suggestions, false⟩
+  ]
 
 lean_lib «AnalysisBook» where
   -- add library configuration options here

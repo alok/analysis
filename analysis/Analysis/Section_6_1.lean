@@ -17,7 +17,7 @@ doing so.
 
 Main constructions and results of this section:
 
-- Definition of {lit}``ε``-closeness, {lit}``ε``-steadiness, and their eventual counterparts.
+- Definition of ε-closeness, ε-steadiness, and their eventual counterparts.
 - Notion of a Cauchy sequence, convergent sequence, and bounded sequence of reals.
 
 -/
@@ -29,7 +29,7 @@ Main constructions and results of this section:
 abbrev Real.Close (ε x y : ℝ) : Prop := dist x y ≤ ε
 
 /--
-  Definition 6.1.2 ({lit}``ε``-close). This is similar to the previous notion of {lit}``ε``-closeness, but where
+  Definition 6.1.2 (ε-close). This is similar to the previous notion of ε-closeness, but where
   all quantities are real instead of rational.
 -/
 theorem Real.close_def (ε x y : ℝ) : ε.Close x y ↔ dist x y ≤ ε := by rfl
@@ -85,19 +85,19 @@ lemma Sequence.from_eval (a:Sequence) {m₁ n:ℤ} (hn: n ≥ m₁) :
 
 end Chapter6
 
-/-- Definition 6.1.3 ({lit}``ε``-steady) -/
+/-- Definition 6.1.3 (ε-steady) -/
 abbrev Real.Steady (ε: ℝ) (a: Chapter6.Sequence) : Prop :=
   ∀ n ≥ a.m, ∀ m ≥ a.m, ε.Close (a n) (a m)
 
-/-- Definition 6.1.3 ({lit}``ε``-steady) -/
+/-- Definition 6.1.3 (ε-steady) -/
 lemma Real.steady_def (ε: ℝ) (a: Chapter6.Sequence) :
   ε.Steady a ↔ ∀ n ≥ a.m, ∀ m ≥ a.m, ε.Close (a n) (a m) := by rfl
 
-/-- Definition 6.1.3 (Eventually {lit}``ε``-steady) -/
+/-- Definition 6.1.3 (Eventually ε-steady) -/
 abbrev Real.EventuallySteady (ε: ℝ) (a: Chapter6.Sequence) : Prop :=
   ∃ N ≥ a.m, ε.Steady (a.from N)
 
-/-- Definition 6.1.3 (Eventually {lit}``ε``-steady) -/
+/-- Definition 6.1.3 (Eventually ε-steady) -/
 lemma Real.eventuallySteady_def (ε: ℝ) (a: Chapter6.Sequence) :
   ε.EventuallySteady a ↔ ∃ N, (N ≥ a.m) ∧ ε.Steady (a.from N) := by rfl
 

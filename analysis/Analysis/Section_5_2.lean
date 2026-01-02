@@ -14,7 +14,7 @@ Lean code could be "golfed" to be more elegant and idiomatic, but I have conscio
 
 Main constructions and results of this section:
 
-- Notion of {lit}``ε``-close and eventually {lit}``ε``-close sequences of rationals.
+- Notion of ε-close and eventually ε-close sequences of rationals.
 - Notion of an equivalent Cauchy sequence of rationals.
 
 ## Tips from past users
@@ -34,7 +34,7 @@ abbrev Rat.EventuallyClose (ε: ℚ) (a b: Chapter5.Sequence) : Prop :=
 
 namespace Chapter5
 
-/-- Definition 5.2.1 ({lit}``ε``-close sequences) -/
+/-- Definition 5.2.1 (ε-close sequences) -/
 lemma Rat.closeSeq_def (ε: ℚ) (a b: Sequence) :
     ε.CloseSeq a b ↔ ∀ n, n ≥ a.n₀ → n ≥ b.n₀ → ε.Close (a n) (b n) := by rfl
 
@@ -50,11 +50,11 @@ example : ¬ (0.1:ℚ).Steady ((fun n:ℕ ↦ ((-1)^n:ℚ)):Sequence)
 example : ¬ (0.1:ℚ).Steady ((fun n:ℕ ↦ ((1.1:ℚ) * (-1)^n)):Sequence)
 := by sorry
 
-/-- Definition 5.2.3 (Eventually {lit}``ε``-close sequences) -/
+/-- Definition 5.2.3 (Eventually ε-close sequences) -/
 lemma Rat.eventuallyClose_def (ε: ℚ) (a b: Sequence) :
     ε.EventuallyClose a b ↔ ∃ N, ε.CloseSeq (a.from N) (b.from N) := by rfl
 
-/-- Definition 5.2.3 (Eventually {lit}``ε``-close sequences) -/
+/-- Definition 5.2.3 (Eventually ε-close sequences) -/
 lemma Rat.eventuallyClose_iff (ε: ℚ) (a b: ℕ → ℚ) :
     ε.EventuallyClose (a:Sequence) (b:Sequence) ↔  ∃ N, ∀ n ≥ N, |a n - b n| ≤ ε := by sorry
 
