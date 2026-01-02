@@ -57,7 +57,7 @@ example : ¬ ContinuousAt f_9_4_6 0 := by sorry
 
 example : ContinuousWithinAt f_9_4_6 (.Ici 0) 0 := by sorry
 
-/-- Proposition 9.4.7 / Exercise 9.4.1. It is possible that the hypothesis {lit}``x₀ ∈ X`` is unnecessary. -/
+/-- Proposition 9.4.7 / Exercise 9.4.1. It is possible that the hypothesis {lean}``x₀ ∈ X`` is unnecessary. -/
 theorem ContinuousWithinAt.tfae (X:Set ℝ) (f: ℝ → ℝ) {x₀:ℝ} (h : x₀ ∈ X) :
   [
     ContinuousWithinAt f X x₀,

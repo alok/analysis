@@ -17,11 +17,11 @@ Main constructions and results of this section:
 - Connection with Mathlib's filter convergence concepts
 - Limit laws for functions
 
-Technical point: in the text, the functions {lit}``f`` studied are defined only on subsets {lit}``X`` of {lit}``ℝ``, and
+Technical point: in the text, the functions {lit}``f`` studied are defined only on subsets {lit}``X`` of {name}``ℝ``, and
 left undefined elsewhere. However, in Lean, this then creates some fiddly conversions when trying
-to restrict {lit}``f`` to various subsets of {lit}``X`` (which, technically, are not precisely subsets of {lit}``ℝ``,
+to restrict {lit}``f`` to various subsets of {lit}``X`` (which, technically, are not precisely subsets of {name}``ℝ``,
 though they can be coerced to such). To avoid this issue we will deviate from the text by having
-our functions defined on all of {lit}``ℝ`` (with the understanding that they are assigned "junk" values
+our functions defined on all of {name}``ℝ`` (with the understanding that they are assigned "junk" values
 outside of the domain {lit}``X`` of interest).
 -/
 
